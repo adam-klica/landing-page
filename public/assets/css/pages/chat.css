@@ -1,0 +1,882 @@
+/* ================================
+   CHAT PAGE – CLEAN & PROFESSIONAL
+================================ */
+
+/* Layout */
+.chat-container {
+  display: flex;
+  gap: 20px;
+  height: 80vh;
+  padding: 20px;
+  background: #f5f7fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Sidebar (Contacts + Groups) */
+.chat-users {
+  width: 280px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chat-users h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+}
+
+.chat-users ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chat-users li {
+  margin-bottom: 12px;
+}
+
+.chat-users a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.chat-users a:hover {
+  background: #f0f4ff;
+  color: #0073e6;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.status-dot.green { background: #28a745; }
+.status-dot.orange { background: #ff9800; }
+.status-dot.red { background: #dc3545; }
+
+.unread-count,
+.unread-count-group {
+  background: #e63946;
+  color: #fff;
+  font-size: 11px;
+  border-radius: 50%;
+  padding: 2px 6px;
+  margin-left: auto;
+  display: none;
+}
+.unread-count.show,
+.unread-count-group.show {
+  display: inline-block;
+}
+
+/* New group form */
+#create-group-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#create-group-form input,
+#create-group-form select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+#create-group-form button {
+  background: #0073aa;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#create-group-form button:hover {
+  background: #005f8a;
+}
+
+/* Chat box */
+.chat-box {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.chat-box h3 {
+  margin: 0;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.back-btn {
+  display: none;
+  margin: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #0073e6;
+  font-weight: 600;
+}
+
+/* Messages */
+.messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message {
+  max-width: 65%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.message.sent {
+  align-self: flex-end;
+  background: #0073e6;
+  color: #fff;
+  border-bottom-right-radius: 6px;
+}
+
+.message.received {
+  align-self: flex-start;
+  background: #e5e5ea;
+  color: #000;
+  border-bottom-left-radius: 6px;
+}
+
+.message img {
+  max-width: 200px;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.message a {
+  text-decoration: underline;
+  font-weight: 500;
+}
+.message.received a { color: #0073e6; }
+.message.sent a { color: #fff; }
+
+.message .time {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* Input form */
+.send-message-form {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  border-top: 1px solid #eee;
+  background: #fff;
+  align-items: center;
+}
+
+.send-message-form textarea {
+  flex: 1;
+  resize: none;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  height: 45px;
+}
+
+.custom-file-upload {
+  cursor: pointer;
+  font-size: 14px;
+  background: #f0f4ff;
+  border: 1px solid #0073e6;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #0073e6;
+  transition: 0.2s;
+}
+.custom-file-upload:hover {
+  background: #0073e6;
+  color: #fff;
+}
+
+#file-name {
+  font-size: 12px;
+  color: #666;
+  margin-left: 6px;
+  font-style: italic;
+}
+
+.send-message-form button {
+  background: #0073e6;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.send-message-form button:hover {
+  background: #005bb5;
+}
+
+/* Group tabs */
+.group-tabs {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  gap: 10px;
+  padding: 0 15px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.tab-btn.active {
+  color: #0073e6;
+  border-bottom: 2px solid #0073e6;
+}
+
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chat-container {
+    flex-direction: column;
+    height: 90vh;
+  }
+  .chat-users {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .chat-box {
+    flex: 1;
+    height: 70vh;
+  }
+  .back-btn {
+    display: block;
+  }
+}
+.tab-content .messages {
+  max-height: 58vh;   /* ograniči visinu – ista logika kao privatni */
+  overflow-y: auto;   /* scroll unutra */
+  padding: 15px;
+  background: #fafafa;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* Grupni chat – sekcija Članovi */
+.tab-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.tab-content ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.tab-content ul li img {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.tab-content ul li strong {
+  font-weight: 600;
+  color: #333;
+  margin-left: 5px;
+}
+
+.tab-content ul li button {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+
+.tab-content ul li button:hover {
+  background: #b02a37;
+}
+
+/* Forma za dodavanje člana */
+#add-member-form {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#add-member-form select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+#add-member-form button {
+  background: #0073aa;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+#add-member-form button:hover {
+  background: #005f8a;
+}
+
+/* Dugme Obriši grupu / Napusti grupu */
+.delete-group,
+.leave-group {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.delete-group {
+  background: #e63946;
+  color: #fff;
+}
+
+.delete-group:hover {
+  background: #c71c2f;
+}
+
+.leave-group {
+  background: #666;
+  color: #fff;
+}
+
+.leave-group:hover {
+  background: #444;
+}
+/* ================================
+   Sidebar – Sekcije (Kontakti / Grupe / Nova grupa)
+================================ */
+.chat-users-section {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.chat-users-section h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+}
+/* ================================
+   CHAT GADGET – FIXED WIDGET
+================================ */
+#chat-widget {
+  position: fixed !important;
+  bottom: 20px !important;   /* udaljenost od dna */
+  right: 20px !important;    /* udaljenost od desne ivice */
+  z-index: 9999 !important;  /* iznad svega */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+#chat-widget a {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: #0073e6; /* osnovna plava */
+  color: #fff;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#chat-widget a svg {
+  width: 28px;
+  height: 28px;
+  stroke-width: 2;
+}
+
+#chat-widget a:hover {
+  background-color: #005bb5; /* tamnija plava */
+  transform: scale(1.1);
+}
+
+/* Badge za nove poruke - prikazuje se samo kada ima nepročitanih */
+#chat-widget .unread-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #e63946;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 4px 7px;
+  min-width: 20px;
+  height: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(230, 57, 70, 0.4);
+  border: 2px solid #fff;
+  z-index: 10000;
+  line-height: 1;
+}
+.chat-users ul li a {
+    display: flex;
+    align-items: center;
+    max-width: 200px; /* koliko želiš širine */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chat-users ul li a span,
+.chat-users ul li a img {
+    flex-shrink: 0;
+}
+
+.chat-users ul li a .username {
+    margin-left: 8px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.unread-count,
+.unread-count-group {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    margin-left: 6px;
+
+    background: #e63946; /* crvena */
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 999px; /* pravi krug/pill */
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    line-height: 1;
+}
+
+.unread-count:empty,
+.unread-count-group:empty {
+    display: none; /* sakrij ako nema broja */
+}
+.chat-container {
+  display: flex;
+  height: 80vh; 
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.chat-users {
+  flex: 0 0 280px;
+  background: #fff;
+  border-right: 1px solid #eee;
+  overflow-y: auto;
+}
+
+/* Chat box */
+.chat-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f9f9f9;
+}
+
+/* Messages */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+/* Input */
+.send-message-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+.send-message-form textarea {
+  flex: 1;
+  resize: none;
+  min-height: 40px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chat-container {
+    flex-direction: column;
+  }
+  .chat-users {
+    flex: none;
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+  .chat-box {
+    flex: none;
+    max-width: 100%;
+  }
+
+  /* trik: prikaži samo jedan panel */
+  .chat-container.chat-open .chat-users {
+    display: none;
+  }
+  .chat-container.chat-open .chat-box {
+    display: flex;
+  }
+  .chat-container:not(.chat-open) .chat-box {
+    display: none;
+  }
+}
+/* Mobilni i tablet prikaz sidebar-a */
+@media (max-width: 992px) {
+  .chat-users {
+    display: flex;
+    flex-direction: column;   /* cijeli sidebar u kolonu */
+    gap: 15px;                /* razmak između sekcija */
+  }
+
+  .chat-users h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .chat-users ul {
+    display: flex;
+    flex-direction: column;   /* stavke idu u koloni */
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .chat-users li {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 6px;
+    background: #fff;
+    border: 1px solid #eee;
+  }
+
+  .chat-users li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    text-decoration: none;
+    color: #333;
+  }
+
+  .chat-users .username {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+/* Input zona */
+.send-message-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: #fff;
+  border-top: 1px solid #eee;
+  flex-wrap: wrap; /* dozvoli prelom */
+}
+
+.send-message-form textarea {
+  flex: 1 1 100%;   /* zauzmi punu širinu na malom ekranu */
+  resize: none;
+  min-height: 40px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.file-upload-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #f1f5f9;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+#file-name,
+#group-file-name {
+  font-size: 12px;
+  color: #666;
+}
+
+.send-message-form button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Mobilni – elementi ispod textaree */
+@media (max-width: 600px) {
+  .send-message-form {
+    align-items: stretch;
+  }
+
+  .file-upload-wrapper,
+  .send-message-form button {
+    
+    justify-content: center;
+    text-align: center;
+  }
+}
+@media (max-width: 768px) {
+  .send-message-form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    flex-wrap: nowrap;
+  }
+
+  .send-message-form textarea {
+    flex: 1;
+    resize: none;
+    min-height: 40px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  /* 📎 dugme fajl */
+  .custom-file-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #f1f5f9;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0; /* sakrij tekst */
+  }
+  .custom-file-upload::before {
+    content: "📎";
+    font-size: 18px;
+  }
+
+  /* ✉️ dugme pošalji */
+  .send-message-form button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0;
+  }
+  .send-message-form button::before {
+    content: "✉️";
+    font-size: 18px;
+  }
+
+  /* 🚫 sakrij ime fajla */
+  #file-name,
+  #group-file-name {
+    display: none !important;
+  }
+}
+/* 🖥️ Desktop default */
+.send-message-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+
+.send-message-form textarea {
+  flex: 1;
+  resize: none;
+  min-height: 40px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.custom-file-upload {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #f1f5f9;
+}
+
+.send-message-form button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 📱 Mobilni prikaz (tablet/telefon) */
+@media (max-width: 768px) {
+  .send-message-form {
+    gap: 6px;
+  }
+
+  .custom-file-upload {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+  }
+  .custom-file-upload::before {
+    content: "📎";
+    font-size: 18px;
+  }
+
+  .send-message-form button {
+    width: 40px;
+    height: 40px;
+    font-size: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .send-message-form button::before {
+    content: "✉️";
+    font-size: 18px;
+  }
+
+  #file-name,
+  #group-file-name {
+    display: none !important;
+  }
+}

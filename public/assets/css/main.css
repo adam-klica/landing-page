@@ -1,0 +1,41 @@
+/* ===========================
+   GLOBAL STYLES
+=========================== */
+@import url("global.css");
+@import url("shared.css");
+
+/* ===========================
+   LAYOUT
+=========================== */
+@import url("layout/header.css");
+@import url("layout/footer.css");
+
+/* ===========================
+   SECTIONS (Home, landing)
+=========================== */
+@import url("sections.css");
+
+/* ===========================
+   PAGES
+=========================== */
+@import url("pages/about.css");
+@import url("pages/blog.css");
+@import url("pages/post.css");
+@import url("pages/chat.css");
+@import url("pages/contact.css");
+@import url("pages/login.css");
+@import url("pages/profile.css");
+@import url("pages/register.css");
+@import url("pages/user-profile.css");
+@import url("pages/search.css");
+@import url("pages/dashboard.css");
+
+/* ===========================
+   CMS
+=========================== */
+@import url("cms.css");
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@import url("responsive.css");

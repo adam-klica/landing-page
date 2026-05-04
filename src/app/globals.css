@@ -1,0 +1,403 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Admin bar spacing */
+#main-content {
+  margin-top: 0;
+  transition: margin-top 0.2s;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  position: relative;
+}
+
+/* Ensure main content wrapper takes full height */
+#main-content > * {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Footer sticky to bottom */
+.site-footer {
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+/* Admin bar and header are separate sections, one below the other */
+/* Admin bar and header are separate sections stacked vertically */
+body:has([data-admin-bar="true"]) #main-content {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Chat page - no scroll on main-content */
+body:has(main[data-chat-page="true"]) #main-content {
+  overflow: hidden !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  position: relative !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-top: 20px !important;
+}
+
+/* If admin bar is present, add extra spacing */
+body:has(main[data-chat-page="true"]):has([data-admin-bar="true"]) #main-content {
+  padding-top: 52px !important; /* 20px + 32px for admin bar */
+}
+
+/* Loading animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Chat page specific - only apply to chat page */
+html:has(main[data-chat-page="true"]) {
+  overflow: hidden !important;
+  height: 100vh !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body:has(main[data-chat-page="true"]) {
+  overflow: hidden !important;
+  height: 100vh !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  display: block !important; /* Override flex for chat page */
+}
+
+body:has(main[data-chat-page="true"]) #main-content {
+  overflow: hidden !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  position: relative !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: none !important; /* Override flex for chat page */
+  display: block !important; /* Override flex for chat page */
+}
+
+body:has(main[data-chat-page="true"]) header.site-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10001 !important;
+  flex-shrink: 0;
+  margin-top: 0 !important;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  background: #fff !important;
+  border-bottom: 1px solid #eee !important;
+}
+
+/* Add spacing for admin bar if present */
+body:has(main[data-chat-page="true"]):has([data-admin-bar="true"]) header.site-header {
+  margin-top: 0 !important;
+}
+
+/* Prevent any scrolling on chat page */
+body:has(main[data-chat-page="true"]) * {
+  max-height: 100vh;
+}
+
+main[data-chat-page="true"] {
+  height: calc(100vh - 120px) !important; /* Adjusted for header + padding */
+  max-height: calc(100vh - 120px) !important;
+  overflow: hidden !important;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+/* Ensure no scroll on chat page wrapper */
+body:has(main[data-chat-page="true"]) > * {
+  overflow: hidden !important;
+}
+
+/* Ensure other pages can scroll */
+html:not(:has(main[data-chat-page="true"])) {
+  overflow-y: auto;
+  height: auto;
+  position: static;
+}
+
+body:not(:has(main[data-chat-page="true"])) {
+  overflow-y: auto;
+  height: auto;
+  position: static;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Dark Mode Styles */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background: #1a1a1a !important;
+  color: #e0e0e0 !important;
+}
+
+.dark .site-header {
+  background: #2a2a2a !important;
+  border-bottom-color: #3a3a3a !important;
+}
+
+.dark main {
+  background: #1a1a1a !important;
+}
+
+.dark .site-footer {
+  background: #2a2a2a !important;
+  color: #e0e0e0 !important;
+}
+
+/* Dark mode for white backgrounds in cards */
+.dark div[style*="background: white"],
+.dark div[style*="background: #fff"] {
+  background: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-color: #3a3a3a !important;
+}
+
+/* Dark mode for inputs */
+.dark input,
+.dark textarea,
+.dark select {
+  background: #1a1a1a !important;
+  color: #e0e0e0 !important;
+  border-color: #3a3a3a !important;
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: #0a66c2 !important;
+  background: #1a1a1a !important;
+}
+
+/* Dark mode for buttons */
+.dark button {
+  color: #e0e0e0;
+}
+
+.dark button[style*="background: white"],
+.dark button[style*="background: #fff"] {
+  background: #2a2a2a !important;
+  border-color: #3a3a3a !important;
+  color: #e0e0e0 !important;
+}
+
+/* Dark mode for links */
+.dark a {
+  color: #4a9eff;
+}
+
+.dark a:hover {
+  color: #6bb3ff;
+}
+
+/* Dark mode for text colors */
+.dark p[style*="color: #666"],
+.dark span[style*="color: #666"],
+.dark div[style*="color: #666"] {
+  color: #a0a0a0 !important;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: #e0e0e0;
+}
+
+/* About section responsive */
+.about-responsive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .about-responsive {
+    flex-direction: row;
+    gap: 80px;
+  }
+}
+
+/* Post content styles - bullet lists */
+.post-content ul,
+article .post-content ul,
+main .post-content ul,
+div.post-content ul,
+main.container .post-content ul,
+main.container article .post-content ul,
+div.post-content ul ul,
+div.post-content ul ol,
+div.post-content ol ul,
+div.post-content ol ol {
+  list-style: none !important;
+  margin: 1em 0 1em 2em !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.post-content ul li,
+article .post-content ul li,
+main .post-content ul li,
+div.post-content ul li {
+  margin: 0.5em 0 !important;
+  padding: 0 !important;
+  padding-left: 0 !important;
+  position: relative !important;
+  line-height: 1.6 !important;
+  display: block !important;
+  list-style: none !important;
+}
+
+.post-content ul li::before,
+article .post-content ul li::before,
+main .post-content ul li::before,
+div.post-content ul li::before {
+  content: "•" !important;
+  position: absolute !important;
+  left: -2em !important;
+  color: #333 !important;
+  font-weight: bold !important;
+  font-size: 1.2em !important;
+  line-height: 1.6 !important;
+  display: inline-block !important;
+  text-align: right !important;
+  min-width: 1.5em !important;
+}
+
+.post-content ol,
+article .post-content ol,
+main .post-content ol,
+div.post-content ol,
+main.container .post-content ol,
+main.container article .post-content ol {
+  list-style: none !important;
+  margin: 1em 0 1em 2em !important;
+  padding: 0 !important;
+  counter-reset: item !important;
+  display: block !important;
+}
+
+.post-content ol li,
+article .post-content ol li,
+main .post-content ol li,
+div.post-content ol li {
+  margin: 0.5em 0 !important;
+  padding: 0 !important;
+  padding-left: 0 !important;
+  position: relative !important;
+  line-height: 1.6 !important;
+  display: block !important;
+  list-style: none !important;
+  counter-increment: item !important;
+}
+
+.post-content ol li::before,
+article .post-content ol li::before,
+main .post-content ol li::before,
+div.post-content ol li::before {
+  content: counter(item) "." !important;
+  position: absolute !important;
+  left: -2em !important;
+  color: #333 !important;
+  font-weight: normal !important;
+  line-height: 1.6 !important;
+  text-align: right !important;
+  min-width: 1.5em !important;
+}
+
+.post-content ul ul,
+.post-content ol ol,
+.post-content ul ol,
+.post-content ol ul,
+article .post-content ul ul,
+article .post-content ol ol,
+div.post-content ul ul,
+div.post-content ol ol {
+  margin: 0.5em 0 0.5em 2em !important;
+  padding: 0 !important;
+}
+
+.post-content ul ul li::before,
+article .post-content ul ul li::before {
+  content: "◦" !important;
+  left: -2em !important;
+  text-align: right !important;
+  min-width: 1.5em !important;
+}
+
+.post-content ul ul ul li::before,
+article .post-content ul ul ul li::before {
+  content: "▪" !important;
+  left: -2em !important;
+  text-align: right !important;
+  min-width: 1.5em !important;
+}

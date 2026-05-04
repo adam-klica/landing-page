@@ -1,0 +1,21 @@
+import type * as React from "react";
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "swiper-container": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > &
+        Record<string, unknown>;
+      "swiper-slide": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > &
+        Record<string, unknown>;
+    }
+  }
+}
+
+export {};
+

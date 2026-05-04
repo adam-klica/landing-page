@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABGC Digital Platform — Users Guide v1.0</title>
+<meta name="description" content="Complete reference manual for the ABGC Digital Platform — eCommunication, eDocuments, eLearning, and eCommerce modules.">
+<style>
+:root {
+  --blue: #1a6fc4; --blue-dark: #0f4f94; --blue-light: #e8f1fb;
+  --teal: #0d9aa0; --gold: #e8a820; --gold-light: #fff8e8;
+  --red: #c0392b; --red-light: #fdf0ef;
+  --green: #1e8b5c; --green-light: #edf7f2;
+  --gray-50: #f8f9fa; --gray-100: #f1f3f5; --gray-200: #e9ecef;
+  --gray-300: #dee2e6; --gray-400: #ced4da; --gray-500: #adb5bd;
+  --gray-600: #6c757d; --gray-700: #495057; --gray-800: #343a40; --gray-900: #212529;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.7;color:var(--gray-800);background:var(--gray-100)}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.page-wrapper{max-width:1100px;margin:0 auto;background:#fff;box-shadow:0 4px 40px rgba(0,0,0,0.13)}
+
+/* COVER */
+.cover{background:linear-gradient(135deg,#0a2d5e 0%,#1a6fc4 55%,#0d9aa0 100%);color:#fff;padding:70px 60px;position:relative;overflow:hidden;page-break-after:always}
+.cover-deco-1{position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none}
+.cover-deco-2{position:absolute;bottom:-100px;left:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none}
+.cover-eu-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:5px 18px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:32px}
+.cover-programme{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:14px;font-weight:600}
+.cover-title{font-size:42px;font-weight:800;letter-spacing:-.5px;line-height:1.15;margin-bottom:14px}
+.cover-subtitle{font-size:20px;font-weight:400;opacity:.88;margin-bottom:10px}
+.cover-desc{font-size:14px;opacity:.72;max-width:580px;margin-bottom:44px;line-height:1.65}
+.cover-meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.cover-meta-card{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:10px;padding:16px 20px}
+.cover-meta-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;opacity:.65;margin-bottom:6px;font-weight:600}
+.cover-meta-value{font-size:13px;font-weight:700;word-break:break-word}
+
+/* TOC */
+.toc-section{background:var(--blue-light);border-bottom:3px solid var(--blue);padding:48px 60px}
+.toc-heading{font-size:26px;font-weight:800;color:var(--blue-dark);margin-bottom:32px;display:flex;align-items:center;gap:12px}
+.toc-heading::before{content:'⚡';font-size:28px;color:var(--blue)}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.toc-item{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--gray-300);border-radius:8px;padding:13px 18px;cursor:pointer;transition:background .18s,color .18s,border-color .18s;text-decoration:none;color:var(--gray-800)}
+.toc-item:hover{background:var(--blue);color:#fff;border-color:var(--blue);text-decoration:none}
+.toc-item:hover .toc-num{background:rgba(255,255,255,0.25);color:#fff}
+.toc-num{width:30px;height:30px;min-width:30px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .18s,color .18s}
+.toc-chapter-title{font-size:14px;font-weight:600;line-height:1.3}
+
+/* CHAPTERS */
+.chapter{border-top:3px solid var(--blue);margin-top:56px;padding:0 60px 50px}
+.chapter-header{display:flex;align-items:center;gap:20px;margin-top:40px;margin-bottom:28px}
+.chapter-num-block{width:52px;height:52px;min-width:52px;background:var(--blue);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:800}
+.chapter-title{font-size:27px;font-weight:800;color:var(--blue-dark);line-height:1.2}
+.chapter-intro{font-style:italic;color:var(--gray-600);font-size:15.5px;margin-bottom:30px;padding-bottom:24px;border-bottom:1px solid var(--gray-200)}
+
+/* SECTIONS */
+.section-title{font-size:18px;font-weight:700;color:var(--gray-800);border-bottom:1px solid var(--gray-200);padding-bottom:8px;margin:36px 0 18px;padding-left:14px;border-left:4px solid var(--teal)}
+.subsection-title{font-size:15px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.6px;margin:24px 0 10px}
+
+/* FEATURE LIST */
+.feature-list{list-style:none;margin:18px 0}
+.feature-list li{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--gray-100);font-size:15px;line-height:1.65}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:'✓';color:var(--teal);font-weight:700;font-size:15px;margin-top:2px;min-width:18px}
+
+/* STEP LIST */
+.step-list{list-style:none;margin:18px 0;counter-reset:steps}
+.step-list li{counter-increment:steps;display:flex;align-items:flex-start;gap:16px;margin-bottom:14px;line-height:1.65}
+.step-list li::before{content:counter(steps);min-width:30px;height:30px;background:var(--blue);color:#fff;border-radius:50%;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0}
+
+/* PLAIN LIST */
+.plain-list{list-style:none;margin:14px 0}
+.plain-list li{padding:5px 0 5px 22px;position:relative;line-height:1.65}
+.plain-list li::before{content:'›';position:absolute;left:4px;color:var(--blue);font-weight:700;font-size:16px}
+
+/* DEF LIST */
+.def-list{border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin:18px 0}
+.def-row{display:grid;grid-template-columns:220px 1fr;border-bottom:1px solid var(--gray-200)}
+.def-row:last-child{border-bottom:none}
+.def-row:nth-child(even){background:var(--gray-50)}
+.def-term{padding:11px 18px;font-weight:700;color:var(--blue-dark);font-size:14px;border-right:3px solid var(--blue);background:var(--blue-light);display:flex;align-items:center}
+.def-desc{padding:11px 18px;font-size:14.5px;color:var(--gray-700)}
+
+/* CALLOUTS */
+.callout{border-radius:8px;padding:16px 20px;margin:20px 0;border-left:4px solid;page-break-inside:avoid}
+.callout-title{font-weight:700;font-size:13.5px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.callout-info{background:var(--blue-light);border-color:var(--blue)}
+.callout-info .callout-title{color:var(--blue-dark)}
+.callout-tip{background:var(--green-light);border-color:var(--green)}
+.callout-tip .callout-title{color:var(--green)}
+.callout-warning{background:var(--gold-light);border-color:var(--gold)}
+.callout-warning .callout-title{color:#9a6a00}
+.callout-danger{background:var(--red-light);border-color:var(--red)}
+.callout-danger .callout-title{color:var(--red)}
+
+/* SCREENSHOTS placeholder note */
+.screenshot-note{border:1px dashed var(--gray-300);border-radius:10px;padding:20px;margin:24px 0;background:var(--gray-50);text-align:center;color:var(--gray-600);font-style:italic;font-size:14px}
+
+/* METHOD BOX */
+.method-box{border:1px solid var(--gray-300);border-radius:8px;overflow:hidden;margin:22px 0;page-break-inside:avoid}
+.method-header{background:var(--blue);color:#fff;padding:12px 20px;font-weight:700;font-size:14px}
+.method-body{background:var(--gray-50);padding:18px 20px}
+
+/* FAQ */
+.faq-item{border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin:14px 0;page-break-inside:avoid}
+.faq-question{background:var(--blue-light);padding:14px 18px;font-weight:700;color:var(--blue-dark);font-size:14.5px}
+.faq-answer{background:#fff;padding:14px 18px;border-top:1px solid var(--gray-200);font-size:14.5px;color:var(--gray-700)}
+
+/* ISSUE */
+.issue-item{border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin:14px 0;page-break-inside:avoid}
+.issue-title{background:var(--red-light);border-left:4px solid var(--red);padding:12px 16px;font-weight:700;color:var(--red);font-size:14px}
+.issue-body{background:#fff;padding:14px 18px;font-size:14.5px;color:var(--gray-700)}
+
+/* BADGES */
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border-radius:12px;padding:3px 11px;margin-left:8px;vertical-align:middle}
+.badge-admin{background:#fff0e6;color:#c05a00;border:1px solid #f0a060}
+.badge-user{background:var(--blue-light);color:var(--blue-dark);border:1px solid #b0cff0}
+
+/* TABLES */
+.table-wrap{overflow-x:auto;margin:22px 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.07);page-break-inside:avoid}
+table{width:100%;border-collapse:collapse;font-size:14px}
+table thead tr{background:var(--blue-dark);color:#fff}
+table thead th{padding:13px 16px;text-align:left;font-weight:700;font-size:13px;letter-spacing:.3px}
+table tbody tr:nth-child(even){background:var(--gray-50)}
+table tbody tr:hover{background:var(--blue-light)}
+table tbody td{padding:11px 16px;border-bottom:1px solid var(--gray-200);vertical-align:top;line-height:1.55}
+table tbody tr:last-child td{border-bottom:none}
+code{font-family:Consolas,'Courier New',monospace;background:var(--gray-100);border:1px solid var(--gray-300);border-radius:4px;padding:2px 6px;font-size:12.5px;color:var(--blue-dark)}
+
+.admin-only{font-size:12px;font-weight:600;color:var(--gray-500);font-style:normal;text-transform:uppercase;letter-spacing:.5px;margin-left:10px}
+
+/* PART SEPARATOR */
+.part-separator{background:linear-gradient(90deg,var(--blue-dark) 0%,var(--teal) 100%);color:#fff;padding:28px 60px;margin-top:60px}
+.part-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.part-title{font-size:22px;font-weight:800}
+
+/* MODULE CARDS */
+.module-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:24px 0}
+.module-card{border:1px solid var(--gray-200);border-radius:10px;padding:22px;background:var(--gray-50);border-top:3px solid var(--teal)}
+.module-card-title{font-size:16px;font-weight:700;color:var(--blue-dark);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.module-icon{width:32px;height:32px;border-radius:8px;background:var(--blue);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0}
+
+/* IMPRESSUM */
+.impressum{padding:40px 60px;border-bottom:1px solid var(--gray-200);background:var(--gray-50)}
+.impressum h2{font-size:17px;font-weight:800;color:var(--blue-dark);margin-bottom:18px}
+
+/* FOOTER */
+.footer{background:#1e2330;color:#9aa0b0;text-align:center;padding:36px 40px;font-size:13px;line-height:1.7}
+.footer-eu-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
+.eu-flag{width:32px;height:22px;background:#003399;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.footer-title{color:#d0d7e6;font-weight:700;font-size:15px;margin-bottom:6px}
+.footer-divider{border:none;border-top:1px solid #2d3348;margin:18px 0}
+
+p+p{margin-top:10px}
+
+/* PRINT */
+@media print {
+  @page{size:A4;margin:18mm 15mm}
+  body{background:#fff}
+  .page-wrapper{max-width:100%;box-shadow:none;margin:0}
+  .cover{print-color-adjust:exact;-webkit-print-color-adjust:exact;page-break-after:always;min-height:auto}
+  .toc-section,.part-separator,.footer{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .callout,.method-box,.faq-item,.issue-item,.table-wrap{page-break-inside:avoid}
+  .section-title,.subsection-title,.chapter-header{page-break-after:avoid}
+  table thead{display:table-header-group}
+  .toc-item{border:1px solid #ddd}
+}
+
+/* LANG SWITCHER */
+.lang-bar{background:#0f4f94;padding:10px 20px;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.lang-bar a{display:inline-block;padding:6px 14px;border-radius:4px;color:#fff;font-size:13px;font-weight:600;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);text-decoration:none;transition:background .2s}
+.lang-bar a:hover{background:rgba(255,255,255,0.2);text-decoration:none}
+.lang-bar a.active{background:#fff;color:#0f4f94}
+
+@media(max-width:780px){
+  .cover{padding:40px 24px}
+  .cover-meta-grid{grid-template-columns:1fr 1fr}
+  .cover-title{font-size:28px}
+  .toc-section{padding:32px 24px}
+  .toc-grid{grid-template-columns:1fr}
+  .chapter{padding:0 24px 40px}
+  .module-grid{grid-template-columns:1fr}
+  .def-row{grid-template-columns:1fr}
+  .def-term{border-right:none;border-bottom:1px solid var(--gray-200)}
+  .part-separator{padding:22px 24px}
+  .impressum{padding:28px 24px}
+}
+
+.screenshot-box{border:1px solid var(--gray-300);border-radius:10px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,0.08);margin:24px 0 6px;background:var(--gray-50)}
+.screenshot-box img{width:100%;display:block;max-height:520px;object-fit:contain;object-position:top}
+.screenshot-caption{background:var(--gray-100);border-top:1px solid var(--gray-300);padding:9px 16px;font-size:13px;color:var(--gray-600);font-style:italic}
+
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+<div class="lang-bar">
+  <a href="/users-guide.html" class="active">🇬🇧 English</a>
+  <a href="/users-guide-me.html">🇲🇪 Crnogorski</a>
+  <a href="/users-guide-it.html">🇮🇹 Italiano</a>
+  <a href="/users-guide-sq.html">🇦🇱 Shqip</a>
+</div>
+
+<!-- COVER -->
+<section class="cover" id="cover">
+  <div class="cover-deco-1"></div>
+  <div class="cover-deco-2"></div>
+  <div class="cover-eu-badge">🇪🇺 Interreg IPA South Adriatic 2021–2027</div>
+  <div class="cover-programme">SA SKILLS Project · Adriatic Blue Growth Cluster</div>
+  <h1 class="cover-title">ABGC Digital Platform<br>Users Guide</h1>
+  <div class="cover-subtitle">Complete Reference Manual for Platform Users, Partners &amp; Administrators</div>
+  <p class="cover-desc">Step-by-step instructions for navigating, managing, and using all modules of the ABGC Digital Platform — eCommunication, eDocuments, eLearning, and eCommerce — developed within the SA SKILLS project framework.</p>
+  <div class="cover-meta-grid">
+    <div class="cover-meta-card"><div class="cover-meta-label">Website</div><div class="cover-meta-value">southadriaticskills.org</div></div>
+    <div class="cover-meta-card"><div class="cover-meta-label">Version</div><div class="cover-meta-value">1.0</div></div>
+    <div class="cover-meta-card"><div class="cover-meta-label">Date</div><div class="cover-meta-value">February 2026</div></div>
+    <div class="cover-meta-card"><div class="cover-meta-label">Classification</div><div class="cover-meta-value">Public</div></div>
+  </div>
+</section>
+
+<!-- IMPRESSUM -->
+<div class="impressum">
+  <h2>Impressum</h2>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Document Title</div><div class="def-desc">ABGC Digital Platform — Users Guide</div></div>
+    <div class="def-row"><div class="def-term">Version</div><div class="def-desc">Version 1.0</div></div>
+    <div class="def-row"><div class="def-term">Date of Publication</div><div class="def-desc">February 2026</div></div>
+    <div class="def-row"><div class="def-term">Prepared by</div><div class="def-desc">University of Montenegro — Institute of Marine Biology, Put I Bokeljske brigade 68, 85330 Kotor, Montenegro</div></div>
+    <div class="def-row"><div class="def-term">On behalf of</div><div class="def-desc">Adriatic Blue Growth Cluster (ABGC) — SA SKILLS Project (Project ID: SA-0200142)</div></div>
+    <div class="def-row"><div class="def-term">Programme</div><div class="def-desc">Interreg IPA South Adriatic 2021–2027 — Co-funded by the European Union under IPA III</div></div>
+    <div class="def-row"><div class="def-term">Project Duration</div><div class="def-desc">01 July 2023 — 31 October 2027 (subject to approved modifications)</div></div>
+    <div class="def-row"><div class="def-term">Website</div><div class="def-desc"><a href="https://southadriaticskills.org" target="_blank" rel="noopener">https://southadriaticskills.org</a></div></div>
+  </div>
+  <p style="font-size:13px;color:var(--gray-600);margin-top:16px;line-height:1.6;"><strong>Disclaimer:</strong> This Users Guide has been prepared within the framework of the SA SKILLS project. The views expressed do not necessarily reflect the official position of the European Union, the Managing Authority, or the participating countries.</p>
+  <p style="font-size:13px;color:var(--gray-600);margin-top:8px;">© 2026 University of Montenegro — Institute of Marine Biology. Reproduction permitted for non-commercial purposes with source acknowledgement.</p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<section class="toc-section" id="toc">
+  <div class="toc-heading">Table of Contents</div>
+  <div class="toc-grid">
+    <a href="#ch1" class="toc-item"><span class="toc-num">1</span><span class="toc-chapter-title">Introduction</span></a>
+    <a href="#ch2" class="toc-item"><span class="toc-num">2</span><span class="toc-chapter-title">Quick Start Guide</span></a>
+    <a href="#ch3" class="toc-item"><span class="toc-num">3</span><span class="toc-chapter-title">Getting Started — Registration &amp; Login</span></a>
+    <a href="#ch4" class="toc-item"><span class="toc-num">4</span><span class="toc-chapter-title">User Profile Management</span></a>
+    <a href="#ch5" class="toc-item"><span class="toc-num">5</span><span class="toc-chapter-title">eCommunication Module</span></a>
+    <a href="#ch6" class="toc-item"><span class="toc-num">6</span><span class="toc-chapter-title">eDocumentation Module</span></a>
+    <a href="#ch7" class="toc-item"><span class="toc-num">7</span><span class="toc-chapter-title">eLearning Module</span></a>
+    <a href="#ch8" class="toc-item"><span class="toc-num">8</span><span class="toc-chapter-title">eCommerce Module</span></a>
+    <a href="#ch9" class="toc-item"><span class="toc-num">9</span><span class="toc-chapter-title">Platform Navigation &amp; Dashboard</span></a>
+    <a href="#ch10" class="toc-item"><span class="toc-num">10</span><span class="toc-chapter-title">FAQ &amp; Troubleshooting</span></a>
+    <a href="#appendix" class="toc-item"><span class="toc-num">A</span><span class="toc-chapter-title">Appendix — Field Reference &amp; Glossary</span></a>
+  </div>
+</section>
+
+<!-- PART I -->
+<div class="part-separator">
+  <div class="part-label">Part I</div>
+  <div class="part-title">Platform Overview &amp; Getting Started</div>
+</div>
+
+<!-- CHAPTER 1 — INTRODUCTION -->
+<section class="chapter" id="ch1">
+  <div class="chapter-header">
+    <div class="chapter-num-block">1</div>
+    <h2 class="chapter-title">Introduction</h2>
+  </div>
+  <p class="chapter-intro">An overview of the ABGC Digital Platform, its purpose, intended audience, and the four core modules that make up the integrated digital ecosystem.</p>
+
+  <p>The <strong>Adriatic Blue Growth Cluster (ABGC)</strong> digital platform serves as a collaborative digital environment supporting cross-border cooperation among stakeholders from Montenegro, Italy, Albania, and the broader Adriatic region. It fosters knowledge exchange, skills development, and sustainable blue economy growth.</p>
+
+  <h3 class="section-title">1.1 Purpose of the Guide</h3>
+  <p>This Users Guide provides comprehensive instructions for navigating and using the ABGC Digital Platform, developed within the framework of the <strong>SA SKILLS project</strong> under the Interreg IPA South Adriatic Programme 2021–2027.</p>
+  <p>The guide supports users in:</p>
+  <ul class="feature-list">
+    <li>Accessing platform functionalities and managing personal profiles</li>
+    <li>Connecting and cooperating with other registered users</li>
+    <li>Utilizing the eDocumentation repository for project outputs and resources</li>
+    <li>Participating in digital learning activities and certified training programmes</li>
+    <li>Engaging with the eCommerce marketplace environment</li>
+  </ul>
+
+  <h3 class="section-title">1.2 Who This Guide Is For</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">General Users <span class="badge badge-user">User</span></div><div class="def-desc">Individuals creating and managing their personal profiles, connecting with peers, and accessing platform content.</div></div>
+    <div class="def-row"><div class="def-term">Project Partners</div><div class="def-desc">Institutional representatives responsible for content contribution, coordination, and governance activities.</div></div>
+    <div class="def-row"><div class="def-term">ABGC Members</div><div class="def-desc">Institutional and individual members of the Adriatic Blue Growth Cluster participating in governance and cross-border collaboration.</div></div>
+    <div class="def-row"><div class="def-term">Learners</div><div class="def-desc">Students and professionals participating in ILMs, HELMs, Master programmes, and other training activities via the eLearning module.</div></div>
+    <div class="def-row"><div class="def-term">Sellers &amp; Providers</div><div class="def-desc">Blue economy stakeholders using the eCommerce module to present products and services to the community.</div></div>
+    <div class="def-row"><div class="def-term">Administrators <span class="badge badge-admin">Admin</span></div><div class="def-desc">Authorized personnel managing platform operations, content oversight, and user access controls.</div></div>
+  </div>
+
+  <h3 class="section-title">1.3 Platform Overview</h3>
+  <p>The ABGC Digital Platform is structured around <strong>four core modules</strong>:</p>
+  <div class="module-grid">
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">💬</span>eCommunication</div><p style="font-size:14px;color:var(--gray-600);">Enables interaction and networking among registered users. Supports direct messaging, connection management, and cross-border collaboration within the blue economy community.</p></div>
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">📚</span>eDocumentation</div><p style="font-size:14px;color:var(--gray-600);">A structured repository for project deliverables, policy documents, training materials, reports, and scientific publications. Ensures transparency and organized access to resources.</p></div>
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">🎓</span>eLearning</div><p style="font-size:14px;color:var(--gray-600);">Provides access to accredited training programmes including ILMs, HELMs, Master-level courses, and ECTS-based certification opportunities aligned with the European Qualifications Framework.</p></div>
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">🛒</span>eCommerce</div><p style="font-size:14px;color:var(--gray-600);">A virtual marketplace enabling presentation of blue economy products and services, promoting SME visibility and cross-border economic interaction across the South Adriatic region.</p></div>
+  </div>
+  <div class="callout callout-info">
+    <div class="callout-title">📋 About the SA SKILLS Project</div>
+    <p>The SA SKILLS project (ID: SA-0200142) runs from July 2023 to October 2027 under Interreg IPA South Adriatic 2021–2027, co-funded by the European Union. It supports the development of high-level, market-responsive competences for a digitalized and sustainable South Adriatic region.</p>
+  </div>
+</section>
+
+<!-- CHAPTER 2 — QUICK START -->
+<section class="chapter" id="ch2">
+  <div class="chapter-header">
+    <div class="chapter-num-block">2</div>
+    <h2 class="chapter-title">Quick Start Guide</h2>
+  </div>
+  <p class="chapter-intro">A concise overview of the essential steps to get up and running on the ABGC Digital Platform. For detailed instructions, refer to the relevant chapters in this guide.</p>
+
+  <h3 class="section-title">2.1 Create Your Account</h3>
+  <ol class="step-list">
+    <li>Open <a href="https://southadriaticskills.org" target="_blank" rel="noopener">southadriaticskills.org</a> in your browser.</li>
+    <li>Scroll down to the <strong>"Join the ABGC Community"</strong> section on the landing page.</li>
+    <li>Complete the registration form — all fields marked with an asterisk (*) are required.</li>
+    <li>Select the platform modules you wish to access.</li>
+    <li>Accept the <strong>Terms of Use</strong> and <strong>Privacy Policy</strong>.</li>
+    <li>Click the <strong>"Register"</strong> button to submit your registration.</li>
+  </ol>
+  <div class="callout callout-info">
+    <div class="callout-title">📧 Confirmation Email</div>
+    <p>A confirmation email will be sent to your registered inbox immediately after successful registration. Check your spam or junk folder if it does not arrive within a few minutes.</p>
+  </div>
+
+  <h3 class="section-title">2.2 Log In to the Platform</h3>
+  <ol class="step-list">
+    <li>Click <strong>Account → Login</strong> in the top-right corner of the landing page.</li>
+    <li>Enter your <strong>Username or Email</strong> and your <strong>Password</strong>.</li>
+    <li>Click the <strong>"Login"</strong> button.</li>
+  </ol>
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ After Login</div>
+    <p>Your full name will appear in the top-right Account button, confirming you are successfully logged in.</p>
+  </div>
+
+  <h3 class="section-title">2.3 Complete Your Profile</h3>
+  <p>Navigate to <strong>Account → Edit Profile</strong> and fill in your details:</p>
+  <ul class="plain-list">
+    <li>Profile photo and cover image</li>
+    <li>Professional headline</li>
+    <li>About / biography section</li>
+    <li>Work experience and education</li>
+    <li>Contact details (phone, website, LinkedIn, X)</li>
+    <li>Professional skills</li>
+  </ul>
+
+  <h3 class="section-title">2.4 Use the Main Platform Modules</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">eCommunication</div><div class="def-desc">Search for users, send connection requests, and use direct chat to collaborate across institutions and regions.</div></div>
+    <div class="def-row"><div class="def-term">eDocumentation</div><div class="def-desc">Access the knowledge repository: project reports, policy documents, training materials, and scientific publications.</div></div>
+    <div class="def-row"><div class="def-term">eLearning</div><div class="def-desc">Participate in ILMs, HELMs, Master programmes, and certification courses in the blue economy and related fields.</div></div>
+    <div class="def-row"><div class="def-term">eCommerce</div><div class="def-desc">List or browse products and services in the Blue Economy Marketplace — fisheries, aquaculture, marine tech, tourism, and more.</div></div>
+  </div>
+
+  <h3 class="section-title">2.5 Need Help?</h3>
+  <div class="callout callout-info">
+    <div class="callout-title">📞 Support</div>
+    <p>If you experience difficulties, contact the platform administrators through the <strong>Support section</strong> on the website at <a href="https://southadriaticskills.org" target="_blank" rel="noopener">southadriaticskills.org</a>. Detailed troubleshooting guidance is also provided in Chapter 10 of this guide.</p>
+  </div>
+</section>
+
+<!-- CHAPTER 3 — GETTING STARTED -->
+<section class="chapter" id="ch3">
+  <div class="chapter-header">
+    <div class="chapter-num-block">3</div>
+    <h2 class="chapter-title">Getting Started</h2>
+  </div>
+  <p class="chapter-intro">Step-by-step guidance for accessing and activating your account on the ABGC Digital Platform, covering registration, email verification, login procedures, and password management.</p>
+
+  <h3 class="section-title">3.1 Registration</h3>
+  <p>Navigate to <a href="https://southadriaticskills.org/" target="_blank" rel="noopener">https://southadriaticskills.org/</a> to access the platform landing page.</p>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-1.png" alt="Figure 3.1 — The ABGC Digital Platform landing page at southadriaticskills.org" loading="lazy"><div class="screenshot-caption">Figure 3.1 — The ABGC Digital Platform landing page at southadriaticskills.org</div></div>
+  <p>Scroll down to the <strong>"Join the ABGC Community"</strong> section. Complete the registration form by entering your account details in all required fields marked with an asterisk (*).</p>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-2.png" alt="Figure 3.2 — Join the ABGC Community registration form" loading="lazy"><div class="screenshot-caption">Figure 3.2 — Join the ABGC Community registration form</div></div>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Tip — Profile Visibility</div>
+    <p>For better profile visibility within the platform, it is recommended to complete all available fields, including optional ones such as Organization Name, Country, and City.</p>
+  </div>
+
+  <p>The following fields are available in the registration form:</p>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Full Name *</div><div class="def-desc">Your display name on the platform. This will appear in the top-right Account button after login.</div></div>
+    <div class="def-row"><div class="def-term">Email Address *</div><div class="def-desc">Your primary contact email. Used for login, notifications, and password recovery. Cannot be changed after registration.</div></div>
+    <div class="def-row"><div class="def-term">Password *</div><div class="def-desc">Must be at least 8 characters long and contain at least one letter and one number.</div></div>
+    <div class="def-row"><div class="def-term">Organization Name</div><div class="def-desc">The name of your institution, company, or affiliation. Optional but recommended.</div></div>
+    <div class="def-row"><div class="def-term">Country</div><div class="def-desc">Your country of residence or institutional affiliation. Optional.</div></div>
+    <div class="def-row"><div class="def-term">City</div><div class="def-desc">Your city of residence. Optional.</div></div>
+    <div class="def-row"><div class="def-term">Select Platforms</div><div class="def-desc">Choose which modules to access: eLearning, eCommerce, eDocuments, or All Platforms. Access preferences can be adjusted later.</div></div>
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Tip — Module Selection</div>
+    <p>If you are unsure which modules to choose, select <strong>"All platforms."</strong> Access preferences can be adjusted later through your profile settings.</p>
+  </div>
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠ Important</div>
+    <p>Registration cannot be completed without accepting the Terms of Use and Privacy Policy. The Register button will remain inactive until this checkbox is selected.</p>
+  </div>
+  <ol class="step-list">
+    <li>Click the <strong>"Register"</strong> button to confirm your registration.</li>
+    <li>After successful submission, you will be redirected to the landing page as a registered user.</li>
+    <li>The <strong>Account button</strong> in the top-right corner will update to display your registered Full Name instead of "Login."</li>
+  </ol>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-3.png" alt="Figure 3.3 — Account button updated with the registered user's full name" loading="lazy"><div class="screenshot-caption">Figure 3.3 — Account button updated with the registered user's full name</div></div>
+
+  <h3 class="section-title">3.2 Email Verification</h3>
+  <p>Upon successful registration, an automatic confirmation email will be sent to the address provided during registration.</p>
+  <div class="callout callout-info">
+    <div class="callout-title">📧 Note</div>
+    <p>If you do not receive the confirmation email within a few minutes, please check your spam or junk folder.</p>
+  </div>
+
+  <h3 class="section-title">3.3 Login</h3>
+  <p>To access your account, click the <strong>Account button</strong> in the top-right corner of the landing page and select <strong>Login</strong>. You will be redirected to the Login page.</p>
+  <ol class="step-list">
+    <li>Enter your <strong>Username or Email</strong> in the first field.</li>
+    <li>Enter your <strong>Password</strong> in the second field.</li>
+    <li>Click the <strong>"Login"</strong> button to access your account dashboard.</li>
+  </ol>
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-4.png" alt="Figure 3.4 — The Login page" loading="lazy"><div class="screenshot-caption">Figure 3.4 — The Login page</div></div>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Tip</div>
+    <p>You may use either your registered username or your registered email address to log in — both are accepted.</p>
+  </div>
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠ Important — Case Sensitivity</div>
+    <p>Login is case-sensitive. Ensure that your password is entered exactly as created during registration. Check that Caps Lock is not enabled.</p>
+  </div>
+
+  <h3 class="section-title">3.4 Password Reset</h3>
+  <p>If you have forgotten your password, follow these steps to regain access:</p>
+  <ol class="step-list">
+    <li>On the Login page, click the <strong>"Forgot password?"</strong> link below the Password field.</li>
+    <li>Enter your registered email address in the prompt field and confirm.</li>
+    <li>Check your inbox for an automatic password reset email from the platform.</li>
+    <li>Open the email and click the provided reset link.</li>
+    <li>Enter your new password and confirm it in the second field.</li>
+    <li>Click <strong>Save</strong> to apply the new password.</li>
+    <li>Return to the Login page and sign in using your new credentials.</li>
+  </ol>
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠ Important — Link Expiry</div>
+    <p>The password reset link is valid for <strong>10 minutes only</strong>. If the link expires, repeat the process by clicking "Forgot password?" again. If you did not request a reset, ignore the email — no changes will be made to your account.</p>
+  </div>
+</section>
+
+<!-- PART II -->
+<div class="part-separator">
+  <div class="part-label">Part II</div>
+  <div class="part-title">User Guide — Profile &amp; Core Modules</div>
+</div>
+
+<!-- CHAPTER 4 — PROFILE MANAGEMENT -->
+<section class="chapter" id="ch4">
+  <div class="chapter-header">
+    <div class="chapter-num-block">4</div>
+    <h2 class="chapter-title">User Profile Management</h2>
+  </div>
+  <p class="chapter-intro">This chapter explains how to edit and manage your personal profile within the ABGC Digital Platform, including cover images, professional details, contact information, skills, and account settings.</p>
+
+  <h3 class="section-title">4.1 Edit Profile</h3>
+  <p>To update your profile information, click the <strong>Account button</strong> in the top-right corner — it displays your registered Full Name when logged in.</p>
+  <p>On your profile page, click the blue <strong>"Edit profile"</strong> button. The profile will switch into edit mode, revealing all editable sections.</p>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-1.png" alt="Figure 4.1 — User profile overview after registration" loading="lazy"><div class="screenshot-caption">Figure 4.1 — User profile overview after registration</div></div>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-2.png" alt="Figure 4.2 — Edit profile mode activated" loading="lazy"><div class="screenshot-caption">Figure 4.2 — Edit profile mode activated</div></div>
+
+  <h3 class="section-title">4.1.1 Profile Header Area</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Change Cover</div><div class="def-desc">Click the <strong>"Change cover"</strong> button to upload a cover photo. Recommended ratio: <strong>4:1</strong> (e.g., 1600 × 400 px).</div></div>
+    <div class="def-row"><div class="def-term">Profile Photo</div><div class="def-desc">Click the camera icon over your avatar to upload a profile photo. Recommended ratio: <strong>1:1 square</strong> (e.g., 400 × 400 px).</div></div>
+    <div class="def-row"><div class="def-term">Name Field</div><div class="def-desc">Update your display name if necessary. This name appears throughout the platform.</div></div>
+    <div class="def-row"><div class="def-term">Headline Field</div><div class="def-desc">Enter a short professional description (e.g., <em>Blue Economy Specialist</em> or <em>Marine Biologist at University of Montenegro</em>).</div></div>
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Tip — Default Avatar</div>
+    <p>If no profile photo is uploaded, the system will automatically generate a default avatar displaying the first letter of your registered name.</p>
+  </div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-3.png" alt="Figure 4.3 — Profile header area" loading="lazy"><div class="screenshot-caption">Figure 4.3 — Profile header area</div></div>
+
+  <h3 class="section-title">4.1.2 Profile Content Sections</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">About</div><div class="def-desc">An editable text box for your professional summary or biography. This is the first thing other users see when they visit your profile.</div></div>
+    <div class="def-row"><div class="def-term">Experience</div><div class="def-desc">Click <strong>"+ Add"</strong> to enter professional experience entries: job title, organization, date range, and description.</div></div>
+    <div class="def-row"><div class="def-term">Education</div><div class="def-desc">Click <strong>"+ Add"</strong> to enter academic background: institution, degree, field of study, and dates.</div></div>
+  </div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-4.png" alt="Figure 4.4 — Profile content sections (About, Experience, Education)" loading="lazy"><div class="screenshot-caption">Figure 4.4 — Profile content sections (About, Experience, Education)</div></div>
+
+  <h3 class="section-title">4.1.3 Contact Information</h3>
+  <p>The following contact fields are available in edit mode:</p>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Email</div><div class="def-desc">Read-only. The email used during registration cannot be modified for security reasons.</div></div>
+    <div class="def-row"><div class="def-term">Phone</div><div class="def-desc">Enter your phone number in international format (e.g., <code>+38269000000</code>).</div></div>
+    <div class="def-row"><div class="def-term">Website</div><div class="def-desc">Enter the full URL of your personal or institutional website.</div></div>
+    <div class="def-row"><div class="def-term">LinkedIn</div><div class="def-desc">Enter your full LinkedIn profile URL (e.g., <code>https://linkedin.com/in/username</code>).</div></div>
+    <div class="def-row"><div class="def-term">X (Twitter)</div><div class="def-desc">Enter your full X profile URL (e.g., <code>https://x.com/username</code>).</div></div>
+  </div>
+
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠ Important</div>
+    <p>The email address used during registration <strong>cannot be modified</strong> after account creation. If you need to change your email, contact the platform administrators.</p>
+  </div>
+
+  <h3 class="section-title">4.1.4 Skills</h3>
+  <ol class="step-list">
+    <li>Scroll to the <strong>Skills</strong> section in your profile edit view.</li>
+    <li>Type a skill name into the "Add skill" input field.</li>
+    <li>Click <strong>Add</strong> to confirm and attach the skill to your profile.</li>
+    <li>Repeat for each additional skill.</li>
+  </ol>
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Tip — Skill Discoverability</div>
+    <p>Adding relevant skills such as "Marine Biology," "Aquaculture," or "Blue Economy Management" helps other users find you through the platform search feature.</p>
+  </div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-5.png" alt="Figure 4.5 — Contact information section" loading="lazy"><div class="screenshot-caption">Figure 4.5 — Contact information section</div></div>
+
+  <h3 class="section-title">4.1.5 Additional Options</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Search Users</div><div class="def-desc">Use the <strong>"Search users"</strong> button to find other registered platform users by name, organization, or skill.</div></div>
+    <div class="def-row"><div class="def-term">Connection Requests</div><div class="def-desc">View and manage incoming connection requests. Accept or decline requests from this panel.</div></div>
+    <div class="def-row"><div class="def-term">Settings — Password</div><div class="def-desc">Click <strong>"Change"</strong> to update your account password. You will need to confirm your current password.</div></div>
+    <div class="def-row"><div class="def-term">Profile Visitors</div><div class="def-desc">Displays the count of registered users who have visited your profile page.</div></div>
+  </div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-6.png" alt="Figure 4.6 — Skills, Settings and Profile Visitors" loading="lazy"><div class="screenshot-caption">Figure 4.6 — Skills, Settings and Profile Visitors</div></div>
+
+  <h3 class="section-title">4.1.6 Save or Cancel Changes</h3>
+  <p>After making modifications to your profile:</p>
+  <ul class="plain-list">
+    <li>Click <strong>"Save Profile"</strong> to confirm and store all changes.</li>
+    <li>Click <strong>"Cancel"</strong> to discard all unsaved changes and return to view mode.</li>
+  </ul>
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠ Important</div>
+    <p>Changes will <strong>not</strong> be stored unless you click <strong>"Save Profile."</strong> Navigating away from the page without saving will discard all modifications.</p>
+  </div>
+</section>
+
+<!-- CHAPTER 5 — eCOMMUNICATION -->
+<section class="chapter" id="ch5">
+  <div class="chapter-header">
+    <div class="chapter-num-block">5</div>
+    <h2 class="chapter-title">eCommunication Module</h2>
+  </div>
+  <p class="chapter-intro">The eCommunication module enables networking, collaboration, and direct messaging between registered users of the ABGC Digital Platform.</p>
+
+  <h3 class="section-title">5.1 Module Overview</h3>
+  <ul class="feature-list">
+    <li>Search and discover registered users across all partner countries</li>
+    <li>Send and receive connection requests to build your professional network</li>
+    <li>Direct messaging and chat between connected users</li>
+    <li>View other users' professional profiles, skills, and affiliations</li>
+    <li>Cross-border collaboration across institutions, research bodies, and SMEs</li>
+  </ul>
+
+  <h3 class="section-title">5.2 Searching for Users</h3>
+  <ol class="step-list">
+    <li>Navigate to <strong>Account → Edit Profile</strong> and click the <strong>"Search users"</strong> button, or use the platform search function via the top navigation bar.</li>
+    <li>Enter a name, keyword, organization, or skill into the search field.</li>
+    <li>Browse the results list and click on a user's name to view their full profile.</li>
+  </ol>
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Tip — Find Experts</div>
+    <p>Use Search Users to find experts in specific blue economy fields, connect with partner institutions, or identify potential collaborators for research and industry projects.</p>
+  </div>
+
+  <h3 class="section-title">5.3 Connection Requests</h3>
+  <ol class="step-list">
+    <li>Visit the profile page of the user you wish to connect with.</li>
+    <li>Click the <strong>"Connect"</strong> button on their profile.</li>
+    <li>The target user will receive a notification and can accept or decline.</li>
+    <li>Once accepted, you will appear in each other's connections list.</li>
+  </ol>
+  <p>To manage incoming requests, go to your profile page and locate the <strong>Connection Requests</strong> panel. Accept or decline each request accordingly.</p>
+
+  <h3 class="section-title">5.4 Chat and Messaging</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Open Chat</div><div class="def-desc">Click <strong>Chat</strong> in the navigation menu to open the messaging panel. Active conversations are listed on the left.</div></div>
+    <div class="def-row"><div class="def-term">New Message</div><div class="def-desc">Select a connected user from your connections list or search for a user to initiate a new conversation.</div></div>
+    <div class="def-row"><div class="def-term">Send Message</div><div class="def-desc">Type your message in the text input and press <strong>Enter</strong> or click <strong>Send</strong>.</div></div>
+  </div>
+  <div class="callout callout-info">
+    <div class="callout-title">📋 Note</div>
+    <p>Chat functionality is available between connected users only. You must have an accepted connection with another user before initiating a chat conversation.</p>
+  </div>
+</section>
+
+<!-- CHAPTER 6 — eDOCUMENTATION -->
+<section class="chapter" id="ch6">
+  <div class="chapter-header">
+    <div class="chapter-num-block">6</div>
+    <h2 class="chapter-title">eDocumentation Module</h2>
+  </div>
+  <p class="chapter-intro">The eDocumentation module is the centralized knowledge repository of the ABGC Digital Platform, providing structured access to project outputs, policy documents, training materials, and scientific publications.</p>
+
+  <h3 class="section-title">6.1 Module Overview</h3>
+  <ul class="feature-list">
+    <li>Access project deliverables and official SA SKILLS project outputs</li>
+    <li>Browse and download policy documents relevant to the blue economy sector</li>
+    <li>Access training materials associated with eLearning programmes</li>
+    <li>View and download scientific reports and publications</li>
+    <li>Organized browsing by category, author, date, and document type</li>
+  </ul>
+
+  <h3 class="section-title">6.2 Accessing the Repository</h3>
+  <ol class="step-list">
+    <li>Log in to your ABGC account (see Chapter 3.3).</li>
+    <li>Ensure your account was registered with access to the <strong>eDocuments</strong> module.</li>
+    <li>Navigate to the <strong>eDocumentation</strong> section via the platform's main navigation or Dashboard.</li>
+    <li>Browse documents by category, or use the search function to locate specific content by title, author, or keyword.</li>
+  </ol>
+
+  <h3 class="section-title">6.3 Document Categories</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Project Deliverables</div><div class="def-desc">Official outputs and reports produced within the SA SKILLS project scope.</div></div>
+    <div class="def-row"><div class="def-term">Policy Documents</div><div class="def-desc">EU-level and national policy papers relevant to the blue economy, maritime sector, and South Adriatic cooperation.</div></div>
+    <div class="def-row"><div class="def-term">Training Materials</div><div class="def-desc">Supporting materials for ILMs, HELMs, and other educational programmes available on the eLearning module.</div></div>
+    <div class="def-row"><div class="def-term">Scientific Publications</div><div class="def-desc">Research papers and academic publications contributed by project partners and ABGC members.</div></div>
+  </div>
+</section>
+
+<!-- CHAPTER 7 — eLEARNING -->
+<section class="chapter" id="ch7">
+  <div class="chapter-header">
+    <div class="chapter-num-block">7</div>
+    <h2 class="chapter-title">eLearning Module</h2>
+  </div>
+  <p class="chapter-intro">The eLearning module provides access to accredited training programmes, certifications, and educational resources aligned with the European Qualifications Framework and the needs of the blue economy labour market.</p>
+
+  <h3 class="section-title">7.1 Programme Types</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">ILM</div><div class="def-desc">Innovative Learning Modules — short, professionally-focused modules for rapid skills acquisition in blue economy topics.</div></div>
+    <div class="def-row"><div class="def-term">HELM</div><div class="def-desc">Higher Education Learning Modules — university-level modules carrying ECTS credits, aligned with the EQF.</div></div>
+    <div class="def-row"><div class="def-term">Master Programmes</div><div class="def-desc">Advanced, structured learning pathways combining multiple modules for comprehensive qualification.</div></div>
+    <div class="def-row"><div class="def-term">Certification Courses</div><div class="def-desc">Skills certification programmes with formal assessment and digital certification upon successful completion.</div></div>
+  </div>
+  <ul class="feature-list">
+    <li>Access Innovative Learning Modules (ILMs) for professional upskilling</li>
+    <li>Enrol in Higher Education Learning Modules (HELMs) with ECTS credit recognition</li>
+    <li>Earn digital certificates upon successful course completion</li>
+    <li>Track learning progress through your personal dashboard</li>
+    <li>Access course materials: videos, readings, exercises, and assessments</li>
+  </ul>
+
+  <h3 class="section-title">7.2 Accessing the eLearning Platform</h3>
+  <ol class="step-list">
+    <li>Ensure your account was registered with access to the <strong>eLearning</strong> module.</li>
+    <li>From the Dashboard, navigate to <strong>eLearning</strong>. You will be directed to <a href="https://edu.southadriaticskills.org" target="_blank" rel="noopener">edu.southadriaticskills.org</a>.</li>
+    <li>Browse available courses by topic, level, or programme type.</li>
+    <li>Click on a course to view its description, objectives, duration, and prerequisites.</li>
+    <li>Click <strong>Enrol</strong> or <strong>Start Course</strong> to begin your learning journey.</li>
+  </ol>
+  <div class="callout callout-info">
+    <div class="callout-title">📋 Note — EQF Alignment</div>
+    <p>All programmes on the ABGC eLearning module are developed in alignment with the European Qualifications Framework (EQF) and respond to validated labour market needs in the South Adriatic blue economy sector.</p>
+  </div>
+</section>
+
+<!-- CHAPTER 8 — eCOMMERCE -->
+<section class="chapter" id="ch8">
+  <div class="chapter-header">
+    <div class="chapter-num-block">8</div>
+    <h2 class="chapter-title">eCommerce Module</h2>
+  </div>
+  <p class="chapter-intro">The eCommerce module functions as the Blue Economy Marketplace — enabling sellers, service providers, and stakeholders to list and promote products and services to the broader ABGC community.</p>
+
+  <h3 class="section-title">8.1 Module Overview</h3>
+  <ul class="feature-list">
+    <li>List and promote blue economy products and services</li>
+    <li>Reach a cross-border audience of professionals, researchers, and institutions</li>
+    <li>Increase visibility for SMEs and blue economy entrepreneurs</li>
+    <li>Browse and discover products and services from partner countries</li>
+    <li>Support sustainable regional economic development</li>
+  </ul>
+
+  <h3 class="section-title">8.2 Product and Service Categories</h3>
+  <ul class="plain-list">
+    <li>Fisheries and seafood products</li>
+    <li>Aquaculture products and services</li>
+    <li>Marine technologies and equipment</li>
+    <li>Coastal and maritime tourism services</li>
+    <li>Environmental and sustainability consulting</li>
+    <li>Research and analytical services</li>
+    <li>Training and professional development services</li>
+  </ul>
+
+  <h3 class="section-title">8.3 Creating a Listing</h3>
+  <ol class="step-list">
+    <li>Log in to your account and navigate to the <strong>eCommerce</strong> module at <a href="https://market.southadriaticskills.org" target="_blank" rel="noopener">market.southadriaticskills.org</a>.</li>
+    <li>Click <strong>"Add Listing"</strong> or <strong>"Create Product/Service."</strong></li>
+    <li>Fill in the listing details: title, description, category, price or contact terms, and images.</li>
+    <li>Review your listing for completeness and accuracy.</li>
+    <li>Click <strong>"Publish"</strong> to make your listing visible to the marketplace community.</li>
+  </ol>
+  <div class="callout callout-warning">
+    <div class="callout-title">⚠ Note — Content Policy</div>
+    <p>All listings are subject to review for compliance with the ABGC platform content policy. Only blue economy-related products and services that meet the platform's quality and scope criteria will be approved for publication.</p>
+  </div>
+</section>
+
+<!-- PART III -->
+<div class="part-separator">
+  <div class="part-label">Part III</div>
+  <div class="part-title">Navigation, Administration &amp; Appendices</div>
+</div>
+
+<!-- CHAPTER 9 — NAVIGATION -->
+<section class="chapter" id="ch9">
+  <div class="chapter-header">
+    <div class="chapter-num-block">9</div>
+    <h2 class="chapter-title">Platform Navigation &amp; Dashboard</h2>
+  </div>
+  <p class="chapter-intro">This chapter describes the main navigation structure of the ABGC Digital Platform and explains how to use the user dashboard and top-level menu items efficiently.</p>
+
+  <h3 class="section-title">9.1 Top Navigation Bar</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Menu Item</th><th>Description</th><th>Access</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Home</strong></td><td>Returns to the ABGC landing page.</td><td>All users</td></tr>
+        <tr><td><strong>About</strong></td><td>Overview of the ABGC project, partners, and objectives.</td><td>All users</td></tr>
+        <tr><td><strong>News</strong></td><td>Latest news, announcements, and updates from ABGC and SA SKILLS.</td><td>All users</td></tr>
+        <tr><td><strong>Events</strong></td><td>Upcoming and past events, workshops, and webinars.</td><td>All users</td></tr>
+        <tr><td><strong>Dashboard</strong></td><td>Personal dashboard with access to all enrolled modules, connections, and notifications.</td><td>Registered users</td></tr>
+        <tr><td><strong>Chat</strong></td><td>Real-time messaging with connected platform users.</td><td>Registered users</td></tr>
+        <tr><td><strong>Contact</strong></td><td>Contact form and support information for the ABGC project team.</td><td>All users</td></tr>
+        <tr><td><strong>Account Button</strong></td><td>Displays your name when logged in. Access profile, edit profile, and logout options.</td><td>Registered users</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="section-title">9.2 Language Selection</h3>
+  <p>The platform supports multiple languages selectable via the flag icon in the navigation bar:</p>
+  <ul class="plain-list">
+    <li>English (EN)</li>
+    <li>Crnogorski / Montenegrin (ME)</li>
+    <li>Italiano / Italian (IT)</li>
+    <li>Shqip / Albanian (SQ)</li>
+  </ul>
+
+  <h3 class="section-title">9.3 Dashboard Overview</h3>
+  <ul class="feature-list">
+    <li>View and access your enrolled eLearning courses and progress</li>
+    <li>Navigate directly to eDocumentation, eCommerce, and eCommunication modules</li>
+    <li>Monitor pending connection requests and new messages</li>
+    <li>Access platform notifications and announcements</li>
+    <li>Manage your profile settings and module preferences</li>
+  </ul>
+
+  <h3 class="section-title">9.4 Administration Panel <span class="admin-only">Admin Only</span></h3>
+  <span class="badge badge-admin">Admin</span>
+  <p style="margin-top:12px;">The Administration Panel is accessible to authorized administrators only. It provides tools for managing platform content, users, and operational settings.</p>
+  <div class="method-box">
+    <div class="method-header">Admin Panel — Available Functions</div>
+    <div class="method-body">
+      <ul class="plain-list">
+        <li>User management — view, edit, suspend, or remove registered user accounts</li>
+        <li>Content moderation — review and approve eCommerce listings and eDocumentation uploads</li>
+        <li>Module configuration — enable or restrict access to platform modules by user group</li>
+        <li>News and Events management — create, edit, and publish announcements</li>
+        <li>System logs and access reports</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 10 — FAQ -->
+<section class="chapter" id="ch10">
+  <div class="chapter-header">
+    <div class="chapter-num-block">10</div>
+    <h2 class="chapter-title">FAQ &amp; Troubleshooting</h2>
+  </div>
+  <p class="chapter-intro">Answers to the most frequently asked questions from platform users, along with guidance for resolving common issues.</p>
+
+  <h3 class="section-title">10.1 Frequently Asked Questions</h3>
+  <div class="faq-item"><div class="faq-question">Q: I registered but have not received a confirmation email. What should I do?</div><div class="faq-answer">First, check your spam or junk folder. If the email is not there after 10–15 minutes, ensure you entered the correct email address during registration. If the problem persists, use the Contact form on the platform to notify the support team.</div></div>
+  <div class="faq-item"><div class="faq-question">Q: I forgot my password. How can I reset it?</div><div class="faq-answer">On the Login page, click <strong>"Forgot password?"</strong> and enter your registered email address. A reset link will be sent to your inbox. Note that the link expires after 10 minutes. See Section 3.4 of this guide for full step-by-step instructions.</div></div>
+  <div class="faq-item"><div class="faq-question">Q: Can I change my registered email address?</div><div class="faq-answer">No. The email address used during registration cannot be changed through the self-service profile editor. If you need to change your login email, contact the platform administrators directly via the Support or Contact section of the website.</div></div>
+  <div class="faq-item"><div class="faq-question">Q: I selected the wrong platform modules during registration. Can I change this?</div><div class="faq-answer">Yes. Module access preferences can be updated at any time through your profile settings. Navigate to <strong>Account → Edit Profile</strong> and adjust your module selection, then save your profile.</div></div>
+  <div class="faq-item"><div class="faq-question">Q: How do I connect with another user on the platform?</div><div class="faq-answer">Search for the user using the "Search users" feature, visit their profile page, and click the <strong>"Connect"</strong> button. Once they accept your request, you will be connected and can communicate via the Chat feature. See Chapter 5 for full instructions.</div></div>
+  <div class="faq-item"><div class="faq-question">Q: Are the eLearning courses free of charge?</div><div class="faq-answer">Most courses are available to registered platform users at no cost as they are developed within the SA SKILLS project framework. Some advanced programmes may have specific enrolment requirements. Check individual course pages for details.</div></div>
+  <div class="faq-item"><div class="faq-question">Q: How do I list a product or service in the eCommerce marketplace?</div><div class="faq-answer">Ensure your account includes eCommerce module access, then navigate to the marketplace and use the <strong>"Add Listing"</strong> feature. Fill in the required details, add images, and publish. See Chapter 8.3 for the complete workflow.</div></div>
+  <div class="faq-item"><div class="faq-question">Q: Is the ABGC platform available in multiple languages?</div><div class="faq-answer">Yes. The platform supports English, Montenegrin, Italian, and Albanian. Use the language selector flag in the navigation bar to switch languages at any time.</div></div>
+
+  <h3 class="section-title">10.2 Known Issues</h3>
+  <div class="issue-item"><div class="issue-title">Issue — Password Reset Link Expired</div><div class="issue-body"><p><strong>Symptom:</strong> Clicking the reset link results in an error message indicating the link is no longer valid.</p><p style="margin-top:8px;"><strong>Cause:</strong> Password reset links are valid for 10 minutes only.</p><p style="margin-top:8px;"><strong>Resolution:</strong> Return to the Login page, click <strong>"Forgot password?"</strong> again, and request a new reset link. Complete the process within 10 minutes.</p></div></div>
+  <div class="issue-item"><div class="issue-title">Issue — Profile Photo Not Displaying After Upload</div><div class="issue-body"><p><strong>Symptom:</strong> After uploading a profile photo, the image does not appear or the default avatar is still shown.</p><p style="margin-top:8px;"><strong>Cause:</strong> Browser cache may be retaining the old version, or the image format/size may be unsupported.</p><p style="margin-top:8px;"><strong>Resolution:</strong> Ensure the image is in JPG or PNG format with a 1:1 aspect ratio. Refresh the page with a hard reload (Ctrl+Shift+R). If the issue persists, try a different browser.</p></div></div>
+  <div class="issue-item"><div class="issue-title">Issue — Login Fails Despite Correct Credentials</div><div class="issue-body"><p><strong>Symptom:</strong> Entering correct email and password returns a login error.</p><p style="margin-top:8px;"><strong>Cause:</strong> Login is case-sensitive. Caps Lock may be active, or there may be extra spaces in the entered fields.</p><p style="margin-top:8px;"><strong>Resolution:</strong> Verify Caps Lock is off and there are no trailing spaces. Try a private/incognito browser window. If login still fails, use "Forgot password?" to reset your credentials.</p></div></div>
+  <div class="issue-item"><div class="issue-title">Issue — Module Not Accessible After Login</div><div class="issue-body"><p><strong>Symptom:</strong> A specific module is not visible or accessible from the Dashboard.</p><p style="margin-top:8px;"><strong>Cause:</strong> The module was not selected during registration, or access has not been granted.</p><p style="margin-top:8px;"><strong>Resolution:</strong> Navigate to <strong>Account → Edit Profile</strong> and check your module preferences. Enable the required module and save your profile. If the module remains inaccessible, contact the platform administrators.</p></div></div>
+</section>
+
+<!-- APPENDIX -->
+<section class="chapter" id="appendix">
+  <div class="chapter-header">
+    <div class="chapter-num-block">A</div>
+    <h2 class="chapter-title">Appendix — Field Reference &amp; Glossary</h2>
+  </div>
+  <p class="chapter-intro">Quick reference for key terms, acronyms, and field definitions used throughout this guide and across the ABGC Digital Platform.</p>
+
+  <h3 class="section-title">A.1 Key Terms &amp; Acronyms</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">ABGC</div><div class="def-desc">Adriatic Blue Growth Cluster — the organizational framework and platform brand supporting blue economy cooperation in the South Adriatic region.</div></div>
+    <div class="def-row"><div class="def-term">SA SKILLS</div><div class="def-desc">High-Level and Market-Respondent Competences for a Blue and Digitalized "Smart and Skilled South Adriatic" — the Interreg project (ID: SA-0200142).</div></div>
+    <div class="def-row"><div class="def-term">ILM</div><div class="def-desc">Innovative Learning Module — a short professional development course focused on applied skills in the blue economy.</div></div>
+    <div class="def-row"><div class="def-term">HELM</div><div class="def-desc">Higher Education Learning Module — a university-level course carrying ECTS credits aligned with the EQF.</div></div>
+    <div class="def-row"><div class="def-term">EQF</div><div class="def-desc">European Qualifications Framework — the EU-wide framework for recognizing and comparing qualifications across member states.</div></div>
+    <div class="def-row"><div class="def-term">ECTS</div><div class="def-desc">European Credit Transfer and Accumulation System — a standard for comparing academic credits within the European Higher Education Area.</div></div>
+    <div class="def-row"><div class="def-term">IPA III</div><div class="def-desc">Instrument for Pre-Accession Assistance III — the EU funding mechanism under which the SA SKILLS project is co-funded.</div></div>
+    <div class="def-row"><div class="def-term">SME</div><div class="def-desc">Small and Medium-sized Enterprise — a primary beneficiary audience of the eCommerce and eCommunication platform modules.</div></div>
+  </div>
+
+  <h3 class="section-title">A.2 Platform URLs</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Main Platform</div><div class="def-desc"><a href="https://southadriaticskills.org" target="_blank" rel="noopener">https://southadriaticskills.org</a></div></div>
+    <div class="def-row"><div class="def-term">eLearning</div><div class="def-desc"><a href="https://edu.southadriaticskills.org" target="_blank" rel="noopener">https://edu.southadriaticskills.org</a></div></div>
+    <div class="def-row"><div class="def-term">eCommerce Marketplace</div><div class="def-desc"><a href="https://market.southadriaticskills.org" target="_blank" rel="noopener">https://market.southadriaticskills.org</a></div></div>
+    <div class="def-row"><div class="def-term">eDocumentation</div><div class="def-desc"><a href="https://info.southadriaticskills.org" target="_blank" rel="noopener">https://info.southadriaticskills.org</a></div></div>
+  </div>
+
+  <h3 class="section-title">A.3 Contact &amp; Support</h3>
+  <div class="callout callout-info">
+    <div class="callout-title">📞 Technical Support</div>
+    <p>For technical issues, registration problems, or access requests, use the <strong>Contact</strong> or <strong>Support</strong> section on the ABGC website at <a href="https://southadriaticskills.org/en/contact" target="_blank" rel="noopener">southadriaticskills.org/en/contact</a>.</p>
+    <p style="margin-top:8px;">The platform is operated by the <strong>University of Montenegro — Institute of Marine Biology</strong> on behalf of the Adriatic Blue Growth Cluster.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="footer">
+  <div class="footer-eu-row">
+    <span class="eu-flag">🇪🇺</span>
+    <span style="color:#c0c8d8;font-size:13px;">Co-funded by the European Union — Interreg IPA South Adriatic 2021–2027</span>
+  </div>
+  <div class="footer-title">ABGC Digital Platform — Users Guide</div>
+  <div style="margin-bottom:6px;color:#8898b0;">Version 1.0 &nbsp;·&nbsp; February 2026 &nbsp;·&nbsp; SA SKILLS Project (SA-0200142)</div>
+  <div style="margin-bottom:4px;"><a href="https://southadriaticskills.org" target="_blank" rel="noopener" style="color:#6a9fd0;">https://southadriaticskills.org</a></div>
+  <hr class="footer-divider">
+  <div style="font-size:12.5px;color:#6a7385;line-height:1.6;">
+    Prepared by the University of Montenegro — Institute of Marine Biology, Kotor, Montenegro.<br>
+    On behalf of the Adriatic Blue Growth Cluster (ABGC).<br>
+    © 2026 University of Montenegro — Institute of Marine Biology. Reproduction permitted for non-commercial purposes with source acknowledgement.
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

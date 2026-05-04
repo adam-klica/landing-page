@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platforma Dixhitale ABGC — Udhëzues i Përdoruesit v1.0</title>
+<meta name="description" content="Manual i plotë për përdorimin e Platformës Dixhitale ABGC — eKomunikim, eDokumente, eMësim dhe eTregti.">
+<style>
+:root{--blue:#1a6fc4;--blue-dark:#0f4f94;--blue-light:#e8f1fb;--teal:#0d9aa0;--gold:#e8a820;--gold-light:#fff8e8;--red:#c0392b;--red-light:#fdf0ef;--green:#1e8b5c;--green-light:#edf7f2;--gray-50:#f8f9fa;--gray-100:#f1f3f5;--gray-200:#e9ecef;--gray-300:#dee2e6;--gray-400:#ced4da;--gray-500:#adb5bd;--gray-600:#6c757d;--gray-700:#495057;--gray-800:#343a40}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.7;color:var(--gray-800);background:var(--gray-100)}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.page-wrapper{max-width:1100px;margin:0 auto;background:#fff;box-shadow:0 4px 40px rgba(0,0,0,0.13)}
+.lang-bar{background:#0f4f94;padding:10px 20px;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.lang-bar a{display:inline-block;padding:6px 14px;border-radius:4px;color:#fff;font-size:13px;font-weight:600;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);text-decoration:none}
+.lang-bar a:hover{background:rgba(255,255,255,0.2);text-decoration:none}
+.lang-bar a.active{background:#fff;color:#0f4f94}
+.cover{background:linear-gradient(135deg,#0a2d5e 0%,#1a6fc4 55%,#0d9aa0 100%);color:#fff;padding:70px 60px;position:relative}
+.cover-eu-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:5px 18px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:32px}
+.cover-programme{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:14px;font-weight:600}
+.cover-title{font-size:42px;font-weight:800;line-height:1.15;margin-bottom:14px}
+.cover-subtitle{font-size:20px;font-weight:400;opacity:.88;margin-bottom:10px}
+.cover-desc{font-size:14px;opacity:.72;max-width:580px;margin-bottom:44px;line-height:1.65}
+.cover-meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.cover-meta-card{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:10px;padding:16px 20px}
+.cover-meta-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;opacity:.65;margin-bottom:6px;font-weight:600}
+.cover-meta-value{font-size:13px;font-weight:700;word-break:break-word}
+.toc-section{background:var(--blue-light);border-bottom:3px solid var(--blue);padding:48px 60px}
+.toc-heading{font-size:26px;font-weight:800;color:var(--blue-dark);margin-bottom:32px;display:flex;align-items:center;gap:12px}
+.toc-heading::before{content:'⚡';font-size:28px;color:var(--blue)}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.toc-item{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--gray-300);border-radius:8px;padding:13px 18px;text-decoration:none;color:var(--gray-800);transition:all .18s}
+.toc-item:hover{background:var(--blue);color:#fff;border-color:var(--blue);text-decoration:none}
+.toc-item:hover .toc-num{background:rgba(255,255,255,0.25);color:#fff}
+.toc-num{width:30px;height:30px;min-width:30px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.toc-chapter-title{font-size:14px;font-weight:600;line-height:1.3}
+.chapter{border-top:3px solid var(--blue);margin-top:56px;padding:0 60px 50px}
+.chapter-header{display:flex;align-items:center;gap:20px;margin-top:40px;margin-bottom:28px}
+.chapter-num-block{width:52px;height:52px;min-width:52px;background:var(--blue);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:800}
+.chapter-title{font-size:27px;font-weight:800;color:var(--blue-dark);line-height:1.2}
+.chapter-intro{font-style:italic;color:var(--gray-600);font-size:15.5px;margin-bottom:30px;padding-bottom:24px;border-bottom:1px solid var(--gray-200)}
+.section-title{font-size:18px;font-weight:700;color:var(--gray-800);border-bottom:1px solid var(--gray-200);padding-bottom:8px;margin:36px 0 18px;padding-left:14px;border-left:4px solid var(--teal)}
+.feature-list{list-style:none;margin:18px 0}
+.feature-list li{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--gray-100);font-size:15px;line-height:1.65}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:'✓';color:var(--teal);font-weight:700;font-size:15px;margin-top:2px;min-width:18px}
+.step-list{list-style:none;margin:18px 0;counter-reset:steps}
+.step-list li{counter-increment:steps;display:flex;align-items:flex-start;gap:16px;margin-bottom:14px;line-height:1.65}
+.step-list li::before{content:counter(steps);min-width:30px;height:30px;background:var(--blue);color:#fff;border-radius:50%;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0}
+.plain-list{list-style:none;margin:14px 0}
+.plain-list li{padding:5px 0 5px 22px;position:relative;line-height:1.65}
+.plain-list li::before{content:'›';position:absolute;left:4px;color:var(--blue);font-weight:700;font-size:16px}
+.def-list{border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin:18px 0}
+.def-row{display:grid;grid-template-columns:220px 1fr;border-bottom:1px solid var(--gray-200)}
+.def-row:last-child{border-bottom:none}
+.def-row:nth-child(even){background:var(--gray-50)}
+.def-term{padding:11px 18px;font-weight:700;color:var(--blue-dark);font-size:14px;border-right:3px solid var(--blue);background:var(--blue-light);display:flex;align-items:center}
+.def-desc{padding:11px 18px;font-size:14.5px;color:var(--gray-700)}
+.callout{border-radius:8px;padding:16px 20px;margin:20px 0;border-left:4px solid}
+.callout-title{font-weight:700;font-size:13.5px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.callout-info{background:var(--blue-light);border-color:var(--blue)}.callout-info .callout-title{color:var(--blue-dark)}
+.callout-tip{background:var(--green-light);border-color:var(--green)}.callout-tip .callout-title{color:var(--green)}
+.callout-warning{background:var(--gold-light);border-color:var(--gold)}.callout-warning .callout-title{color:#9a6a00}
+.callout-danger{background:var(--red-light);border-color:var(--red)}.callout-danger .callout-title{color:var(--red)}
+.method-box{border:1px solid var(--gray-300);border-radius:8px;overflow:hidden;margin:22px 0}
+.method-header{background:var(--blue);color:#fff;padding:12px 20px;font-weight:700;font-size:14px}
+.method-body{background:var(--gray-50);padding:18px 20px}
+.faq-item{border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin:14px 0}
+.faq-question{background:var(--blue-light);padding:14px 18px;font-weight:700;color:var(--blue-dark);font-size:14.5px}
+.faq-answer{background:#fff;padding:14px 18px;border-top:1px solid var(--gray-200);font-size:14.5px;color:var(--gray-700)}
+.issue-item{border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin:14px 0}
+.issue-title{background:var(--red-light);border-left:4px solid var(--red);padding:12px 16px;font-weight:700;color:var(--red);font-size:14px}
+.issue-body{background:#fff;padding:14px 18px;font-size:14.5px;color:var(--gray-700)}
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border-radius:12px;padding:3px 11px;margin-left:8px}
+.badge-admin{background:#fff0e6;color:#c05a00;border:1px solid #f0a060}
+.badge-user{background:var(--blue-light);color:var(--blue-dark);border:1px solid #b0cff0}
+.table-wrap{overflow-x:auto;margin:22px 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+table thead tr{background:var(--blue-dark);color:#fff}
+table thead th{padding:13px 16px;text-align:left;font-weight:700;font-size:13px}
+table tbody tr:nth-child(even){background:var(--gray-50)}
+table tbody td{padding:11px 16px;border-bottom:1px solid var(--gray-200);vertical-align:top;line-height:1.55}
+code{font-family:Consolas,monospace;background:var(--gray-100);border:1px solid var(--gray-300);border-radius:4px;padding:2px 6px;font-size:12.5px;color:var(--blue-dark)}
+.part-separator{background:linear-gradient(90deg,var(--blue-dark) 0%,var(--teal) 100%);color:#fff;padding:28px 60px;margin-top:60px}
+.part-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.part-title{font-size:22px;font-weight:800}
+.module-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:24px 0}
+.module-card{border:1px solid var(--gray-200);border-radius:10px;padding:22px;background:var(--gray-50);border-top:3px solid var(--teal)}
+.module-card-title{font-size:16px;font-weight:700;color:var(--blue-dark);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.module-icon{width:32px;height:32px;border-radius:8px;background:var(--blue);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+.impressum{padding:40px 60px;border-bottom:1px solid var(--gray-200);background:var(--gray-50)}
+.impressum h2{font-size:17px;font-weight:800;color:var(--blue-dark);margin-bottom:18px}
+.footer{background:#1e2330;color:#9aa0b0;text-align:center;padding:36px 40px;font-size:13px;line-height:1.7}
+.footer-eu-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
+.footer-title{color:#d0d7e6;font-weight:700;font-size:15px;margin-bottom:6px}
+.footer-divider{border:none;border-top:1px solid #2d3348;margin:18px 0}
+p+p{margin-top:10px}
+@media(max-width:780px){.cover{padding:40px 24px}.cover-meta-grid{grid-template-columns:1fr 1fr}.cover-title{font-size:28px}.toc-section{padding:32px 24px}.toc-grid{grid-template-columns:1fr}.chapter{padding:0 24px 40px}.module-grid{grid-template-columns:1fr}.def-row{grid-template-columns:1fr}.def-term{border-right:none;border-bottom:1px solid var(--gray-200)}.part-separator{padding:22px 24px}.impressum{padding:28px 24px}}
+
+.screenshot-box{border:1px solid var(--gray-300);border-radius:10px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,0.08);margin:24px 0 6px;background:var(--gray-50)}
+.screenshot-box img{width:100%;display:block;max-height:520px;object-fit:contain;object-position:top}
+.screenshot-caption{background:var(--gray-100);border-top:1px solid var(--gray-300);padding:9px 16px;font-size:13px;color:var(--gray-600);font-style:italic}
+
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+<div class="lang-bar">
+  <a href="/users-guide.html">🇬🇧 English</a>
+  <a href="/users-guide-me.html">🇲🇪 Crnogorski</a>
+  <a href="/users-guide-it.html">🇮🇹 Italiano</a>
+  <a href="/users-guide-sq.html" class="active">🇦🇱 Shqip</a>
+</div>
+
+<section class="cover">
+  <div class="cover-eu-badge">🇪🇺 Interreg IPA Adriatiku Jugor 2021–2027</div>
+  <div class="cover-programme">Projekti SA SKILLS · Adriatic Blue Growth Cluster</div>
+  <h1 class="cover-title">Platforma Dixhitale ABGC<br>Udhëzues i Përdoruesit</h1>
+  <div class="cover-subtitle">Manual i plotë për përdoruesit, partnerët dhe administratorët e platformës</div>
+  <p class="cover-desc">Udhëzime hap-pas-hapi për të lundruar, menaxhuar dhe përdorur të gjitha modulet e Platformës Dixhitale ABGC — eKomunikim, eDokumente, eMësim dhe eTregti — të zhvilluar në kuadër të projektit SA SKILLS.</p>
+  <div class="cover-meta-grid">
+    <div class="cover-meta-card"><div class="cover-meta-label">Faqja</div><div class="cover-meta-value">southadriaticskills.org</div></div>
+    <div class="cover-meta-card"><div class="cover-meta-label">Versioni</div><div class="cover-meta-value">1.0</div></div>
+    <div class="cover-meta-card"><div class="cover-meta-label">Data</div><div class="cover-meta-value">Shkurt 2026</div></div>
+    <div class="cover-meta-card"><div class="cover-meta-label">Klasifikimi</div><div class="cover-meta-value">Publik</div></div>
+  </div>
+</section>
+
+<div class="impressum">
+  <h2>Impresum</h2>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Titulli i dokumentit</div><div class="def-desc">Platforma Dixhitale ABGC — Udhëzues i Përdoruesit</div></div>
+    <div class="def-row"><div class="def-term">Versioni</div><div class="def-desc">Versioni 1.0</div></div>
+    <div class="def-row"><div class="def-term">Data e botimit</div><div class="def-desc">Shkurt 2026</div></div>
+    <div class="def-row"><div class="def-term">Përgatitur nga</div><div class="def-desc">Universiteti i Malit të Zi — Instituti i Biologjisë Detare, Put I Bokeljske brigade 68, 85330 Kotor, Mali i Zi</div></div>
+    <div class="def-row"><div class="def-term">Në emër të</div><div class="def-desc">Adriatic Blue Growth Cluster (ABGC) — Projekti SA SKILLS (ID: SA-0200142)</div></div>
+    <div class="def-row"><div class="def-term">Programi</div><div class="def-desc">Interreg IPA Adriatiku Jugor 2021–2027 — Bashkë-financuar nga Bashkimi Evropian në kuadër të IPA III</div></div>
+    <div class="def-row"><div class="def-term">Kohëzgjatja e projektit</div><div class="def-desc">01 Korrik 2023 — 31 Tetor 2027</div></div>
+    <div class="def-row"><div class="def-term">Faqja</div><div class="def-desc"><a href="https://southadriaticskills.org" target="_blank" rel="noopener">https://southadriaticskills.org</a></div></div>
+  </div>
+  <p style="font-size:13px;color:var(--gray-600);margin-top:16px;line-height:1.6;"><strong>Përjashtim përgjegjësie:</strong> Ky udhëzues është përgatitur në kuadër të projektit SA SKILLS. Pikëpamjet e shprehura nuk pasqyrojnë domosdoshmërisht qëndrimin zyrtar të Bashkimit Evropian.</p>
+  <p style="font-size:13px;color:var(--gray-600);margin-top:8px;">© 2026 Universiteti i Malit të Zi — Instituti i Biologjisë Detare. Riprodhimi i lejuar për qëllime jokomerciale me përmendjen e burimit.</p>
+</div>
+
+<section class="toc-section">
+  <div class="toc-heading">Përmbajtja</div>
+  <div class="toc-grid">
+    <a href="#ch1" class="toc-item"><span class="toc-num">1</span><span class="toc-chapter-title">Hyrje</span></a>
+    <a href="#ch2" class="toc-item"><span class="toc-num">2</span><span class="toc-chapter-title">Udhëzues i Shpejtë</span></a>
+    <a href="#ch3" class="toc-item"><span class="toc-num">3</span><span class="toc-chapter-title">Si të fillosh — Regjistrimi dhe Hyrja</span></a>
+    <a href="#ch4" class="toc-item"><span class="toc-num">4</span><span class="toc-chapter-title">Menaxhimi i Profilit</span></a>
+    <a href="#ch5" class="toc-item"><span class="toc-num">5</span><span class="toc-chapter-title">Moduli eKomunikim</span></a>
+    <a href="#ch6" class="toc-item"><span class="toc-num">6</span><span class="toc-chapter-title">Moduli eDokumentim</span></a>
+    <a href="#ch7" class="toc-item"><span class="toc-num">7</span><span class="toc-chapter-title">Moduli eMësim</span></a>
+    <a href="#ch8" class="toc-item"><span class="toc-num">8</span><span class="toc-chapter-title">Moduli eTregti</span></a>
+    <a href="#ch9" class="toc-item"><span class="toc-num">9</span><span class="toc-chapter-title">Lundrimi i Platformës dhe Dashboard</span></a>
+    <a href="#ch10" class="toc-item"><span class="toc-num">10</span><span class="toc-chapter-title">Pyetje të Shpeshta dhe Zgjidhja e Problemeve</span></a>
+    <a href="#appendix" class="toc-item"><span class="toc-num">A</span><span class="toc-chapter-title">Shtojcë — Fjalor dhe Termat</span></a>
+  </div>
+</section>
+
+<div class="part-separator">
+  <div class="part-label">Pjesa I</div>
+  <div class="part-title">Përmbledhje e Platformës dhe Fillimi</div>
+</div>
+
+<section class="chapter" id="ch1">
+  <div class="chapter-header"><div class="chapter-num-block">1</div><h2 class="chapter-title">Hyrje</h2></div>
+  <p class="chapter-intro">Një përmbledhje e Platformës Dixhitale ABGC, qëllimit të saj, audiencës dhe katër moduleve kryesore që përbëjnë ekosistemin dixhital të integruar.</p>
+  <p>Platforma dixhitale <strong>Adriatic Blue Growth Cluster (ABGC)</strong> shërben si një mjedis bashkëpunimi dixhital që mbështet bashkëpunimin ndërkufitar midis palëve të interesuara nga Mali i Zi, Italia, Shqipëria dhe rajoni më i gjerë i Adriatikut. Nxit shkëmbimin e njohurive, zhvillimin e aftësive dhe rritjen e qëndrueshme të ekonomisë blu.</p>
+
+  <h3 class="section-title">1.1 Qëllimi i udhëzuesit</h3>
+  <p>Ky udhëzues i përdoruesit ofron udhëzime gjithëpërfshirëse për lundrimin dhe përdorimin e Platformës Dixhitale ABGC, të zhvilluar në kuadër të <strong>projektit SA SKILLS</strong> nën programin Interreg IPA Adriatiku Jugor 2021–2027.</p>
+  <p>Udhëzuesi mbështet përdoruesit në:</p>
+  <ul class="feature-list">
+    <li>Aksesim të funksionaliteteve të platformës dhe menaxhim të profileve personale</li>
+    <li>Lidhje dhe bashkëpunim me përdorues të tjerë të regjistruar</li>
+    <li>Përdorim të depozitës eDokumentim për akses në rezultatet e projektit</li>
+    <li>Pjesëmarrje në aktivitete mësimi dixhital dhe programe trajnimi të certifikuara</li>
+    <li>Përfshirje me tregun virtual eTregti</li>
+  </ul>
+
+  <h3 class="section-title">1.2 Për kë është ky udhëzues</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Përdorues të përgjithshëm <span class="badge badge-user">Përdorues</span></div><div class="def-desc">Individë që krijojnë dhe menaxhojnë profile personale, lidhen me të tjerë dhe aksesojnë përmbajtjen.</div></div>
+    <div class="def-row"><div class="def-term">Partnerët e projektit</div><div class="def-desc">Përfaqësues institucionalë përgjegjës për kontributin në përmbajtje, koordinim dhe menaxhim.</div></div>
+    <div class="def-row"><div class="def-term">Anëtarët e ABGC</div><div class="def-desc">Anëtarë institucionalë dhe individualë të Klasterit që marrin pjesë në qeverisje dhe bashkëpunim ndërkufitar.</div></div>
+    <div class="def-row"><div class="def-term">Mësimdhënës</div><div class="def-desc">Studentë dhe profesionistë që marrin pjesë në ILM, HELM, programe Master dhe trajnime të tjera.</div></div>
+    <div class="def-row"><div class="def-term">Shitës dhe ofrues shërbimi</div><div class="def-desc">Aktorë të ekonomisë blu që përdorin modulin eTregti për të prezantuar produkte dhe shërbime.</div></div>
+    <div class="def-row"><div class="def-term">Administratorë <span class="badge badge-admin">Admin</span></div><div class="def-desc">Personeli i autorizuar që menaxhon operacionet e platformës dhe kontrollin e aksesit.</div></div>
+  </div>
+
+  <h3 class="section-title">1.3 Përmbledhje e platformës</h3>
+  <p>Platforma Dixhitale ABGC është strukturuar rreth <strong>katër moduleve kryesore</strong>:</p>
+  <div class="module-grid">
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">💬</span>eKomunikim</div><p style="font-size:14px;color:var(--gray-600);">Mundëson ndërveprim dhe rrjetëzim midis përdoruesve të regjistruar. Mbështet mesazhe direkte, menaxhim lidhjesh dhe bashkëpunim ndërkufitar.</p></div>
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">📚</span>eDokumentim</div><p style="font-size:14px;color:var(--gray-600);">Depozitë e strukturuar për rezultate projekti, dokumente politikash, materiale trajnimi, raporte dhe publikime shkencore.</p></div>
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">🎓</span>eMësim</div><p style="font-size:14px;color:var(--gray-600);">Akses në programe trajnimi të akredituara duke përfshirë ILM, HELM, kurse Master dhe certifikime me bazë ECTS sipas EQF.</p></div>
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">🛒</span>eTregti</div><p style="font-size:14px;color:var(--gray-600);">Treg virtual që mundëson prezantimin e produkteve dhe shërbimeve të ekonomisë blu, duke promovuar dukshmërinë e SME-ve.</p></div>
+  </div>
+  <div class="callout callout-info"><div class="callout-title">📋 Rreth projektit SA SKILLS</div><p>Projekti SA SKILLS (ID: SA-0200142) zgjat nga Korriku 2023 deri në Tetor 2027 në kuadër të Interreg IPA Adriatiku Jugor 2021–2027, bashkë-financuar nga Bashkimi Evropian.</p></div>
+</section>
+
+<section class="chapter" id="ch2">
+  <div class="chapter-header"><div class="chapter-num-block">2</div><h2 class="chapter-title">Udhëzues i Shpejtë</h2></div>
+  <p class="chapter-intro">Një përmbledhje koncize e hapave thelbësorë për të filluar përdorimin e Platformës Dixhitale ABGC.</p>
+
+  <h3 class="section-title">2.1 Krijo llogarinë tënde</h3>
+  <ol class="step-list">
+    <li>Hap <a href="https://southadriaticskills.org" target="_blank" rel="noopener">southadriaticskills.org</a> në shfletuesin tënd.</li>
+    <li>Skroll deri te seksioni <strong>"Bashkohu me Komunitetin ABGC"</strong>.</li>
+    <li>Plotëso formularin e regjistrimit — të gjitha fushat me yll (*) janë të detyrueshme.</li>
+    <li>Zgjidh modulet e platformës ku do të aksesosh.</li>
+    <li>Prano <strong>Kushtet e Përdorimit</strong> dhe <strong>Politikën e Privatësisë</strong>.</li>
+    <li>Kliko <strong>"Regjistrohu"</strong> për të dorëzuar regjistrimin.</li>
+  </ol>
+  <div class="callout callout-info"><div class="callout-title">📧 Email i konfirmimit</div><p>Një email konfirmimi do të dërgohet në kutinë tënde. Kontrollo dosjen spam ose junk nëse nuk arrin.</p></div>
+
+  <h3 class="section-title">2.2 Hyrja në platformë</h3>
+  <ol class="step-list">
+    <li>Kliko <strong>Llogaria → Hyrja</strong> në qoshen e sipërme djathtas.</li>
+    <li>Fut <strong>Username ose Email</strong> dhe <strong>Fjalëkalimin</strong>.</li>
+    <li>Kliko <strong>"Hyr"</strong>.</li>
+  </ol>
+  <div class="callout callout-tip"><div class="callout-title">✅ Pas hyrjes</div><p>Emri yt i plotë do të shfaqet në butonin e Llogarisë në qoshen e sipërme djathtas.</p></div>
+
+  <h3 class="section-title">2.3 Plotëso profilin</h3>
+  <p>Shko te <strong>Llogaria → Modifiko Profilin</strong> dhe plotëso detajet:</p>
+  <ul class="plain-list">
+    <li>Foto profili dhe imazh kopertine</li>
+    <li>Titull profesional</li>
+    <li>Seksioni "Rreth meje"/biografia</li>
+    <li>Përvoja e punës dhe arsimimi</li>
+    <li>Detajet e kontaktit (telefon, faqe, LinkedIn, X)</li>
+    <li>Aftësi profesionale</li>
+  </ul>
+
+  <h3 class="section-title">2.4 Përdor modulet kryesore</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">eKomunikim</div><div class="def-desc">Kërko përdorues, dërgo kërkesa lidhje dhe përdor chat-in direkt për bashkëpunim.</div></div>
+    <div class="def-row"><div class="def-term">eDokumentim</div><div class="def-desc">Akses në depozitën e njohurive: raporte, dokumente politikash, materiale trajnimi.</div></div>
+    <div class="def-row"><div class="def-term">eMësim</div><div class="def-desc">Merr pjesë në ILM, HELM, programe Master dhe kurse certifikimi.</div></div>
+    <div class="def-row"><div class="def-term">eTregti</div><div class="def-desc">Lësho ose shfleto produkte dhe shërbime në Tregun e Ekonomisë Blu.</div></div>
+  </div>
+
+  <h3 class="section-title">2.5 Ke nevojë për ndihmë?</h3>
+  <div class="callout callout-info"><div class="callout-title">📞 Mbështetje</div><p>Nëse ke vështirësi, kontakto administratorët përmes seksionit <strong>Mbështetje</strong> në <a href="https://southadriaticskills.org" target="_blank" rel="noopener">southadriaticskills.org</a>.</p></div>
+</section>
+
+<section class="chapter" id="ch3">
+  <div class="chapter-header"><div class="chapter-num-block">3</div><h2 class="chapter-title">Si të fillosh</h2></div>
+  <p class="chapter-intro">Udhëzime hap-pas-hapi për të aksesuar dhe aktivizuar llogarinë tënde, regjistrimin, verifikimin e email-it, hyrjen dhe menaxhimin e fjalëkalimit.</p>
+
+  <h3 class="section-title">3.1 Regjistrimi</h3>
+  <p>Lundro te <a href="https://southadriaticskills.org/" target="_blank" rel="noopener">southadriaticskills.org</a>.</p>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-1.png" alt="Figura 3.1 — Faqja e parë e Platformës Dixhitale ABGC" loading="lazy"><div class="screenshot-caption">Figura 3.1 — Faqja e parë e Platformës Dixhitale ABGC</div></div>
+  <p>Skroll te seksioni <strong>"Bashkohu me Komunitetin ABGC"</strong> dhe plotëso formularin e regjistrimit.</p>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-2.png" alt="Figura 3.2 — Formulari i regjistrimit &quot;Bashkohu me Komunitetin ABGC&quot;" loading="lazy"><div class="screenshot-caption">Figura 3.2 — Formulari i regjistrimit "Bashkohu me Komunitetin ABGC"</div></div>
+
+  <div class="callout callout-tip"><div class="callout-title">✅ Këshillë — Dukshmëria e profilit</div><p>Për dukshmëri më të mirë rekomandohet të plotësohen të gjitha fushat, përfshirë opsionalet si Organizata, Shteti dhe Qyteti.</p></div>
+
+  <p>Fushat e mëposhtme janë të disponueshme:</p>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Emri i plotë *</div><div class="def-desc">Emri yt i shfaqur në platformë.</div></div>
+    <div class="def-row"><div class="def-term">Adresa Email *</div><div class="def-desc">Email-i kryesor. Përdoret për hyrjen, njoftimet dhe rikuperimin e fjalëkalimit. Nuk mund të ndryshohet pas regjistrimit.</div></div>
+    <div class="def-row"><div class="def-term">Fjalëkalimi *</div><div class="def-desc">Të paktën 8 karaktere, duhet të përmbajë të paktën një shkronjë dhe një numër.</div></div>
+    <div class="def-row"><div class="def-term">Emri i Organizatës</div><div class="def-desc">Emri i institucionit, kompanisë ose afilijimit. Opsionale por e rekomanduar.</div></div>
+    <div class="def-row"><div class="def-term">Shteti</div><div class="def-desc">Shteti yt i banimit ose afilijimit. Opsionale.</div></div>
+    <div class="def-row"><div class="def-term">Qyteti</div><div class="def-desc">Qyteti yt i banimit. Opsionale.</div></div>
+    <div class="def-row"><div class="def-term">Zgjidh platformat</div><div class="def-desc">Zgjidh modulet që do të aksesohen: eMësim, eTregti, eDokumente ose të gjitha.</div></div>
+  </div>
+
+  <div class="callout callout-tip"><div class="callout-title">✅ Këshillë — Zgjedhja e moduleve</div><p>Nëse nuk je i sigurt, zgjidh <strong>"Të gjitha platformat."</strong></p></div>
+  <div class="callout callout-danger"><div class="callout-title">⚠ E rëndësishme</div><p>Regjistrimi nuk mund të përfundohet pa pranuar Kushtet dhe Privatësinë.</p></div>
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-3.png" alt="Figura 3.3" loading="lazy"><div class="screenshot-caption">Figura 3.3 — Butoni Llogaria shfaq emrin tuaj pas hyrjes</div></div>
+
+  <h3 class="section-title">3.2 Verifikimi i email-it</h3>
+  <p>Pas regjistrimit të suksesshëm, një email automatik konfirmimi do të dërgohet në adresën e dhënë.</p>
+  <div class="callout callout-info"><div class="callout-title">📧 Shënim</div><p>Nëse nuk merr email brenda pak minutash, kontrollo spam ose junk.</p></div>
+
+  <h3 class="section-title">3.3 Hyrja</h3>
+  <p>Për të aksesuar llogarinë, kliko butonin <strong>Llogaria</strong> në qoshen e sipërme djathtas dhe zgjidh <strong>Hyrja</strong>.</p>
+  <ol class="step-list">
+    <li>Fut <strong>Username ose Email</strong> në fushën e parë.</li>
+    <li>Fut <strong>Fjalëkalimin</strong> në fushën e dytë.</li>
+    <li>Kliko <strong>"Hyr"</strong> për të aksesuar dashboard-in tënd.</li>
+  </ol>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-4.png" alt="Figura 3.4 — Faqja e Hyrjes" loading="lazy"><div class="screenshot-caption">Figura 3.4 — Faqja e Hyrjes</div></div>
+
+  <div class="callout callout-tip"><div class="callout-title">✅ Këshillë</div><p>Mund të përdorësh username-in ose email-in e regjistruar — të dyja pranohen.</p></div>
+  <div class="callout callout-danger"><div class="callout-title">⚠ E rëndësishme — Ndjeshmëria ndaj shkronjave</div><p>Hyrja dallon shkronjat e mëdha dhe të vogla. Verifiko që Caps Lock të jetë i çaktivizuar.</p></div>
+
+  <h3 class="section-title">3.4 Rivendosja e fjalëkalimit</h3>
+  <p>Nëse ke harruar fjalëkalimin, ndiq këto hapa:</p>
+  <ol class="step-list">
+    <li>Në faqen e Hyrjes kliko linkun <strong>"Fjalëkalim i harruar?"</strong>.</li>
+    <li>Fut email-in e regjistruar dhe konfirmo.</li>
+    <li>Kontrollo kutinë tënde për email-in automatik të rivendosjes.</li>
+    <li>Hap email-in dhe kliko linkun e dhënë.</li>
+    <li>Fut fjalëkalimin e ri dhe konfirmoje në fushën e dytë.</li>
+    <li>Kliko <strong>Ruaj</strong> për të aplikuar fjalëkalimin e ri.</li>
+    <li>Kthehu te faqja e Hyrjes dhe hyr me kredencialet e reja.</li>
+  </ol>
+  <div class="callout callout-danger"><div class="callout-title">⚠ E rëndësishme — Skadimi i linkut</div><p>Linku është i vlefshëm vetëm <strong>10 minuta</strong>. Nëse skadon, përsërit procesin.</p></div>
+</section>
+
+<div class="part-separator">
+  <div class="part-label">Pjesa II</div>
+  <div class="part-title">Udhëzues — Profili dhe Modulet Kryesore</div>
+</div>
+
+<section class="chapter" id="ch4">
+  <div class="chapter-header"><div class="chapter-num-block">4</div><h2 class="chapter-title">Menaxhimi i Profilit të Përdoruesit</h2></div>
+  <p class="chapter-intro">Ky kapitull shpjegon si të modifikosh dhe menaxhosh profilin tënd personal, përfshirë imazhe, detaje profesionale, kontakte, aftësi dhe cilësime.</p>
+
+  <h3 class="section-title">4.1 Modifiko Profilin</h3>
+  <p>Për të përditësuar informacionin, kliko butonin <strong>Llogaria</strong> në qoshen e sipërme djathtas — shfaq emrin tënd kur je i loguar.</p>
+  <p>Në faqen e profilit kliko butonin blu <strong>"Modifiko profilin"</strong>.</p>
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-1.png" alt="Figura 4.1" loading="lazy"><div class="screenshot-caption">Figura 4.1 — Përmbledhja e profilit pas regjistrimit</div></div>
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-2.png" alt="Figura 4.2" loading="lazy"><div class="screenshot-caption">Figura 4.2 — Modaliteti i modifikimit të profilit i aktivizuar</div></div>
+
+  <h3 class="section-title">4.1.1 Zona e kreut të profilit</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Ndrysho kopertinën</div><div class="def-desc">Kliko <strong>"Ndrysho kopertinën"</strong> për të ngarkuar foto. Raporti i rekomanduar: <strong>4:1</strong>.</div></div>
+    <div class="def-row"><div class="def-term">Foto profili</div><div class="def-desc">Kliko ikonën e kamerës. Raporti: <strong>1:1 katror</strong>.</div></div>
+    <div class="def-row"><div class="def-term">Fusha Emri</div><div class="def-desc">Përditëso emrin e shfaqur nëse është e nevojshme.</div></div>
+    <div class="def-row"><div class="def-term">Fusha Titulli</div><div class="def-desc">Fut një përshkrim të shkurtër profesional (p.sh. <em>Specialist Ekonomie Blu</em>).</div></div>
+  </div>
+
+  <div class="callout callout-tip"><div class="callout-title">✅ Këshillë — Avatari i parazgjedhur</div><p>Nëse nuk ngarkohet foto, sistemi do të gjenerojë automatikisht një avatar me shkronjën e parë të emrit.</p></div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-3.png" alt="Figura 4.3 — Zona e kreut të profilit" loading="lazy"><div class="screenshot-caption">Figura 4.3 — Zona e kreut të profilit</div></div>
+
+  <h3 class="section-title">4.1.2 Seksionet e përmbajtjes</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Rreth meje</div><div class="def-desc">Kuti teksti për përmbledhjen profesionale ose biografinë.</div></div>
+    <div class="def-row"><div class="def-term">Përvoja</div><div class="def-desc">Kliko <strong>"+ Shto"</strong> për të futur përvojën profesionale.</div></div>
+    <div class="def-row"><div class="def-term">Arsimimi</div><div class="def-desc">Kliko <strong>"+ Shto"</strong> për të futur arsimimin akademik.</div></div>
+  </div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-4.png" alt="Figura 4.4 — Seksionet e përmbajtjes (Rreth meje, Përvoja, Arsimimi)" loading="lazy"><div class="screenshot-caption">Figura 4.4 — Seksionet e përmbajtjes (Rreth meje, Përvoja, Arsimimi)</div></div>
+
+  <h3 class="section-title">4.1.3 Informacioni i kontaktit</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Email</div><div class="def-desc">Vetëm për lexim. Email-i nga regjistrimi nuk mund të modifikohet.</div></div>
+    <div class="def-row"><div class="def-term">Telefoni</div><div class="def-desc">Numri në format ndërkombëtar (p.sh. <code>+38269000000</code>).</div></div>
+    <div class="def-row"><div class="def-term">Faqja</div><div class="def-desc">URL e plotë e faqes personale ose institucionale.</div></div>
+    <div class="def-row"><div class="def-term">LinkedIn</div><div class="def-desc">URL e plotë e profilit LinkedIn.</div></div>
+    <div class="def-row"><div class="def-term">X (Twitter)</div><div class="def-desc">URL e plotë e profilit X.</div></div>
+  </div>
+
+  <div class="callout callout-danger"><div class="callout-title">⚠ E rëndësishme</div><p>Email-i nga regjistrimi <strong>nuk mund të modifikohet</strong>.</p></div>
+
+  <h3 class="section-title">4.1.4 Aftësitë</h3>
+  <ol class="step-list">
+    <li>Skroll te seksioni <strong>Aftësitë</strong>.</li>
+    <li>Shkruaj emrin e aftësisë në fushën "Shto aftësi".</li>
+    <li>Kliko <strong>Shto</strong> për ta konfirmuar.</li>
+    <li>Përsërit për çdo aftësi shtesë.</li>
+  </ol>
+  <div class="callout callout-tip"><div class="callout-title">✅ Këshillë</div><p>Shtimi i aftësive si "Biologji Detare", "Akuakulturë" ose "Menaxhim i Ekonomisë Blu" ndihmon përdoruesit e tjerë të të gjejnë.</p></div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-5.png" alt="Figura 4.5 — Seksioni i informacionit të kontaktit" loading="lazy"><div class="screenshot-caption">Figura 4.5 — Seksioni i informacionit të kontaktit</div></div>
+
+  <h3 class="section-title">4.1.5 Opsione shtesë</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Kërko përdorues</div><div class="def-desc">Përdor butonin <strong>"Kërko përdorues"</strong> për të gjetur përdorues të tjerë.</div></div>
+    <div class="def-row"><div class="def-term">Kërkesa lidhje</div><div class="def-desc">Shiko dhe menaxho kërkesat hyrëse.</div></div>
+    <div class="def-row"><div class="def-term">Cilësimet — Fjalëkalimi</div><div class="def-desc">Kliko <strong>"Ndrysho"</strong> për të përditësuar fjalëkalimin.</div></div>
+    <div class="def-row"><div class="def-term">Vizitorët e profilit</div><div class="def-desc">Shfaq numrin e përdoruesve të regjistruar që kanë vizituar profilin tënd.</div></div>
+  </div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-6.png" alt="Figura 4.6 — Aftësitë, cilësimet dhe vizitorët e profilit" loading="lazy"><div class="screenshot-caption">Figura 4.6 — Aftësitë, cilësimet dhe vizitorët e profilit</div></div>
+
+  <h3 class="section-title">4.1.6 Ruaj ose anulo ndryshimet</h3>
+  <ul class="plain-list">
+    <li>Kliko <strong>"Ruaj profilin"</strong> për të konfirmuar ndryshimet.</li>
+    <li>Kliko <strong>"Anulo"</strong> për të hedhur poshtë ndryshimet.</li>
+  </ul>
+  <div class="callout callout-danger"><div class="callout-title">⚠ E rëndësishme</div><p>Ndryshimet <strong>nuk</strong> do të ruhen nëse nuk klikon <strong>"Ruaj profilin"</strong>.</p></div>
+</section>
+
+<section class="chapter" id="ch5">
+  <div class="chapter-header"><div class="chapter-num-block">5</div><h2 class="chapter-title">Moduli eKomunikim</h2></div>
+  <p class="chapter-intro">Moduli eKomunikim mundëson rrjetëzimin, bashkëpunimin dhe shkëmbimin e mesazheve midis përdoruesve të regjistruar.</p>
+
+  <h3 class="section-title">5.1 Përmbledhje e modulit</h3>
+  <ul class="feature-list">
+    <li>Kërkim dhe zbulim i përdoruesve të regjistruar në të gjitha shtetet partnere</li>
+    <li>Dërgim dhe pranim i kërkesave për lidhje</li>
+    <li>Mesazhe direkte dhe chat midis përdoruesve të lidhur</li>
+    <li>Shikim i profileve, aftësive dhe afilijimeve</li>
+    <li>Bashkëpunim ndërkufitar mes institucioneve, organeve kërkimore dhe SME-ve</li>
+  </ul>
+
+  <h3 class="section-title">5.2 Kërkimi i përdoruesve</h3>
+  <ol class="step-list">
+    <li>Shko te <strong>Llogaria → Modifiko Profilin</strong> dhe kliko <strong>"Kërko përdorues"</strong>.</li>
+    <li>Fut emër, fjalë kyçe, organizatë ose aftësi.</li>
+    <li>Shfleto rezultatet dhe kliko mbi emrin e përdoruesit.</li>
+  </ol>
+
+  <h3 class="section-title">5.3 Kërkesat për lidhje</h3>
+  <ol class="step-list">
+    <li>Vizito faqen e profilit të përdoruesit me të cilin do të lidhesh.</li>
+    <li>Kliko butonin <strong>"Lidhu"</strong>.</li>
+    <li>Përdoruesi do të marrë njoftim dhe mund të pranojë ose refuzojë.</li>
+    <li>Pas pranimit, do të shfaqeni reciprokisht në listën e lidhjeve.</li>
+  </ol>
+
+  <h3 class="section-title">5.4 Chat dhe mesazhe</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Hap chat</div><div class="def-desc">Kliko <strong>Chat</strong> në menynë e lundrimit.</div></div>
+    <div class="def-row"><div class="def-term">Mesazh i ri</div><div class="def-desc">Zgjidh përdorues të lidhur ose kërko për bisedë të re.</div></div>
+    <div class="def-row"><div class="def-term">Dërgo mesazh</div><div class="def-desc">Shkruaj mesazhin dhe shtyp <strong>Enter</strong> ose kliko <strong>Dërgo</strong>.</div></div>
+  </div>
+  <div class="callout callout-info"><div class="callout-title">📋 Shënim</div><p>Funksionaliteti i chat-it është i disponueshëm vetëm midis përdoruesve të lidhur.</p></div>
+</section>
+
+<section class="chapter" id="ch6">
+  <div class="chapter-header"><div class="chapter-num-block">6</div><h2 class="chapter-title">Moduli eDokumentim</h2></div>
+  <p class="chapter-intro">Moduli eDokumentim është depozita e centralizuar e njohurive e Platformës ABGC, duke ofruar akses të strukturuar në rezultate projekti, dokumente politikash, materiale trajnimi dhe publikime shkencore.</p>
+
+  <h3 class="section-title">6.1 Përmbledhje e modulit</h3>
+  <ul class="feature-list">
+    <li>Akses në rezultatet zyrtare të projektit SA SKILLS</li>
+    <li>Shfletim dhe shkarkim i dokumenteve të politikave</li>
+    <li>Akses në materiale trajnimi të lidhura me eMësim</li>
+    <li>Shikim dhe shkarkim i raporteve dhe publikimeve shkencore</li>
+    <li>Lundrim i organizuar sipas kategorisë, autorit, datës dhe llojit</li>
+  </ul>
+
+  <h3 class="section-title">6.2 Aksesimi i depozitës</h3>
+  <ol class="step-list">
+    <li>Hyr në llogarinë tënde (shih 3.3).</li>
+    <li>Sigurohu që llogaria të ketë akses në modulin <strong>eDokumente</strong>.</li>
+    <li>Lundro te seksioni <strong>eDokumentim</strong>.</li>
+    <li>Shfleto sipas kategorisë ose përdor kërkimin.</li>
+  </ol>
+
+  <h3 class="section-title">6.3 Kategoritë e dokumenteve</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Rezultatet e projektit</div><div class="def-desc">Rezultatet zyrtare dhe raporte të prodhuara në kuadër të projektit SA SKILLS.</div></div>
+    <div class="def-row"><div class="def-term">Dokumente politikash</div><div class="def-desc">Dokumente të BE-së dhe kombëtare relevante për ekonominë blu.</div></div>
+    <div class="def-row"><div class="def-term">Materiale trajnimi</div><div class="def-desc">Materiale mbështetëse për ILM, HELM dhe programe të tjera.</div></div>
+    <div class="def-row"><div class="def-term">Publikime shkencore</div><div class="def-desc">Punime kërkimore dhe publikime akademike.</div></div>
+  </div>
+</section>
+
+<section class="chapter" id="ch7">
+  <div class="chapter-header"><div class="chapter-num-block">7</div><h2 class="chapter-title">Moduli eMësim</h2></div>
+  <p class="chapter-intro">Moduli eMësim ofron akses në programe trajnimi të akredituara, certifikime dhe burime arsimore të harmonizuara me Kornizën Evropiane të Kualifikimeve (EQF).</p>
+
+  <h3 class="section-title">7.1 Llojet e programeve</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">ILM</div><div class="def-desc">Innovative Learning Modules — module të shkurtra profesionale për përvetësim të shpejtë aftësish.</div></div>
+    <div class="def-row"><div class="def-term">HELM</div><div class="def-desc">Higher Education Learning Modules — module të nivelit universitar me kredite ECTS.</div></div>
+    <div class="def-row"><div class="def-term">Programe Master</div><div class="def-desc">Rrugë të avancuara mësimi që kombinojnë module të shumta.</div></div>
+    <div class="def-row"><div class="def-term">Kurse certifikimi</div><div class="def-desc">Programe certifikimi të aftësive me vlerësim formal dhe certifikatë dixhitale.</div></div>
+  </div>
+  <ul class="feature-list">
+    <li>Akses në ILM për përmirësim profesional</li>
+    <li>Regjistrim në HELM me njohje të krediteve ECTS</li>
+    <li>Certifikata dixhitale pas përfundimit</li>
+    <li>Ndjekje e progresit përmes dashboard-it personal</li>
+    <li>Akses në materiale: video, lexime, ushtrime dhe vlerësime</li>
+  </ul>
+
+  <h3 class="section-title">7.2 Aksesimi i platformës eMësim</h3>
+  <ol class="step-list">
+    <li>Sigurohu që llogaria të ketë akses në modulin <strong>eMësim</strong>.</li>
+    <li>Nga Dashboard, shko te <strong>eMësim</strong>. Do të dërgohesh te <a href="https://edu.southadriaticskills.org" target="_blank" rel="noopener">edu.southadriaticskills.org</a>.</li>
+    <li>Shfleto kurset sipas temës, nivelit ose llojit.</li>
+    <li>Kliko mbi një kurs për përshkrimin, objektivat dhe parakushtet.</li>
+    <li>Kliko <strong>Regjistrohu</strong> ose <strong>Fillo kursin</strong>.</li>
+  </ol>
+  <div class="callout callout-info"><div class="callout-title">📋 Shënim — Harmonizimi me EQF</div><p>Të gjitha programet janë zhvilluar në harmoni me Kornizën Evropiane të Kualifikimeve dhe i përgjigjen nevojave të tregut të punës.</p></div>
+</section>
+
+<section class="chapter" id="ch8">
+  <div class="chapter-header"><div class="chapter-num-block">8</div><h2 class="chapter-title">Moduli eTregti</h2></div>
+  <p class="chapter-intro">Moduli eTregti funksionon si Tregu i Ekonomisë Blu — mundëson shitësit dhe ofruesit e shërbimeve të prezantojnë produkte dhe shërbime në komunitetin më të gjerë ABGC.</p>
+
+  <h3 class="section-title">8.1 Përmbledhje e modulit</h3>
+  <ul class="feature-list">
+    <li>Lëshim dhe promovim i produkteve dhe shërbimeve të ekonomisë blu</li>
+    <li>Akses në audiencë ndërkufitare të profesionistëve, kërkuesve dhe institucioneve</li>
+    <li>Rritje e dukshmërisë së SME-ve dhe sipërmarrësve</li>
+    <li>Shfletim dhe zbulim i produkteve nga shtetet partnere</li>
+    <li>Mbështetje për zhvillim ekonomik rajonal të qëndrueshëm</li>
+  </ul>
+
+  <h3 class="section-title">8.2 Kategoritë e produkteve dhe shërbimeve</h3>
+  <ul class="plain-list">
+    <li>Peshkim dhe produkte deti</li>
+    <li>Akuakulturë — produkte dhe shërbime</li>
+    <li>Teknologji detare dhe pajisje</li>
+    <li>Turizëm bregdetar dhe detar</li>
+    <li>Konsulencë mjedisore dhe e qëndrueshmërisë</li>
+    <li>Shërbime kërkimi dhe analitike</li>
+    <li>Trajnim dhe zhvillim profesional</li>
+  </ul>
+
+  <h3 class="section-title">8.3 Krijimi i një shpalljeje</h3>
+  <ol class="step-list">
+    <li>Hyr dhe lundro te moduli <strong>eTregti</strong> në <a href="https://market.southadriaticskills.org" target="_blank" rel="noopener">market.southadriaticskills.org</a>.</li>
+    <li>Kliko <strong>"Shto shpallje"</strong>.</li>
+    <li>Plotëso titullin, përshkrimin, kategorinë, çmimin ose kontaktin, imazhet.</li>
+    <li>Verifiko për plotësinë dhe saktësinë.</li>
+    <li>Kliko <strong>"Publiko"</strong>.</li>
+  </ol>
+  <div class="callout callout-warning"><div class="callout-title">⚠ Shënim — Politika e përmbajtjes</div><p>Të gjitha shpalljet i nënshtrohen rishikimit për pajtueshmërinë me politikën e përmbajtjes.</p></div>
+</section>
+
+<div class="part-separator">
+  <div class="part-label">Pjesa III</div>
+  <div class="part-title">Lundrimi, Administrimi dhe Shtojcat</div>
+</div>
+
+<section class="chapter" id="ch9">
+  <div class="chapter-header"><div class="chapter-num-block">9</div><h2 class="chapter-title">Lundrimi i Platformës dhe Dashboard</h2></div>
+  <p class="chapter-intro">Ky kapitull përshkruan strukturën kryesore të lundrimit të Platformës ABGC.</p>
+
+  <h3 class="section-title">9.1 Shiriti i lundrimit</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Zëri</th><th>Përshkrimi</th><th>Aksesi</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Kreu</strong></td><td>Kthehet te faqja e parë e ABGC.</td><td>Të gjithë</td></tr>
+        <tr><td><strong>Rreth nesh</strong></td><td>Përmbledhje e projektit, partnerëve dhe objektivave.</td><td>Të gjithë</td></tr>
+        <tr><td><strong>Lajme</strong></td><td>Lajmet, njoftimet dhe përditësimet më të fundit.</td><td>Të gjithë</td></tr>
+        <tr><td><strong>Ngjarje</strong></td><td>Ngjarjet e ardhshme dhe të kaluara.</td><td>Të gjithë</td></tr>
+        <tr><td><strong>Dashboard</strong></td><td>Dashboard personal me akses në modulet, lidhjet dhe njoftimet.</td><td>Të regjistruar</td></tr>
+        <tr><td><strong>Chat</strong></td><td>Mesazhe në kohë reale me përdoruesit e lidhur.</td><td>Të regjistruar</td></tr>
+        <tr><td><strong>Kontakt</strong></td><td>Formular kontakti dhe mbështetje.</td><td>Të gjithë</td></tr>
+        <tr><td><strong>Butoni Llogaria</strong></td><td>Shfaq emrin tënd kur je i loguar.</td><td>Të regjistruar</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="section-title">9.2 Zgjedhja e gjuhës</h3>
+  <p>Platforma mbështet shumë gjuhë të zgjedhshme përmes ikonës së flamurit:</p>
+  <ul class="plain-list">
+    <li>English (EN)</li>
+    <li>Crnogorski / Malazez (ME)</li>
+    <li>Italiano (IT)</li>
+    <li>Shqip (SQ)</li>
+  </ul>
+
+  <h3 class="section-title">9.3 Përmbledhje e Dashboard-it</h3>
+  <ul class="feature-list">
+    <li>Shikim dhe akses në kurset eMësim të regjistruar dhe progresin</li>
+    <li>Lundrim direkt te eDokumentim, eTregti dhe eKomunikim</li>
+    <li>Monitorim i kërkesave për lidhje dhe mesazheve të reja</li>
+    <li>Akses në njoftimet e platformës</li>
+    <li>Menaxhim i cilësimeve të profilit dhe preferencat e moduleve</li>
+  </ul>
+
+  <h3 class="section-title">9.4 Paneli administrativ <span style="font-size:12px;color:var(--gray-500);font-weight:600;">Vetëm Admin</span></h3>
+  <span class="badge badge-admin">Admin</span>
+  <p style="margin-top:12px;">Paneli administrativ është i aksesueshëm vetëm për administratorët e autorizuar.</p>
+  <div class="method-box">
+    <div class="method-header">Paneli Admin — Funksionet e disponueshme</div>
+    <div class="method-body">
+      <ul class="plain-list">
+        <li>Menaxhim i përdoruesve — shikim, modifikim, pezullim ose heqje e llogarive</li>
+        <li>Moderim i përmbajtjes — shqyrtim dhe miratim i shpalljeve dhe ngarkimeve</li>
+        <li>Konfigurim i moduleve — kontroll i aksesit në modulet</li>
+        <li>Menaxhim i lajmeve dhe ngjarjeve</li>
+        <li>Logje sistemi dhe raporte aksesi</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="ch10">
+  <div class="chapter-header"><div class="chapter-num-block">10</div><h2 class="chapter-title">Pyetje të Shpeshta dhe Zgjidhja e Problemeve</h2></div>
+  <p class="chapter-intro">Përgjigje për pyetjet më të shpeshta dhe udhëzime për zgjidhjen e problemeve të zakonshme.</p>
+
+  <h3 class="section-title">10.1 Pyetje të shpeshta</h3>
+  <div class="faq-item"><div class="faq-question">P: U regjistrova por nuk kam marrë email konfirmimi. Çfarë të bëj?</div><div class="faq-answer">Kontrollo dosjen spam ose junk. Nëse email-i nuk arrin brenda 10–15 minutave, verifiko adresën. Nëse problemi vazhdon, përdor formularin e Kontaktit.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Kam harruar fjalëkalimin. Si ta rivendos?</div><div class="faq-answer">Në faqen e Hyrjes kliko <strong>"Fjalëkalim i harruar?"</strong>. Linku skadon pas 10 minutash. Shih 3.4.</div></div>
+  <div class="faq-item"><div class="faq-question">P: A mund të ndryshoj adresën email të regjistruar?</div><div class="faq-answer">Jo. Email-i nga regjistrimi nuk mund të ndryshohet. Kontakto administratorët.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Zgjodha module të gabuara në regjistrim. A mund të ndryshoj?</div><div class="faq-answer">Po. Shko te <strong>Llogaria → Modifiko Profilin</strong> dhe rregullo zgjedhjen.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Si lidhem me një përdorues tjetër?</div><div class="faq-answer">Kërko përdoruesin, vizito profilin dhe kliko <strong>"Lidhu"</strong>. Shih Kapitullin 5.</div></div>
+  <div class="faq-item"><div class="faq-question">P: A janë kurset eMësim falas?</div><div class="faq-answer">Shumica e kurseve janë falas për përdoruesit e regjistruar.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Si e lëshoj një produkt në eTregti?</div><div class="faq-answer">Sigurohu që llogaria të ketë akses, lundro te tregu dhe përdor <strong>"Shto shpallje"</strong>. Shih 8.3.</div></div>
+  <div class="faq-item"><div class="faq-question">P: A është platforma në shumë gjuhë?</div><div class="faq-answer">Po. Anglisht, malazez, italisht dhe shqip.</div></div>
+
+  <h3 class="section-title">10.2 Probleme të njohura</h3>
+  <div class="issue-item"><div class="issue-title">Problem — Linku i rivendosjes së fjalëkalimit ka skaduar</div><div class="issue-body"><p><strong>Simptoma:</strong> Klikimi i linkut jep gabim që linku nuk është i vlefshëm.</p><p style="margin-top:8px;"><strong>Shkaku:</strong> Linqet janë të vlefshme vetëm 10 minuta.</p><p style="margin-top:8px;"><strong>Zgjidhja:</strong> Kthehu te faqja e Hyrjes dhe kërko link të ri.</p></div></div>
+  <div class="issue-item"><div class="issue-title">Problem — Foto profili nuk shfaqet</div><div class="issue-body"><p><strong>Simptoma:</strong> Pas ngarkimit, imazhi nuk shfaqet.</p><p style="margin-top:8px;"><strong>Shkaku:</strong> Cache-i i shfletuesit ose format jo i mbështetur.</p><p style="margin-top:8px;"><strong>Zgjidhja:</strong> Sigurohu që imazhi është JPG ose PNG me raport 1:1. Hard reload (Ctrl+Shift+R).</p></div></div>
+  <div class="issue-item"><div class="issue-title">Problem — Hyrja dështon me kredencialet e sakta</div><div class="issue-body"><p><strong>Simptoma:</strong> Email-i dhe fjalëkalimi i saktë japin gabim.</p><p style="margin-top:8px;"><strong>Shkaku:</strong> Caps Lock i aktivizuar ose hapësira shtesë.</p><p style="margin-top:8px;"><strong>Zgjidhja:</strong> Verifiko Caps Lock dhe provo dritare private.</p></div></div>
+  <div class="issue-item"><div class="issue-title">Problem — Moduli nuk është i aksesueshëm pas hyrjes</div><div class="issue-body"><p><strong>Simptoma:</strong> Një modul specifik nuk është i dukshëm nga Dashboard.</p><p style="margin-top:8px;"><strong>Shkaku:</strong> Moduli nuk u zgjodh gjatë regjistrimit.</p><p style="margin-top:8px;"><strong>Zgjidhja:</strong> Shko te <strong>Llogaria → Modifiko Profilin</strong> dhe verifiko cilësimet.</p></div></div>
+</section>
+
+<section class="chapter" id="appendix">
+  <div class="chapter-header"><div class="chapter-num-block">A</div><h2 class="chapter-title">Shtojcë — Fjalor dhe Termat</h2></div>
+  <p class="chapter-intro">Referim i shpejtë për termat kryesorë, akronimet dhe përkufizimet e përdorura në këtë udhëzues.</p>
+
+  <h3 class="section-title">A.1 Termat kryesorë dhe akronimet</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">ABGC</div><div class="def-desc">Adriatic Blue Growth Cluster — kornizë organizative që mbështet bashkëpunimin në ekonominë blu.</div></div>
+    <div class="def-row"><div class="def-term">SA SKILLS</div><div class="def-desc">High-Level and Market-Respondent Competences for a Blue and Digitalized "Smart and Skilled South Adriatic" — projekt Interreg (ID: SA-0200142).</div></div>
+    <div class="def-row"><div class="def-term">ILM</div><div class="def-desc">Innovative Learning Module — kurs i shkurtër zhvillimi profesional.</div></div>
+    <div class="def-row"><div class="def-term">HELM</div><div class="def-desc">Higher Education Learning Module — kurs universitar me kredite ECTS.</div></div>
+    <div class="def-row"><div class="def-term">EQF</div><div class="def-desc">European Qualifications Framework — Korniza Evropiane e Kualifikimeve.</div></div>
+    <div class="def-row"><div class="def-term">ECTS</div><div class="def-desc">European Credit Transfer and Accumulation System — sistem evropian i transferimit të krediteve.</div></div>
+    <div class="def-row"><div class="def-term">IPA III</div><div class="def-desc">Instrument for Pre-Accession Assistance III — mekanizmi i financimit të BE-së.</div></div>
+    <div class="def-row"><div class="def-term">SME</div><div class="def-desc">Ndërmarrjet e Vogla dhe të Mesme — audienca primare e moduleve eTregti dhe eKomunikim.</div></div>
+  </div>
+
+  <h3 class="section-title">A.2 URL-të e platformës</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Platforma kryesore</div><div class="def-desc"><a href="https://southadriaticskills.org" target="_blank" rel="noopener">https://southadriaticskills.org</a></div></div>
+    <div class="def-row"><div class="def-term">eMësim</div><div class="def-desc"><a href="https://edu.southadriaticskills.org" target="_blank" rel="noopener">https://edu.southadriaticskills.org</a></div></div>
+    <div class="def-row"><div class="def-term">Tregu eTregti</div><div class="def-desc"><a href="https://market.southadriaticskills.org" target="_blank" rel="noopener">https://market.southadriaticskills.org</a></div></div>
+    <div class="def-row"><div class="def-term">eDokumentim</div><div class="def-desc"><a href="https://info.southadriaticskills.org" target="_blank" rel="noopener">https://info.southadriaticskills.org</a></div></div>
+  </div>
+
+  <h3 class="section-title">A.3 Kontakt dhe mbështetje</h3>
+  <div class="callout callout-info">
+    <div class="callout-title">📞 Mbështetje teknike</div>
+    <p>Për problemet teknike, përdor seksionin <strong>Kontakt</strong> në faqen ABGC: <a href="https://southadriaticskills.org/sq/contact" target="_blank" rel="noopener">southadriaticskills.org/sq/contact</a>.</p>
+    <p style="margin-top:8px;">Platforma menaxhohet nga <strong>Universiteti i Malit të Zi — Instituti i Biologjisë Detare</strong> në emër të ABGC.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-eu-row">
+    <span style="background:#003399;border-radius:3px;padding:3px 6px;font-size:14px;">🇪🇺</span>
+    <span style="color:#c0c8d8;font-size:13px;">Bashkë-financuar nga Bashkimi Evropian — Interreg IPA Adriatiku Jugor 2021–2027</span>
+  </div>
+  <div class="footer-title">Platforma Dixhitale ABGC — Udhëzues i Përdoruesit</div>
+  <div style="margin-bottom:6px;color:#8898b0;">Versioni 1.0 &nbsp;·&nbsp; Shkurt 2026 &nbsp;·&nbsp; Projekti SA SKILLS (SA-0200142)</div>
+  <div style="margin-bottom:4px;"><a href="https://southadriaticskills.org" target="_blank" rel="noopener" style="color:#6a9fd0;">https://southadriaticskills.org</a></div>
+  <hr class="footer-divider">
+  <div style="font-size:12.5px;color:#6a7385;line-height:1.6;">
+    Përgatitur nga Universiteti i Malit të Zi — Instituti i Biologjisë Detare, Kotor, Mali i Zi.<br>
+    Në emër të Adriatic Blue Growth Cluster (ABGC).<br>
+    © 2026 Universiteti i Malit të Zi — Instituti i Biologjisë Detare.
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

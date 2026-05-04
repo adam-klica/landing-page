@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="me">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABGC Digitalna Platforma — Korisničko uputstvo v1.0</title>
+<meta name="description" content="Kompletan priručnik za korišćenje ABGC Digitalne Platforme — eKomunikacija, eDokumenti, eUčenje i eTrgovina.">
+<style>
+:root {
+  --blue: #1a6fc4; --blue-dark: #0f4f94; --blue-light: #e8f1fb;
+  --teal: #0d9aa0; --gold: #e8a820; --gold-light: #fff8e8;
+  --red: #c0392b; --red-light: #fdf0ef;
+  --green: #1e8b5c; --green-light: #edf7f2;
+  --gray-50: #f8f9fa; --gray-100: #f1f3f5; --gray-200: #e9ecef;
+  --gray-300: #dee2e6; --gray-400: #ced4da; --gray-500: #adb5bd;
+  --gray-600: #6c757d; --gray-700: #495057; --gray-800: #343a40; --gray-900: #212529;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.7;color:var(--gray-800);background:var(--gray-100)}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.page-wrapper{max-width:1100px;margin:0 auto;background:#fff;box-shadow:0 4px 40px rgba(0,0,0,0.13)}
+
+/* LANG SWITCHER */
+.lang-bar{background:#0f4f94;padding:10px 20px;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.lang-bar a{display:inline-block;padding:6px 14px;border-radius:4px;color:#fff;font-size:13px;font-weight:600;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);text-decoration:none;transition:background .2s}
+.lang-bar a:hover{background:rgba(255,255,255,0.2);text-decoration:none}
+.lang-bar a.active{background:#fff;color:#0f4f94}
+
+.cover{background:linear-gradient(135deg,#0a2d5e 0%,#1a6fc4 55%,#0d9aa0 100%);color:#fff;padding:70px 60px;position:relative;overflow:hidden}
+.cover-deco-1{position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none}
+.cover-deco-2{position:absolute;bottom:-100px;left:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none}
+.cover-eu-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:5px 18px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:32px}
+.cover-programme{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:14px;font-weight:600}
+.cover-title{font-size:42px;font-weight:800;letter-spacing:-.5px;line-height:1.15;margin-bottom:14px}
+.cover-subtitle{font-size:20px;font-weight:400;opacity:.88;margin-bottom:10px}
+.cover-desc{font-size:14px;opacity:.72;max-width:580px;margin-bottom:44px;line-height:1.65}
+.cover-meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.cover-meta-card{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:10px;padding:16px 20px}
+.cover-meta-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;opacity:.65;margin-bottom:6px;font-weight:600}
+.cover-meta-value{font-size:13px;font-weight:700;word-break:break-word}
+
+.toc-section{background:var(--blue-light);border-bottom:3px solid var(--blue);padding:48px 60px}
+.toc-heading{font-size:26px;font-weight:800;color:var(--blue-dark);margin-bottom:32px;display:flex;align-items:center;gap:12px}
+.toc-heading::before{content:'⚡';font-size:28px;color:var(--blue)}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.toc-item{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--gray-300);border-radius:8px;padding:13px 18px;cursor:pointer;transition:background .18s,color .18s,border-color .18s;text-decoration:none;color:var(--gray-800)}
+.toc-item:hover{background:var(--blue);color:#fff;border-color:var(--blue);text-decoration:none}
+.toc-item:hover .toc-num{background:rgba(255,255,255,0.25);color:#fff}
+.toc-num{width:30px;height:30px;min-width:30px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .18s,color .18s}
+.toc-chapter-title{font-size:14px;font-weight:600;line-height:1.3}
+
+.chapter{border-top:3px solid var(--blue);margin-top:56px;padding:0 60px 50px}
+.chapter-header{display:flex;align-items:center;gap:20px;margin-top:40px;margin-bottom:28px}
+.chapter-num-block{width:52px;height:52px;min-width:52px;background:var(--blue);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:800}
+.chapter-title{font-size:27px;font-weight:800;color:var(--blue-dark);line-height:1.2}
+.chapter-intro{font-style:italic;color:var(--gray-600);font-size:15.5px;margin-bottom:30px;padding-bottom:24px;border-bottom:1px solid var(--gray-200)}
+
+.section-title{font-size:18px;font-weight:700;color:var(--gray-800);border-bottom:1px solid var(--gray-200);padding-bottom:8px;margin:36px 0 18px;padding-left:14px;border-left:4px solid var(--teal)}
+.subsection-title{font-size:15px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.6px;margin:24px 0 10px}
+
+.feature-list{list-style:none;margin:18px 0}
+.feature-list li{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--gray-100);font-size:15px;line-height:1.65}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:'✓';color:var(--teal);font-weight:700;font-size:15px;margin-top:2px;min-width:18px}
+
+.step-list{list-style:none;margin:18px 0;counter-reset:steps}
+.step-list li{counter-increment:steps;display:flex;align-items:flex-start;gap:16px;margin-bottom:14px;line-height:1.65}
+.step-list li::before{content:counter(steps);min-width:30px;height:30px;background:var(--blue);color:#fff;border-radius:50%;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0}
+
+.plain-list{list-style:none;margin:14px 0}
+.plain-list li{padding:5px 0 5px 22px;position:relative;line-height:1.65}
+.plain-list li::before{content:'›';position:absolute;left:4px;color:var(--blue);font-weight:700;font-size:16px}
+
+.def-list{border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin:18px 0}
+.def-row{display:grid;grid-template-columns:220px 1fr;border-bottom:1px solid var(--gray-200)}
+.def-row:last-child{border-bottom:none}
+.def-row:nth-child(even){background:var(--gray-50)}
+.def-term{padding:11px 18px;font-weight:700;color:var(--blue-dark);font-size:14px;border-right:3px solid var(--blue);background:var(--blue-light);display:flex;align-items:center}
+.def-desc{padding:11px 18px;font-size:14.5px;color:var(--gray-700)}
+
+.callout{border-radius:8px;padding:16px 20px;margin:20px 0;border-left:4px solid;page-break-inside:avoid}
+.callout-title{font-weight:700;font-size:13.5px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.callout-info{background:var(--blue-light);border-color:var(--blue)}
+.callout-info .callout-title{color:var(--blue-dark)}
+.callout-tip{background:var(--green-light);border-color:var(--green)}
+.callout-tip .callout-title{color:var(--green)}
+.callout-warning{background:var(--gold-light);border-color:var(--gold)}
+.callout-warning .callout-title{color:#9a6a00}
+.callout-danger{background:var(--red-light);border-color:var(--red)}
+.callout-danger .callout-title{color:var(--red)}
+
+.method-box{border:1px solid var(--gray-300);border-radius:8px;overflow:hidden;margin:22px 0}
+.method-header{background:var(--blue);color:#fff;padding:12px 20px;font-weight:700;font-size:14px}
+.method-body{background:var(--gray-50);padding:18px 20px}
+
+.faq-item{border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin:14px 0}
+.faq-question{background:var(--blue-light);padding:14px 18px;font-weight:700;color:var(--blue-dark);font-size:14.5px}
+.faq-answer{background:#fff;padding:14px 18px;border-top:1px solid var(--gray-200);font-size:14.5px;color:var(--gray-700)}
+
+.issue-item{border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin:14px 0}
+.issue-title{background:var(--red-light);border-left:4px solid var(--red);padding:12px 16px;font-weight:700;color:var(--red);font-size:14px}
+.issue-body{background:#fff;padding:14px 18px;font-size:14.5px;color:var(--gray-700)}
+
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border-radius:12px;padding:3px 11px;margin-left:8px;vertical-align:middle}
+.badge-admin{background:#fff0e6;color:#c05a00;border:1px solid #f0a060}
+.badge-user{background:var(--blue-light);color:var(--blue-dark);border:1px solid #b0cff0}
+
+.table-wrap{overflow-x:auto;margin:22px 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+table thead tr{background:var(--blue-dark);color:#fff}
+table thead th{padding:13px 16px;text-align:left;font-weight:700;font-size:13px}
+table tbody tr:nth-child(even){background:var(--gray-50)}
+table tbody td{padding:11px 16px;border-bottom:1px solid var(--gray-200);vertical-align:top;line-height:1.55}
+code{font-family:Consolas,'Courier New',monospace;background:var(--gray-100);border:1px solid var(--gray-300);border-radius:4px;padding:2px 6px;font-size:12.5px;color:var(--blue-dark)}
+
+.part-separator{background:linear-gradient(90deg,var(--blue-dark) 0%,var(--teal) 100%);color:#fff;padding:28px 60px;margin-top:60px}
+.part-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.part-title{font-size:22px;font-weight:800}
+
+.module-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:24px 0}
+.module-card{border:1px solid var(--gray-200);border-radius:10px;padding:22px;background:var(--gray-50);border-top:3px solid var(--teal)}
+.module-card-title{font-size:16px;font-weight:700;color:var(--blue-dark);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.module-icon{width:32px;height:32px;border-radius:8px;background:var(--blue);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+
+.impressum{padding:40px 60px;border-bottom:1px solid var(--gray-200);background:var(--gray-50)}
+.impressum h2{font-size:17px;font-weight:800;color:var(--blue-dark);margin-bottom:18px}
+
+.footer{background:#1e2330;color:#9aa0b0;text-align:center;padding:36px 40px;font-size:13px;line-height:1.7}
+.footer-eu-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
+.footer-title{color:#d0d7e6;font-weight:700;font-size:15px;margin-bottom:6px}
+.footer-divider{border:none;border-top:1px solid #2d3348;margin:18px 0}
+
+p+p{margin-top:10px}
+
+@media(max-width:780px){
+  .cover{padding:40px 24px}
+  .cover-meta-grid{grid-template-columns:1fr 1fr}
+  .cover-title{font-size:28px}
+  .toc-section{padding:32px 24px}
+  .toc-grid{grid-template-columns:1fr}
+  .chapter{padding:0 24px 40px}
+  .module-grid{grid-template-columns:1fr}
+  .def-row{grid-template-columns:1fr}
+  .def-term{border-right:none;border-bottom:1px solid var(--gray-200)}
+  .part-separator{padding:22px 24px}
+  .impressum{padding:28px 24px}
+}
+
+.screenshot-box{border:1px solid var(--gray-300);border-radius:10px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,0.08);margin:24px 0 6px;background:var(--gray-50)}
+.screenshot-box img{width:100%;display:block;max-height:520px;object-fit:contain;object-position:top}
+.screenshot-caption{background:var(--gray-100);border-top:1px solid var(--gray-300);padding:9px 16px;font-size:13px;color:var(--gray-600);font-style:italic}
+
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+<div class="lang-bar">
+  <a href="/users-guide.html">🇬🇧 English</a>
+  <a href="/users-guide-me.html" class="active">🇲🇪 Crnogorski</a>
+  <a href="/users-guide-it.html">🇮🇹 Italiano</a>
+  <a href="/users-guide-sq.html">🇦🇱 Shqip</a>
+</div>
+
+<section class="cover" id="cover">
+  <div class="cover-deco-1"></div>
+  <div class="cover-deco-2"></div>
+  <div class="cover-eu-badge">🇪🇺 Interreg IPA Južni Jadran 2021–2027</div>
+  <div class="cover-programme">SA SKILLS Projekat · Adriatic Blue Growth Cluster</div>
+  <h1 class="cover-title">ABGC Digitalna Platforma<br>Korisničko uputstvo</h1>
+  <div class="cover-subtitle">Kompletan priručnik za korisnike, partnere i administratore platforme</div>
+  <p class="cover-desc">Korak-po-korak uputstva za navigaciju, upravljanje i korišćenje svih modula ABGC Digitalne Platforme — eKomunikacija, eDokumenti, eUčenje i eTrgovina — razvijene u okviru SA SKILLS projekta.</p>
+  <div class="cover-meta-grid">
+    <div class="cover-meta-card"><div class="cover-meta-label">Sajt</div><div class="cover-meta-value">southadriaticskills.org</div></div>
+    <div class="cover-meta-card"><div class="cover-meta-label">Verzija</div><div class="cover-meta-value">1.0</div></div>
+    <div class="cover-meta-card"><div class="cover-meta-label">Datum</div><div class="cover-meta-value">Februar 2026</div></div>
+    <div class="cover-meta-card"><div class="cover-meta-label">Klasifikacija</div><div class="cover-meta-value">Javno</div></div>
+  </div>
+</section>
+
+<div class="impressum">
+  <h2>Impresum</h2>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Naslov dokumenta</div><div class="def-desc">ABGC Digitalna Platforma — Korisničko uputstvo</div></div>
+    <div class="def-row"><div class="def-term">Verzija</div><div class="def-desc">Verzija 1.0</div></div>
+    <div class="def-row"><div class="def-term">Datum objavljivanja</div><div class="def-desc">Februar 2026</div></div>
+    <div class="def-row"><div class="def-term">Pripremio</div><div class="def-desc">Univerzitet Crne Gore — Institut za biologiju mora, Put I Bokeljske brigade 68, 85330 Kotor, Crna Gora</div></div>
+    <div class="def-row"><div class="def-term">U ime</div><div class="def-desc">Adriatic Blue Growth Cluster (ABGC) — SA SKILLS Projekat (ID: SA-0200142)</div></div>
+    <div class="def-row"><div class="def-term">Program</div><div class="def-desc">Interreg IPA Južni Jadran 2021–2027 — Sufinansirano od strane Evropske unije u okviru IPA III</div></div>
+    <div class="def-row"><div class="def-term">Trajanje projekta</div><div class="def-desc">01. jul 2023. — 31. oktobar 2027.</div></div>
+    <div class="def-row"><div class="def-term">Sajt</div><div class="def-desc"><a href="https://southadriaticskills.org" target="_blank" rel="noopener">https://southadriaticskills.org</a></div></div>
+  </div>
+  <p style="font-size:13px;color:var(--gray-600);margin-top:16px;line-height:1.6;"><strong>Napomena:</strong> Ovo uputstvo je pripremljeno u okviru SA SKILLS projekta. Iznešeni stavovi ne odražavaju nužno zvaničan stav Evropske unije, Upravnog tijela ili zemalja učesnica.</p>
+  <p style="font-size:13px;color:var(--gray-600);margin-top:8px;">© 2026 Univerzitet Crne Gore — Institut za biologiju mora. Reprodukcija dozvoljena u nekomercijalne svrhe uz navođenje izvora.</p>
+</div>
+
+<section class="toc-section" id="toc">
+  <div class="toc-heading">Sadržaj</div>
+  <div class="toc-grid">
+    <a href="#ch1" class="toc-item"><span class="toc-num">1</span><span class="toc-chapter-title">Uvod</span></a>
+    <a href="#ch2" class="toc-item"><span class="toc-num">2</span><span class="toc-chapter-title">Brzi vodič</span></a>
+    <a href="#ch3" class="toc-item"><span class="toc-num">3</span><span class="toc-chapter-title">Kako početi — Registracija i prijava</span></a>
+    <a href="#ch4" class="toc-item"><span class="toc-num">4</span><span class="toc-chapter-title">Upravljanje korisničkim profilom</span></a>
+    <a href="#ch5" class="toc-item"><span class="toc-num">5</span><span class="toc-chapter-title">Modul eKomunikacija</span></a>
+    <a href="#ch6" class="toc-item"><span class="toc-num">6</span><span class="toc-chapter-title">Modul eDokumentacija</span></a>
+    <a href="#ch7" class="toc-item"><span class="toc-num">7</span><span class="toc-chapter-title">Modul eUčenje</span></a>
+    <a href="#ch8" class="toc-item"><span class="toc-num">8</span><span class="toc-chapter-title">Modul eTrgovina</span></a>
+    <a href="#ch9" class="toc-item"><span class="toc-num">9</span><span class="toc-chapter-title">Navigacija platforme i Dashboard</span></a>
+    <a href="#ch10" class="toc-item"><span class="toc-num">10</span><span class="toc-chapter-title">Najčešća pitanja i rješavanje problema</span></a>
+    <a href="#appendix" class="toc-item"><span class="toc-num">A</span><span class="toc-chapter-title">Dodatak — Rječnik i pojmovi</span></a>
+  </div>
+</section>
+
+<div class="part-separator">
+  <div class="part-label">Dio I</div>
+  <div class="part-title">Pregled platforme i početak korišćenja</div>
+</div>
+
+<section class="chapter" id="ch1">
+  <div class="chapter-header">
+    <div class="chapter-num-block">1</div>
+    <h2 class="chapter-title">Uvod</h2>
+  </div>
+  <p class="chapter-intro">Pregled ABGC Digitalne Platforme, njene svrhe, ciljne grupe i četiri osnovna modula koja čine integrisani digitalni ekosistem.</p>
+
+  <p><strong>Adriatic Blue Growth Cluster (ABGC)</strong> digitalna platforma služi kao kolaborativno digitalno okruženje koje podržava prekograničnu saradnju među zainteresovanim stranama iz Crne Gore, Italije, Albanije i šireg jadranskog regiona. Podstiče razmjenu znanja, razvoj vještina i održiv rast plave ekonomije.</p>
+
+  <h3 class="section-title">1.1 Svrha uputstva</h3>
+  <p>Ovo korisničko uputstvo pruža sveobuhvatne instrukcije za navigaciju i korišćenje ABGC Digitalne Platforme, razvijene u okviru <strong>SA SKILLS projekta</strong> pod programom Interreg IPA Južni Jadran 2021–2027.</p>
+  <p>Uputstvo pomaže korisnicima da:</p>
+  <ul class="feature-list">
+    <li>Pristupe funkcionalnostima platforme i upravljaju ličnim profilima</li>
+    <li>Povežu se i sarađuju sa drugim registrovanim korisnicima</li>
+    <li>Koriste eDokumentaciju za pristup projektnim rezultatima i resursima</li>
+    <li>Učestvuju u digitalnim aktivnostima učenja i sertifikovanim programima obuke</li>
+    <li>Koriste eTrgovinu kao virtuelno tržište</li>
+  </ul>
+
+  <h3 class="section-title">1.2 Kome je uputstvo namijenjeno</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Opšti korisnici <span class="badge badge-user">Korisnik</span></div><div class="def-desc">Pojedinci koji kreiraju i upravljaju svojim ličnim profilima, povezuju se sa drugima i pristupaju sadržaju platforme.</div></div>
+    <div class="def-row"><div class="def-term">Projektni partneri</div><div class="def-desc">Predstavnici institucija odgovorni za doprinos sadržaju, koordinaciju i aktivnosti upravljanja.</div></div>
+    <div class="def-row"><div class="def-term">Članovi ABGC-a</div><div class="def-desc">Institucionalni i pojedinačni članovi Adriatic Blue Growth Clustera koji učestvuju u upravljanju i prekograničnoj saradnji.</div></div>
+    <div class="def-row"><div class="def-term">Učenici/Studenti</div><div class="def-desc">Studenti i profesionalci koji učestvuju u ILM, HELM, master programima i drugim obukama putem modula eUčenje.</div></div>
+    <div class="def-row"><div class="def-term">Prodavci i pružaoci usluga</div><div class="def-desc">Akteri plave ekonomije koji koriste modul eTrgovina za predstavljanje proizvoda i usluga zajednici.</div></div>
+    <div class="def-row"><div class="def-term">Administratori <span class="badge badge-admin">Admin</span></div><div class="def-desc">Ovlašćeno osoblje koje upravlja radom platforme, nadzorom sadržaja i kontrolom korisničkog pristupa.</div></div>
+  </div>
+
+  <h3 class="section-title">1.3 Pregled platforme</h3>
+  <p>ABGC Digitalna Platforma je strukturirana oko <strong>četiri osnovna modula</strong>:</p>
+  <div class="module-grid">
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">💬</span>eKomunikacija</div><p style="font-size:14px;color:var(--gray-600);">Omogućava interakciju i umrežavanje među registrovanim korisnicima. Podržava direktne poruke, upravljanje konekcijama i prekograničnu saradnju.</p></div>
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">📚</span>eDokumentacija</div><p style="font-size:14px;color:var(--gray-600);">Strukturirano spremište projektnih rezultata, dokumenata politika, materijala za obuku, izvještaja i naučnih publikacija.</p></div>
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">🎓</span>eUčenje</div><p style="font-size:14px;color:var(--gray-600);">Pristup akreditovanim programima obuke uključujući ILM, HELM, master programe i sertifikacije usklađene sa Evropskim okvirom kvalifikacija.</p></div>
+    <div class="module-card"><div class="module-card-title"><span class="module-icon">🛒</span>eTrgovina</div><p style="font-size:14px;color:var(--gray-600);">Virtuelno tržište koje omogućava predstavljanje proizvoda i usluga plave ekonomije, povećavajući vidljivost MSP i prekograničnu saradnju.</p></div>
+  </div>
+  <div class="callout callout-info">
+    <div class="callout-title">📋 O SA SKILLS projektu</div>
+    <p>SA SKILLS projekat (ID: SA-0200142) traje od jula 2023. do oktobra 2027. u okviru Interreg IPA Južni Jadran 2021–2027, sufinansiran od strane Evropske unije. Podržava razvoj kompetencija visokog nivoa za digitalizovan i održiv jadranski region.</p>
+  </div>
+</section>
+
+<section class="chapter" id="ch2">
+  <div class="chapter-header">
+    <div class="chapter-num-block">2</div>
+    <h2 class="chapter-title">Brzi vodič</h2>
+  </div>
+  <p class="chapter-intro">Sažet pregled osnovnih koraka za početak korišćenja ABGC Digitalne Platforme. Za detaljna uputstva pogledajte odgovarajuća poglavlja.</p>
+
+  <h3 class="section-title">2.1 Kreiranje naloga</h3>
+  <ol class="step-list">
+    <li>Otvorite <a href="https://southadriaticskills.org" target="_blank" rel="noopener">southadriaticskills.org</a> u vašem pretraživaču.</li>
+    <li>Skrolujte do sekcije <strong>"Pridružite se ABGC zajednici"</strong>.</li>
+    <li>Popunite registracioni formular — sva polja označena zvjezdicom (*) su obavezna.</li>
+    <li>Izaberite module platforme kojima želite pristup.</li>
+    <li>Prihvatite <strong>Uslove korišćenja</strong> i <strong>Politiku privatnosti</strong>.</li>
+    <li>Kliknite na dugme <strong>"Registruj se"</strong>.</li>
+  </ol>
+  <div class="callout callout-info">
+    <div class="callout-title">📧 Email potvrde</div>
+    <p>Email potvrde će biti automatski poslat na vašu registrovanu adresu. Provjerite spam/junk folder ako ne stigne za par minuta.</p>
+  </div>
+
+  <h3 class="section-title">2.2 Prijava na platformu</h3>
+  <ol class="step-list">
+    <li>Kliknite <strong>Nalog → Prijava</strong> u gornjem desnom uglu.</li>
+    <li>Unesite <strong>korisničko ime ili email</strong> i <strong>lozinku</strong>.</li>
+    <li>Kliknite <strong>"Prijava"</strong>.</li>
+  </ol>
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Nakon prijave</div>
+    <p>Vaše puno ime će se pojaviti u dugmetu Nalog u gornjem desnom uglu, što potvrđuje uspješnu prijavu.</p>
+  </div>
+
+  <h3 class="section-title">2.3 Popunjavanje profila</h3>
+  <p>Idite na <strong>Nalog → Uredi profil</strong> i popunite svoje podatke:</p>
+  <ul class="plain-list">
+    <li>Profilna i naslovna fotografija</li>
+    <li>Profesionalni naslov</li>
+    <li>O meni / biografija</li>
+    <li>Radno iskustvo i obrazovanje</li>
+    <li>Kontakt podaci (telefon, sajt, LinkedIn, X)</li>
+    <li>Profesionalne vještine</li>
+  </ul>
+
+  <h3 class="section-title">2.4 Korišćenje glavnih modula</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">eKomunikacija</div><div class="def-desc">Pretražujte korisnike, šaljite zahtjeve za povezivanje i koristite chat za saradnju kroz institucije i regione.</div></div>
+    <div class="def-row"><div class="def-term">eDokumentacija</div><div class="def-desc">Pristupite spremištu znanja: izvještaji, dokumenti politika, materijali za obuku i naučne publikacije.</div></div>
+    <div class="def-row"><div class="def-term">eUčenje</div><div class="def-desc">Učestvujte u ILM, HELM, master programima i sertifikacionim kursevima u oblasti plave ekonomije.</div></div>
+    <div class="def-row"><div class="def-term">eTrgovina</div><div class="def-desc">Postavljajte ili pretražujte proizvode i usluge na Tržištu plave ekonomije — ribarstvo, akvakultura, marinske tehnologije, turizam i drugo.</div></div>
+  </div>
+
+  <h3 class="section-title">2.5 Trebate pomoć?</h3>
+  <div class="callout callout-info">
+    <div class="callout-title">📞 Podrška</div>
+    <p>Ako imate poteškoća, kontaktirajte administratore preko sekcije <strong>Podrška</strong> na sajtu <a href="https://southadriaticskills.org" target="_blank" rel="noopener">southadriaticskills.org</a>. Detaljna uputstva su data u Poglavlju 10.</p>
+  </div>
+</section>
+
+<section class="chapter" id="ch3">
+  <div class="chapter-header">
+    <div class="chapter-num-block">3</div>
+    <h2 class="chapter-title">Kako početi</h2>
+  </div>
+  <p class="chapter-intro">Detaljna uputstva za pristup i aktivaciju naloga, registraciju, verifikaciju email-a, prijavu i upravljanje lozinkom.</p>
+
+  <h3 class="section-title">3.1 Registracija</h3>
+  <p>Idite na <a href="https://southadriaticskills.org/" target="_blank" rel="noopener">https://southadriaticskills.org/</a> da pristupite početnoj stranici.</p>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-1.png" alt="Slika 3.1 — Početna stranica ABGC Digitalne Platforme" loading="lazy"><div class="screenshot-caption">Slika 3.1 — Početna stranica ABGC Digitalne Platforme</div></div>
+  <p>Skrolujte do sekcije <strong>"Pridružite se ABGC zajednici"</strong> i popunite registracioni formular.</p>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-2.png" alt="Slika 3.2 — Registracioni formular &quot;Pridružite se ABGC zajednici&quot;" loading="lazy"><div class="screenshot-caption">Slika 3.2 — Registracioni formular "Pridružite se ABGC zajednici"</div></div>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Savjet — Vidljivost profila</div>
+    <p>Za bolju vidljivost profila preporučuje se popunjavanje svih polja, uključujući opciona kao što su naziv organizacije, država i grad.</p>
+  </div>
+
+  <p>Sljedeća polja su dostupna u registracionom formularu:</p>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Puno ime *</div><div class="def-desc">Prikazno ime na platformi koje će se pojaviti u dugmetu Nalog.</div></div>
+    <div class="def-row"><div class="def-term">Email adresa *</div><div class="def-desc">Glavni kontakt email. Koristi se za prijavu, obavještenja i obnovu lozinke. Ne može se mijenjati nakon registracije.</div></div>
+    <div class="def-row"><div class="def-term">Lozinka *</div><div class="def-desc">Najmanje 8 karaktera, mora sadržati barem jedno slovo i jedan broj.</div></div>
+    <div class="def-row"><div class="def-term">Naziv organizacije</div><div class="def-desc">Naziv vaše institucije, kompanije ili afilijacije. Opciono, ali preporučeno.</div></div>
+    <div class="def-row"><div class="def-term">Država</div><div class="def-desc">Vaša država stanovanja ili afilijacije. Opciono.</div></div>
+    <div class="def-row"><div class="def-term">Grad</div><div class="def-desc">Vaš grad stanovanja. Opciono.</div></div>
+    <div class="def-row"><div class="def-term">Izaberi platforme</div><div class="def-desc">Odaberite kojim modulima želite pristup: eUčenje, eTrgovina, eDokumenti ili sve platforme.</div></div>
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Savjet — Izbor modula</div>
+    <p>Ako niste sigurni koje module da odaberete, izaberite <strong>"Sve platforme."</strong> Postavke pristupa možete kasnije prilagoditi kroz podešavanja profila.</p>
+  </div>
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠ Važno</div>
+    <p>Registracija ne može biti završena bez prihvatanja Uslova korišćenja i Politike privatnosti. Dugme Registruj se ostaje neaktivno dok se ne čekira ovo polje.</p>
+  </div>
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-3.png" alt="Slika 3.3" loading="lazy"><div class="screenshot-caption">Slika 3.3 — Dugme Nalog prikazuje vaše ime nakon prijave</div></div>
+
+  <h3 class="section-title">3.2 Verifikacija email-a</h3>
+  <p>Po uspješnoj registraciji, automatski email potvrde se šalje na adresu koju ste naveli.</p>
+  <div class="callout callout-info">
+    <div class="callout-title">📧 Napomena</div>
+    <p>Ako ne primite email u roku od par minuta, provjerite spam ili junk folder.</p>
+  </div>
+
+  <h3 class="section-title">3.3 Prijava</h3>
+  <p>Da biste pristupili nalogu, kliknite na <strong>dugme Nalog</strong> u gornjem desnom uglu i izaberite <strong>Prijava</strong>.</p>
+  <ol class="step-list">
+    <li>Unesite <strong>Korisničko ime ili Email</strong> u prvo polje.</li>
+    <li>Unesite <strong>Lozinku</strong> u drugo polje.</li>
+    <li>Kliknite na dugme <strong>"Prijava"</strong> da pristupite svom dashboard-u.</li>
+  </ol>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-3-4.png" alt="Slika 3.4 — Stranica Prijava" loading="lazy"><div class="screenshot-caption">Slika 3.4 — Stranica Prijava</div></div>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Savjet</div>
+    <p>Možete koristiti i registrovano korisničko ime ili email adresu za prijavu — oba su prihvatljiva.</p>
+  </div>
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠ Važno — Razlikuju se velika/mala slova</div>
+    <p>Prijava razlikuje velika i mala slova. Provjerite da li je Caps Lock isključen i da je lozinka unijeta tačno onako kako je kreirana.</p>
+  </div>
+
+  <h3 class="section-title">3.4 Resetovanje lozinke</h3>
+  <p>Ako ste zaboravili lozinku, slijedite ove korake:</p>
+  <ol class="step-list">
+    <li>Na stranici Prijava kliknite link <strong>"Zaboravljena lozinka?"</strong>.</li>
+    <li>Unesite registrovanu email adresu i potvrdite.</li>
+    <li>Provjerite inbox za automatski email za resetovanje.</li>
+    <li>Otvorite email i kliknite na link za resetovanje.</li>
+    <li>Unesite novu lozinku i potvrdite je u drugom polju.</li>
+    <li>Kliknite <strong>Sačuvaj</strong> za primjenu nove lozinke.</li>
+    <li>Vratite se na stranicu Prijava i prijavite se sa novim podacima.</li>
+  </ol>
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠ Važno — Istek linka</div>
+    <p>Link za resetovanje lozinke važi samo <strong>10 minuta</strong>. Ako istekne, ponovite proces. Ako niste tražili resetovanje, ignorišite email — neće biti promjena na vašem nalogu.</p>
+  </div>
+</section>
+
+<div class="part-separator">
+  <div class="part-label">Dio II</div>
+  <div class="part-title">Korisničko uputstvo — Profil i osnovni moduli</div>
+</div>
+
+<section class="chapter" id="ch4">
+  <div class="chapter-header">
+    <div class="chapter-num-block">4</div>
+    <h2 class="chapter-title">Upravljanje korisničkim profilom</h2>
+  </div>
+  <p class="chapter-intro">Ovo poglavlje objašnjava kako urediti i upravljati ličnim profilom, uključujući naslovne slike, profesionalne podatke, kontakt informacije, vještine i podešavanja naloga.</p>
+
+  <h3 class="section-title">4.1 Uredi profil</h3>
+  <p>Da biste ažurirali podatke profila, kliknite <strong>dugme Nalog</strong> u gornjem desnom uglu — prikazuje vaše ime kada ste prijavljeni.</p>
+  <p>Na stranici profila kliknite plavo dugme <strong>"Uredi profil"</strong>. Profil prelazi u režim uređivanja.</p>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-1.png" alt="Slika 4.1 — Pregled profila nakon registracije" loading="lazy"><div class="screenshot-caption">Slika 4.1 — Pregled profila nakon registracije</div></div>
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-2.png" alt="Slika 4.2 — Aktiviran režim uređivanja profila" loading="lazy"><div class="screenshot-caption">Slika 4.2 — Aktiviran režim uređivanja profila</div></div>
+
+  <h3 class="section-title">4.1.1 Zaglavlje profila</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Promijeni naslovnu sliku</div><div class="def-desc">Kliknite <strong>"Promijeni naslovnu sliku"</strong> za upload. Preporučeni odnos: <strong>4:1</strong> (npr. 1600 × 400 px).</div></div>
+    <div class="def-row"><div class="def-term">Profilna fotografija</div><div class="def-desc">Kliknite ikonu kamere preko avatara za upload. Preporučeni odnos: <strong>1:1 kvadrat</strong> (npr. 400 × 400 px).</div></div>
+    <div class="def-row"><div class="def-term">Polje Ime</div><div class="def-desc">Ažurirajte prikazno ime ako je potrebno.</div></div>
+    <div class="def-row"><div class="def-term">Polje Naslov</div><div class="def-desc">Unesite kratak profesionalni opis (npr. <em>Specijalista za plavu ekonomiju</em>).</div></div>
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Savjet — Podrazumijevani avatar</div>
+    <p>Ako ne uploadujete fotografiju, sistem će automatski generisati podrazumijevani avatar sa prvim slovom vašeg imena.</p>
+  </div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-3.png" alt="Slika 4.3 — Zaglavlje profila" loading="lazy"><div class="screenshot-caption">Slika 4.3 — Zaglavlje profila</div></div>
+
+  <h3 class="section-title">4.1.2 Sekcije profila</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">O meni</div><div class="def-desc">Polje za profesionalni rezime ili biografiju. To je prvo što drugi korisnici vide kada posjete vaš profil.</div></div>
+    <div class="def-row"><div class="def-term">Iskustvo</div><div class="def-desc">Kliknite <strong>"+ Dodaj"</strong> za unos profesionalnog iskustva: pozicija, organizacija, period, opis.</div></div>
+    <div class="def-row"><div class="def-term">Obrazovanje</div><div class="def-desc">Kliknite <strong>"+ Dodaj"</strong> za unos akademske pozadine: institucija, diploma, oblast, datumi.</div></div>
+  </div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-4.png" alt="Slika 4.4 — Sekcije sadržaja (O meni, Iskustvo, Obrazovanje)" loading="lazy"><div class="screenshot-caption">Slika 4.4 — Sekcije sadržaja (O meni, Iskustvo, Obrazovanje)</div></div>
+
+  <h3 class="section-title">4.1.3 Kontakt informacije</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Email</div><div class="def-desc">Samo za čitanje. Email iz registracije se ne može mijenjati zbog bezbjednosti.</div></div>
+    <div class="def-row"><div class="def-term">Telefon</div><div class="def-desc">Unesite broj u međunarodnom formatu (npr. <code>+38269000000</code>).</div></div>
+    <div class="def-row"><div class="def-term">Sajt</div><div class="def-desc">Unesite cijeli URL ličnog ili institucionalnog sajta.</div></div>
+    <div class="def-row"><div class="def-term">LinkedIn</div><div class="def-desc">Unesite cijeli URL LinkedIn profila (npr. <code>https://linkedin.com/in/username</code>).</div></div>
+    <div class="def-row"><div class="def-term">X (Twitter)</div><div class="def-desc">Unesite cijeli URL X profila (npr. <code>https://x.com/username</code>).</div></div>
+  </div>
+
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠ Važno</div>
+    <p>Email adresa iz registracije <strong>ne može se mijenjati</strong>. Ako trebate promjenu email-a, kontaktirajte administratore platforme.</p>
+  </div>
+
+  <h3 class="section-title">4.1.4 Vještine</h3>
+  <ol class="step-list">
+    <li>Skrolujte do sekcije <strong>Vještine</strong>.</li>
+    <li>Ukucajte naziv vještine u polje "Dodaj vještinu".</li>
+    <li>Kliknite <strong>Dodaj</strong> za potvrdu.</li>
+    <li>Ponovite za svaku dodatnu vještinu.</li>
+  </ol>
+  <div class="callout callout-tip">
+    <div class="callout-title">✅ Savjet — Pretraga</div>
+    <p>Dodavanje relevantnih vještina kao što su "Marinska biologija", "Akvakultura" ili "Upravljanje plavom ekonomijom" pomaže drugim korisnicima da vas pronađu putem pretrage.</p>
+  </div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-5.png" alt="Slika 4.5 — Sekcija kontakt informacija" loading="lazy"><div class="screenshot-caption">Slika 4.5 — Sekcija kontakt informacija</div></div>
+
+  <h3 class="section-title">4.1.5 Dodatne opcije</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Pretraga korisnika</div><div class="def-desc">Koristite dugme <strong>"Pretraga korisnika"</strong> za pronalazak drugih korisnika po imenu, organizaciji ili vještini.</div></div>
+    <div class="def-row"><div class="def-term">Zahtjevi za povezivanje</div><div class="def-desc">Pregledajte i upravljajte dolaznim zahtjevima za povezivanje.</div></div>
+    <div class="def-row"><div class="def-term">Podešavanja — Lozinka</div><div class="def-desc">Kliknite <strong>"Promijeni"</strong> da ažurirate lozinku.</div></div>
+    <div class="def-row"><div class="def-term">Posjetioci profila</div><div class="def-desc">Prikazuje broj registrovanih korisnika koji su posjetili vaš profil.</div></div>
+  </div>
+
+
+  <div class="screenshot-box"><img src="/users-guide-images/figure-4-6.png" alt="Slika 4.6 — Vještine, podešavanja i posjetioci profila" loading="lazy"><div class="screenshot-caption">Slika 4.6 — Vještine, podešavanja i posjetioci profila</div></div>
+
+  <h3 class="section-title">4.1.6 Sačuvaj ili otkaži izmjene</h3>
+  <ul class="plain-list">
+    <li>Kliknite <strong>"Sačuvaj profil"</strong> da potvrdite sve izmjene.</li>
+    <li>Kliknite <strong>"Otkaži"</strong> da odbacite sve izmjene.</li>
+  </ul>
+  <div class="callout callout-danger">
+    <div class="callout-title">⚠ Važno</div>
+    <p>Izmjene se <strong>neće</strong> sačuvati ako ne kliknete <strong>"Sačuvaj profil."</strong></p>
+  </div>
+</section>
+
+<section class="chapter" id="ch5">
+  <div class="chapter-header">
+    <div class="chapter-num-block">5</div>
+    <h2 class="chapter-title">Modul eKomunikacija</h2>
+  </div>
+  <p class="chapter-intro">Modul eKomunikacija omogućava umrežavanje, saradnju i direktnu razmjenu poruka između registrovanih korisnika ABGC platforme.</p>
+
+  <h3 class="section-title">5.1 Pregled modula</h3>
+  <ul class="feature-list">
+    <li>Pretraga i otkrivanje registrovanih korisnika u svim partnerskim zemljama</li>
+    <li>Slanje i primanje zahtjeva za povezivanje</li>
+    <li>Direktne poruke i chat između povezanih korisnika</li>
+    <li>Pregled profila, vještina i afilijacija drugih korisnika</li>
+    <li>Prekogranična saradnja kroz institucije, istraživačka tijela i MSP</li>
+  </ul>
+
+  <h3 class="section-title">5.2 Pretraga korisnika</h3>
+  <ol class="step-list">
+    <li>Idite na <strong>Nalog → Uredi profil</strong> i kliknite <strong>"Pretraga korisnika"</strong>, ili koristite pretragu u glavnoj navigaciji.</li>
+    <li>Unesite ime, ključnu riječ, organizaciju ili vještinu.</li>
+    <li>Pregledajte rezultate i kliknite na ime korisnika za prikaz profila.</li>
+  </ol>
+
+  <h3 class="section-title">5.3 Zahtjevi za povezivanje</h3>
+  <ol class="step-list">
+    <li>Posjetite profil korisnika sa kojim se želite povezati.</li>
+    <li>Kliknite dugme <strong>"Poveži se"</strong> na njihovom profilu.</li>
+    <li>Korisnik dobija notifikaciju i može prihvatiti ili odbiti.</li>
+    <li>Po prihvatanju, pojavljujete se međusobno na listi konekcija.</li>
+  </ol>
+
+  <h3 class="section-title">5.4 Chat i poruke</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Otvori chat</div><div class="def-desc">Kliknite <strong>Chat</strong> u meniju za otvaranje panela za poruke.</div></div>
+    <div class="def-row"><div class="def-term">Nova poruka</div><div class="def-desc">Izaberite povezanog korisnika ili pretražite za novi razgovor.</div></div>
+    <div class="def-row"><div class="def-term">Pošalji poruku</div><div class="def-desc">Ukucajte poruku i pritisnite <strong>Enter</strong> ili <strong>Pošalji</strong>.</div></div>
+  </div>
+  <div class="callout callout-info">
+    <div class="callout-title">📋 Napomena</div>
+    <p>Chat funkcionalnost je dostupna samo između povezanih korisnika.</p>
+  </div>
+</section>
+
+<section class="chapter" id="ch6">
+  <div class="chapter-header">
+    <div class="chapter-num-block">6</div>
+    <h2 class="chapter-title">Modul eDokumentacija</h2>
+  </div>
+  <p class="chapter-intro">Modul eDokumentacija je centralizovano spremište znanja ABGC platforme — strukturiran pristup projektnim rezultatima, dokumentima politika, materijalima za obuku i naučnim publikacijama.</p>
+
+  <h3 class="section-title">6.1 Pregled modula</h3>
+  <ul class="feature-list">
+    <li>Pristup projektnim rezultatima i zvaničnim izlazima SA SKILLS projekta</li>
+    <li>Pregled i preuzimanje dokumenata politika</li>
+    <li>Materijali za obuku povezani sa eUčenjem</li>
+    <li>Naučni izvještaji i publikacije</li>
+    <li>Organizovan pretraga po kategoriji, autoru, datumu i tipu dokumenta</li>
+  </ul>
+
+  <h3 class="section-title">6.2 Pristup spremištu</h3>
+  <ol class="step-list">
+    <li>Prijavite se na nalog (vidi 3.3).</li>
+    <li>Provjerite da li nalog ima pristup modulu <strong>eDokumenti</strong>.</li>
+    <li>Idite na sekciju <strong>eDokumentacija</strong>.</li>
+    <li>Pretražite dokumente po kategoriji ili koristite pretragu.</li>
+  </ol>
+
+  <h3 class="section-title">6.3 Kategorije dokumenata</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Projektni rezultati</div><div class="def-desc">Zvanični izlazi i izvještaji u okviru SA SKILLS projekta.</div></div>
+    <div class="def-row"><div class="def-term">Dokumenti politika</div><div class="def-desc">EU i nacionalni dokumenti relevantni za plavu ekonomiju i pomorski sektor.</div></div>
+    <div class="def-row"><div class="def-term">Materijali za obuku</div><div class="def-desc">Prateći materijali za ILM, HELM i druge obrazovne programe.</div></div>
+    <div class="def-row"><div class="def-term">Naučne publikacije</div><div class="def-desc">Istraživački radovi i akademske publikacije projektnih partnera i članova ABGC-a.</div></div>
+  </div>
+</section>
+
+<section class="chapter" id="ch7">
+  <div class="chapter-header">
+    <div class="chapter-num-block">7</div>
+    <h2 class="chapter-title">Modul eUčenje</h2>
+  </div>
+  <p class="chapter-intro">Modul eUčenje pruža pristup akreditovanim programima obuke, sertifikacijama i obrazovnim resursima usklađenim sa Evropskim okvirom kvalifikacija.</p>
+
+  <h3 class="section-title">7.1 Tipovi programa</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">ILM</div><div class="def-desc">Inovativni moduli učenja — kratki, profesionalno orijentisani moduli za brzo sticanje vještina.</div></div>
+    <div class="def-row"><div class="def-term">HELM</div><div class="def-desc">Moduli učenja na visokom obrazovanju — moduli univerzitetskog nivoa sa ECTS bodovima, usklađeni sa EQF.</div></div>
+    <div class="def-row"><div class="def-term">Master programi</div><div class="def-desc">Napredni, strukturirani putevi učenja koji kombinuju više modula.</div></div>
+    <div class="def-row"><div class="def-term">Sertifikacioni kursevi</div><div class="def-desc">Programi sertifikacije vještina sa formalnom procjenom i digitalnim sertifikatom.</div></div>
+  </div>
+  <ul class="feature-list">
+    <li>Pristup ILM modulima za profesionalno usavršavanje</li>
+    <li>Upis u HELM module sa priznavanjem ECTS bodova</li>
+    <li>Digitalni sertifikati po uspješnom završetku</li>
+    <li>Praćenje napretka kroz lični dashboard</li>
+    <li>Pristup materijalima: video, čitanja, vježbe i ocjenjivanja</li>
+  </ul>
+
+  <h3 class="section-title">7.2 Pristup eUčenju</h3>
+  <ol class="step-list">
+    <li>Provjerite da nalog ima pristup modulu <strong>eUčenje</strong>.</li>
+    <li>Iz dashboard-a idite na <strong>eUčenje</strong>. Bićete preusmjereni na <a href="https://edu.southadriaticskills.org" target="_blank" rel="noopener">edu.southadriaticskills.org</a>.</li>
+    <li>Pretražite kurseve po temi, nivou ili tipu programa.</li>
+    <li>Kliknite na kurs za detalje, ciljeve, trajanje i preduslove.</li>
+    <li>Kliknite <strong>Upiši</strong> ili <strong>Započni kurs</strong>.</li>
+  </ol>
+  <div class="callout callout-info">
+    <div class="callout-title">📋 Napomena — EQF usklađenost</div>
+    <p>Svi programi su razvijeni u skladu sa Evropskim okvirom kvalifikacija (EQF) i odgovaraju potrebama tržišta rada plave ekonomije južnog Jadrana.</p>
+  </div>
+</section>
+
+<section class="chapter" id="ch8">
+  <div class="chapter-header">
+    <div class="chapter-num-block">8</div>
+    <h2 class="chapter-title">Modul eTrgovina</h2>
+  </div>
+  <p class="chapter-intro">Modul eTrgovina funkcioniše kao Tržište plave ekonomije — omogućava prodavcima, pružaocima usluga i akterima da predstave i promovišu proizvode i usluge široj ABGC zajednici.</p>
+
+  <h3 class="section-title">8.1 Pregled modula</h3>
+  <ul class="feature-list">
+    <li>Postavljanje i promocija proizvoda i usluga plave ekonomije</li>
+    <li>Pristup prekograničnoj publici profesionalaca, istraživača i institucija</li>
+    <li>Povećana vidljivost MSP i preduzetnika</li>
+    <li>Pretraživanje i otkrivanje proizvoda i usluga iz partnerskih zemalja</li>
+    <li>Podrška održivom regionalnom ekonomskom razvoju</li>
+  </ul>
+
+  <h3 class="section-title">8.2 Kategorije proizvoda i usluga</h3>
+  <ul class="plain-list">
+    <li>Ribarstvo i morski plodovi</li>
+    <li>Akvakultura — proizvodi i usluge</li>
+    <li>Marinske tehnologije i oprema</li>
+    <li>Obalski i pomorski turizam</li>
+    <li>Konsalting za ekologiju i održivost</li>
+    <li>Istraživačke i analitičke usluge</li>
+    <li>Obuka i profesionalni razvoj</li>
+  </ul>
+
+  <h3 class="section-title">8.3 Kreiranje oglasa</h3>
+  <ol class="step-list">
+    <li>Prijavite se i idite na modul <strong>eTrgovina</strong> na <a href="https://market.southadriaticskills.org" target="_blank" rel="noopener">market.southadriaticskills.org</a>.</li>
+    <li>Kliknite <strong>"Dodaj oglas"</strong> ili <strong>"Kreiraj proizvod/uslugu"</strong>.</li>
+    <li>Popunite detalje oglasa: naslov, opis, kategorija, cijena ili kontakt, slike.</li>
+    <li>Pregledajte oglas radi tačnosti.</li>
+    <li>Kliknite <strong>"Objavi"</strong> da oglas postane vidljiv tržištu.</li>
+  </ol>
+  <div class="callout callout-warning">
+    <div class="callout-title">⚠ Napomena — Politika sadržaja</div>
+    <p>Svi oglasi prolaze pregled radi usklađenosti sa politikom sadržaja platforme.</p>
+  </div>
+</section>
+
+<div class="part-separator">
+  <div class="part-label">Dio III</div>
+  <div class="part-title">Navigacija, administracija i dodaci</div>
+</div>
+
+<section class="chapter" id="ch9">
+  <div class="chapter-header">
+    <div class="chapter-num-block">9</div>
+    <h2 class="chapter-title">Navigacija platforme i Dashboard</h2>
+  </div>
+  <p class="chapter-intro">Ovo poglavlje opisuje glavnu strukturu navigacije ABGC platforme i objašnjava efikasno korišćenje korisničkog dashboard-a.</p>
+
+  <h3 class="section-title">9.1 Glavna navigacija</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stavka</th><th>Opis</th><th>Pristup</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Početna</strong></td><td>Vraća na ABGC početnu stranicu.</td><td>Svi korisnici</td></tr>
+        <tr><td><strong>O nama</strong></td><td>Pregled ABGC projekta, partnera i ciljeva.</td><td>Svi</td></tr>
+        <tr><td><strong>Vijesti</strong></td><td>Najnovije vijesti i obavještenja.</td><td>Svi</td></tr>
+        <tr><td><strong>Događaji</strong></td><td>Predstojeći i prošli događaji, radionice i webinari.</td><td>Svi</td></tr>
+        <tr><td><strong>Dashboard</strong></td><td>Lični dashboard sa pristupom modulima, konekcijama i obavještenjima.</td><td>Registrovani</td></tr>
+        <tr><td><strong>Chat</strong></td><td>Razmjena poruka u realnom vremenu sa povezanim korisnicima.</td><td>Registrovani</td></tr>
+        <tr><td><strong>Kontakt</strong></td><td>Kontakt formular i informacije o podršci.</td><td>Svi</td></tr>
+        <tr><td><strong>Dugme Nalog</strong></td><td>Prikazuje vaše ime kada ste prijavljeni. Pristup profilu i odjava.</td><td>Registrovani</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="section-title">9.2 Izbor jezika</h3>
+  <p>Platforma podržava više jezika dostupnih preko ikone zastave u navigaciji:</p>
+  <ul class="plain-list">
+    <li>English (EN)</li>
+    <li>Crnogorski (ME)</li>
+    <li>Italiano (IT)</li>
+    <li>Shqip (SQ)</li>
+  </ul>
+
+  <h3 class="section-title">9.3 Pregled Dashboard-a</h3>
+  <ul class="feature-list">
+    <li>Pregled i pristup upisanim eUčenje kursevima i napretku</li>
+    <li>Direktan pristup eDokumentaciji, eTrgovini i eKomunikaciji</li>
+    <li>Praćenje zahtjeva za povezivanje i novih poruka</li>
+    <li>Pristup obavještenjima platforme</li>
+    <li>Upravljanje podešavanjima profila i modula</li>
+  </ul>
+
+  <h3 class="section-title">9.4 Administrativni panel <span style="font-size:12px;color:var(--gray-500);font-weight:600;">Samo admin</span></h3>
+  <span class="badge badge-admin">Admin</span>
+  <p style="margin-top:12px;">Administrativni panel je dostupan samo ovlašćenim administratorima.</p>
+  <div class="method-box">
+    <div class="method-header">Admin Panel — Dostupne funkcije</div>
+    <div class="method-body">
+      <ul class="plain-list">
+        <li>Upravljanje korisnicima — pregled, izmjena, suspenzija, brisanje naloga</li>
+        <li>Moderacija sadržaja — pregled i odobravanje oglasa i upload-ova</li>
+        <li>Konfiguracija modula — kontrola pristupa modulima po grupama</li>
+        <li>Upravljanje vijestima i događajima</li>
+        <li>Sistemski logovi i izvještaji o pristupu</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="ch10">
+  <div class="chapter-header">
+    <div class="chapter-num-block">10</div>
+    <h2 class="chapter-title">Najčešća pitanja i rješavanje problema</h2>
+  </div>
+  <p class="chapter-intro">Odgovori na najčešća pitanja korisnika i smjernice za rješavanje uobičajenih problema.</p>
+
+  <h3 class="section-title">10.1 Najčešća pitanja</h3>
+  <div class="faq-item"><div class="faq-question">P: Registrovao sam se ali nisam dobio email potvrde. Šta da radim?</div><div class="faq-answer">Provjerite spam ili junk folder. Ako email ne stigne ni nakon 10–15 minuta, provjerite da li ste tačno unijeli email adresu. Ako problem perzistira, koristite kontakt formular.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Zaboravio sam lozinku. Kako da je resetujem?</div><div class="faq-answer">Na stranici Prijava kliknite <strong>"Zaboravljena lozinka?"</strong> i unesite registrovanu email adresu. Link za resetovanje važi 10 minuta. Detalji u 3.4.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Mogu li promijeniti email adresu?</div><div class="faq-answer">Ne. Email iz registracije ne možete sami mijenjati. Kontaktirajte administratore za promjenu.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Pogriješio sam pri izboru modula. Mogu li promijeniti?</div><div class="faq-answer">Da. Postavke modula možete ažurirati u <strong>Nalog → Uredi profil</strong>.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Kako da se povežem sa drugim korisnikom?</div><div class="faq-answer">Pretražite korisnika, posjetite profil i kliknite <strong>"Poveži se"</strong>. Detalji u Poglavlju 5.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Da li su eUčenje kursevi besplatni?</div><div class="faq-answer">Većina kurseva je besplatna za registrovane korisnike u okviru SA SKILLS projekta. Provjerite stranice pojedinačnih kurseva za detalje.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Kako da postavim oglas na eTrgovini?</div><div class="faq-answer">Provjerite da nalog ima pristup, idite na tržište i koristite <strong>"Dodaj oglas"</strong>. Vidi 8.3.</div></div>
+  <div class="faq-item"><div class="faq-question">P: Da li je platforma dostupna na više jezika?</div><div class="faq-answer">Da. Engleski, crnogorski, italijanski i albanski. Koristite ikonu zastave u navigaciji.</div></div>
+
+  <h3 class="section-title">10.2 Poznati problemi</h3>
+  <div class="issue-item"><div class="issue-title">Problem — Link za resetovanje lozinke je istekao</div><div class="issue-body"><p><strong>Simptom:</strong> Klik na link daje grešku da link nije validan.</p><p style="margin-top:8px;"><strong>Uzrok:</strong> Linkovi važe samo 10 minuta.</p><p style="margin-top:8px;"><strong>Rješenje:</strong> Vratite se na Prijavu, kliknite <strong>"Zaboravljena lozinka?"</strong> ponovo i tražite novi link.</p></div></div>
+  <div class="issue-item"><div class="issue-title">Problem — Profilna fotografija se ne prikazuje</div><div class="issue-body"><p><strong>Simptom:</strong> Nakon upload-a, slika se ne pojavljuje.</p><p style="margin-top:8px;"><strong>Uzrok:</strong> Browser cache ili nepodržan format.</p><p style="margin-top:8px;"><strong>Rješenje:</strong> Provjerite da je u JPG ili PNG formatu sa odnosom 1:1. Hard reload (Ctrl+Shift+R).</p></div></div>
+  <div class="issue-item"><div class="issue-title">Problem — Prijava ne uspijeva uprkos tačnim podacima</div><div class="issue-body"><p><strong>Simptom:</strong> Tačan email i lozinka vraćaju grešku.</p><p style="margin-top:8px;"><strong>Uzrok:</strong> Razlika malih/velikih slova, Caps Lock, ili dodatni razmaci.</p><p style="margin-top:8px;"><strong>Rješenje:</strong> Provjerite Caps Lock i prazna mjesta. Probajte privatni prozor pretraživača.</p></div></div>
+  <div class="issue-item"><div class="issue-title">Problem — Modul nije dostupan nakon prijave</div><div class="issue-body"><p><strong>Simptom:</strong> Određeni modul nije vidljiv u Dashboard-u.</p><p style="margin-top:8px;"><strong>Uzrok:</strong> Modul nije izabran pri registraciji.</p><p style="margin-top:8px;"><strong>Rješenje:</strong> Idite na <strong>Nalog → Uredi profil</strong> i provjerite postavke modula.</p></div></div>
+</section>
+
+<section class="chapter" id="appendix">
+  <div class="chapter-header">
+    <div class="chapter-num-block">A</div>
+    <h2 class="chapter-title">Dodatak — Rječnik i pojmovi</h2>
+  </div>
+  <p class="chapter-intro">Brzi pregled ključnih pojmova, akronima i definicija korišćenih u ovom uputstvu.</p>
+
+  <h3 class="section-title">A.1 Ključni pojmovi i akronimi</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">ABGC</div><div class="def-desc">Adriatic Blue Growth Cluster — organizacioni okvir koji podržava saradnju u plavoj ekonomiji južnog Jadrana.</div></div>
+    <div class="def-row"><div class="def-term">SA SKILLS</div><div class="def-desc">High-Level and Market-Respondent Competences for a Blue and Digitalized "Smart and Skilled South Adriatic" — Interreg projekat (ID: SA-0200142).</div></div>
+    <div class="def-row"><div class="def-term">ILM</div><div class="def-desc">Innovative Learning Module — kratak kurs profesionalnog razvoja u plavoj ekonomiji.</div></div>
+    <div class="def-row"><div class="def-term">HELM</div><div class="def-desc">Higher Education Learning Module — kurs univerzitetskog nivoa sa ECTS bodovima.</div></div>
+    <div class="def-row"><div class="def-term">EQF</div><div class="def-desc">European Qualifications Framework — okvir EU za priznavanje kvalifikacija među državama članicama.</div></div>
+    <div class="def-row"><div class="def-term">ECTS</div><div class="def-desc">European Credit Transfer and Accumulation System — standard za upoređivanje akademskih bodova.</div></div>
+    <div class="def-row"><div class="def-term">IPA III</div><div class="def-desc">Instrument for Pre-Accession Assistance III — EU mehanizam finansiranja u okviru kog je SA SKILLS sufinansiran.</div></div>
+    <div class="def-row"><div class="def-term">MSP</div><div class="def-desc">Mala i srednja preduzeća — primarna ciljna grupa eTrgovine i eKomunikacije.</div></div>
+  </div>
+
+  <h3 class="section-title">A.2 URL-ovi platforme</h3>
+  <div class="def-list">
+    <div class="def-row"><div class="def-term">Glavna platforma</div><div class="def-desc"><a href="https://southadriaticskills.org" target="_blank" rel="noopener">https://southadriaticskills.org</a></div></div>
+    <div class="def-row"><div class="def-term">eUčenje</div><div class="def-desc"><a href="https://edu.southadriaticskills.org" target="_blank" rel="noopener">https://edu.southadriaticskills.org</a></div></div>
+    <div class="def-row"><div class="def-term">eTrgovina</div><div class="def-desc"><a href="https://market.southadriaticskills.org" target="_blank" rel="noopener">https://market.southadriaticskills.org</a></div></div>
+    <div class="def-row"><div class="def-term">eDokumentacija</div><div class="def-desc"><a href="https://info.southadriaticskills.org" target="_blank" rel="noopener">https://info.southadriaticskills.org</a></div></div>
+  </div>
+
+  <h3 class="section-title">A.3 Kontakt i podrška</h3>
+  <div class="callout callout-info">
+    <div class="callout-title">📞 Tehnička podrška</div>
+    <p>Za tehničke probleme koristite sekciju <strong>Kontakt</strong> na sajtu <a href="https://southadriaticskills.org/me/contact" target="_blank" rel="noopener">southadriaticskills.org/me/contact</a>.</p>
+    <p style="margin-top:8px;">Platforma se vodi od strane <strong>Univerziteta Crne Gore — Instituta za biologiju mora</strong> u ime ABGC-a.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-eu-row">
+    <span style="background:#003399;border-radius:3px;padding:3px 6px;font-size:14px;">🇪🇺</span>
+    <span style="color:#c0c8d8;font-size:13px;">Sufinansirano od strane Evropske unije — Interreg IPA Južni Jadran 2021–2027</span>
+  </div>
+  <div class="footer-title">ABGC Digitalna Platforma — Korisničko uputstvo</div>
+  <div style="margin-bottom:6px;color:#8898b0;">Verzija 1.0 &nbsp;·&nbsp; Februar 2026 &nbsp;·&nbsp; SA SKILLS Projekat (SA-0200142)</div>
+  <div style="margin-bottom:4px;"><a href="https://southadriaticskills.org" target="_blank" rel="noopener" style="color:#6a9fd0;">https://southadriaticskills.org</a></div>
+  <hr class="footer-divider">
+  <div style="font-size:12.5px;color:#6a7385;line-height:1.6;">
+    Pripremio: Univerzitet Crne Gore — Institut za biologiju mora, Kotor, Crna Gora.<br>
+    U ime Adriatic Blue Growth Cluster (ABGC).<br>
+    © 2026 Univerzitet Crne Gore — Institut za biologiju mora. Reprodukcija dozvoljena u nekomercijalne svrhe uz navođenje izvora.
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

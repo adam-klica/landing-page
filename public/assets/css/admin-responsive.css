@@ -1,0 +1,77 @@
+/* CMS Responsive Styles */
+
+/* Mobile: < 768px */
+@media (max-width: 767px) {
+  /* Tables - make scrollable */
+  .cms-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -10px;
+    padding: 0 10px;
+  }
+
+  .cms-table-wrapper table {
+    min-width: 600px;
+  }
+
+  /* Forms */
+  .cms-form-container {
+    padding: 15px !important;
+  }
+
+  .cms-form-container h1 {
+    font-size: 20px !important;
+  }
+
+  .cms-form-container h2 {
+    font-size: 16px !important;
+  }
+
+  /* Buttons */
+  .cms-header-actions {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch !important;
+  }
+
+  .cms-header-actions button {
+    width: 100%;
+  }
+
+  /* Inputs */
+  .cms-form-container input[type="text"],
+  .cms-form-container input[type="email"],
+  .cms-form-container textarea,
+  .cms-form-container select {
+    max-width: 100% !important;
+  }
+
+  /* Modal forms */
+  .cms-modal-content {
+    width: 95% !important;
+    max-width: 95% !important;
+    padding: 1.5rem !important;
+    margin: 10px !important;
+  }
+
+  /* Dashboard cards */
+  .cms-dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Tablet: 768px - 1024px */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .cms-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .cms-dashboard-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Ensure tables are scrollable on mobile */
+.cms-table-wrapper {
+  width: 100%;
+}

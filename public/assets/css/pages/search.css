@@ -1,0 +1,373 @@
+/* Osnovni container */
+.search-page-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px 25px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+/* Naslov */
+.search-page-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* Forma */
+#user-search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Input */
+#global-user-search {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.2s ease-in-out;
+}
+
+#global-user-search:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+  outline: none;
+}
+
+/* Dugme */
+#user-search-form button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+#user-search-form button:hover {
+  background: #0056b3;
+}
+
+/* Rezultati pretrage */
+#global-search-results {
+  margin-top: 15px;
+}
+
+#global-search-results .user-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+#global-search-results .user-card:hover {
+  background: #e9ecef;
+}
+
+#global-search-results .user-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+#global-search-results .user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#global-search-results .user-info {
+  flex: 1;
+}
+
+#global-search-results .user-info .name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+#global-search-results .user-info .email {
+  font-size: 14px;
+  color: #666;
+}
+.requests-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+.requests-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.request-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 15px 20px;
+    transition: box-shadow 0.2s ease;
+}
+
+.request-card:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.request-card p {
+    margin: 0;
+    font-size: 1rem;
+    color: #444;
+}
+
+.request-card strong {
+    color: #000;
+}
+
+.request-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.request-actions button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.request-actions .btn-accept {
+    background: #4CAF50;
+    color: #fff;
+}
+
+.request-actions .btn-accept:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+
+.request-actions .btn-decline {
+    background: #f44336;
+    color: #fff;
+}
+
+.request-actions .btn-decline:hover {
+    background: #e53935;
+    transform: scale(1.05);
+}
+
+/* Empty state */
+.requests-container p {
+    text-align: center;
+    font-size: 1rem;
+    color: #777;
+}
+.search-page-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+.search-page-container h2 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form */
+#user-search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+#user-search-form input {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    width: 100%;
+}
+
+#user-search-form input:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 0 2px rgba(0,115,230,0.15);
+}
+
+#user-search-form button {
+    background: #0073e6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+#user-search-form button:hover {
+    background: #005bb5;
+    transform: scale(1.05);
+}
+
+/* Results */
+#global-search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 15px 20px;
+    transition: box-shadow 0.2s ease;
+}
+
+.user-card:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.user-card h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #222;
+}
+
+.user-card p {
+    margin: 5px 0 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.user-card .btn-profile,
+.user-card .btn-connect,
+.user-card .btn-message {
+    margin-left: 10px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.user-card .btn-profile {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.user-card .btn-profile:hover {
+    background: #eaeaea;
+    transform: scale(1.05);
+}
+
+.user-card .btn-connect {
+    background: #0073e6;
+    color: #fff;
+}
+
+.user-card .btn-connect:hover {
+    background: #005bb5;
+    transform: scale(1.05);
+}
+
+.user-card .btn-message {
+    background: #4CAF50;
+    color: #fff;
+}
+
+.user-card .btn-message:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+/* Responsive stilovi za telefon */
+@media (max-width: 600px) {
+  /* Search forma: input i dugme jedan ispod drugog */
+  #user-search-form {
+    flex-direction: column;
+  }
+
+  #user-search-form button {
+    width: 100%;
+  }
+
+  /* User kartice: info gore, dugmad ispod */
+  .user-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .user-card h3 {
+    font-size: 1rem;
+  }
+
+  .user-card p {
+    font-size: 0.85rem;
+  }
+
+  .user-card .btn-profile,
+  .user-card .btn-connect,
+  .user-card .btn-message {
+    margin-left: 0;
+    margin-right: 8px;
+  }
+
+  .user-card .btn-profile,
+  .user-card .btn-connect,
+  .user-card .btn-message {
+    width: 100%;
+    text-align: center;
+  }
+}

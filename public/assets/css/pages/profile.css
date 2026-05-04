@@ -1,0 +1,166 @@
+/* ===============================
+   Profile Page
+================================ */
+.profile-wrapper {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.profile-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #222;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 20px;
+  background: #f9fafb;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.profile-avatar img {
+  border-radius: 50%;
+  max-width: 120px;
+  border: 3px solid #ddd;
+}
+
+.profile-info p { margin: 6px 0; font-size: 15px; color: #444; }
+.profile-info strong { color: #111; }
+
+.profile-requests {
+  background: #fff7f0;
+  border: 1px solid #ffd9b3;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+.profile-requests h3 {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profile-requests .badge {
+  background: #ff4d4f;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.profile-form {
+  background: #f9fafb;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.profile-form h3 { font-size: 20px; margin-bottom: 15px; }
+.profile-form label { font-weight: 500; display: block; margin-bottom: 5px; }
+.profile-form input,
+.profile-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.btn-update {
+  background: #0073aa;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.btn-update:hover { background: #005f8a; }
+
+.btn-logout {
+  background: #ff4d4f;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-logout:hover { background: #d9363e; }
+/* 📱 Mobilni prikaz profila */
+@media (max-width: 600px) {
+  .profile-wrapper {
+    margin: 20px 10px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .profile-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .profile-card {
+    flex-direction: column;   /* avatar gore, info ispod */
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .profile-avatar img {
+    border: 2px solid #ddd;
+  }
+
+  .profile-info p {
+    font-size: 14px;
+    margin: 4px 0;
+  }
+
+  .profile-requests {
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .profile-requests h3 {
+    font-size: 16px;
+  }
+
+  .profile-form {
+    padding: 15px;
+  }
+
+  .profile-form h3 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .profile-form label {
+    font-size: 14px;
+  }
+
+  .profile-form input,
+  .profile-form select {
+    font-size: 14px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+  }
+
+  .btn-update,
+  .btn-logout {
+    width: 100%;            /* dugmad preko cijele širine */
+    text-align: center;
+    padding: 12px;
+    font-size: 15px;
+    margin-top: 10px;
+  }
+}

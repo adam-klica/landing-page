@@ -1,0 +1,85 @@
+import { Post } from "@/models/Post";
+import { getTranslations, type Locale } from "@/lib/getTranslations";
+import { getCollection } from "@/lib/db";
+import { PostsCarousel } from "./PostsCarousel";
+
+async function getLatestNews(locale: Locale) {
+  try {
+    // Directly query database instead of HTTP request for better performance and reliability
+    const collection = await getCollection("posts");
+
+    // Get all published news posts (regardless of locale)
+    // We'll use translations from metadata to display in current locale
+    const posts = await collection
+      .find({
+        type: "news",
+        status: "published",
+      })
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    return posts.map((post) => {
+      const postData: Post = {
+        ...post,
+        _id: post._id.toString(),
+        type: post.type || "news",
+        title: post.title || "",
+        slug: post.slug || "",
+        content: post.content || "",
+        status: post.status || "draft",
+        createdAt: post.createdAt?.toISOString() || new Date().toISOString(),
+        updatedAt: post.updatedAt?.toISOString() || new Date().toISOString(),
+        publishedAt: post.publishedAt?.toISOString(),
+        eventDate: post.eventDate?.toISOString(),
+      };
+
+      // Always prefer translations from metadata if available for the current locale.
+      // (Existing posts may have wrong/missing `post.locale`, so don't depend on it.)
+      if (post.metadata?.titleTranslations?.[locale]) {
+        postData.title = post.metadata.titleTranslations[locale];
+      }
+      if (post.metadata?.contentTranslations?.[locale]) {
+        postData.content = post.metadata.contentTranslations[locale];
+      }
+      if (post.metadata?.excerptTranslations?.[locale]) {
+        postData.excerpt = post.metadata.excerptTranslations[locale];
+      }
+
+      return postData;
+    }) as Post[];
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    return [];
+  }
+}
+
+interface NewsSectionProps {
+  locale?: Locale;
+}
+
+export async function NewsSection({ locale = "en" }: NewsSectionProps) {
+  const posts = await getLatestNews(locale);
+  const t = getTranslations(locale);
+
+  return (
+    <section className="news">
+      <div className="container">
+        <h2 className="news-title" data-aos="fade-up">
+          {t.news.title}
+        </h2>
+        <p className="news-subtitle" data-aos="fade-up" data-aos-delay="150">
+          {t.news.subtitle}
+        </p>
+
+        <div data-aos="fade-up">
+          <PostsCarousel
+            posts={posts}
+            locale={locale}
+            readMoreLabel={t.news.readMore}
+            dateField="publishedAt"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}

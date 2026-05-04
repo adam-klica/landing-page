@@ -1,0 +1,144 @@
+/* ================================
+   ADMIN BAR STYLES
+================================ */
+
+[data-admin-bar="true"] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: #23282d;
+  color: #a0a5aa;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+[data-admin-bar="true"] > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+  min-width: 0;
+}
+
+[data-admin-bar="true"] > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-left: 1px solid #3c434a;
+  padding-left: 15px;
+  flex-shrink: 0;
+}
+
+/* Admin Bar Avatar */
+.admin-bar-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.admin-bar-avatar:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.admin-bar-avatar:active {
+  transform: scale(1.05);
+}
+
+/* Hide "Howdy" text on small screens */
+@media (max-width: 768px) {
+  [data-admin-bar="true"] {
+    height: 40px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  [data-admin-bar="true"] > div:first-child {
+    gap: 8px;
+  }
+
+  [data-admin-bar="true"] > div:first-child > a {
+    margin-right: 5px !important;
+  }
+
+  [data-admin-bar="true"] .admin-bar-logo-text {
+    display: none; /* Hide "ABGC" text on mobile */
+  }
+
+  [data-admin-bar="true"] > div:first-child > div {
+    border-left: none;
+    padding-left: 8px;
+  }
+
+  [data-admin-bar="true"] > div:first-child > div a span:last-child,
+  [data-admin-bar="true"] > div:first-child > div a span:first-child {
+    font-size: 16px !important;
+  }
+
+  /* Hide "Howdy, Username" text */
+  [data-admin-bar="true"] .admin-bar-greeting {
+    display: none;
+  }
+
+  [data-admin-bar="true"] > div:last-child {
+    gap: 6px;
+    padding-left: 8px;
+  }
+
+  [data-admin-bar="true"] > div:last-child button {
+    font-size: 11px !important;
+    padding: 2px 6px !important;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  [data-admin-bar="true"] {
+    height: 36px;
+    padding: 0 6px;
+  }
+
+  [data-admin-bar="true"] > div:first-child {
+    gap: 4px;
+  }
+
+  [data-admin-bar="true"] > div:first-child > div {
+    padding-left: 4px;
+  }
+
+  [data-admin-bar="true"] > div:last-child {
+    gap: 4px;
+    padding-left: 4px;
+  }
+
+  [data-admin-bar="true"] > div:last-child button {
+    font-size: 10px !important;
+    padding: 2px 4px !important;
+  }
+
+  /* Hide "Visit Site" text, show only icon */
+  [data-admin-bar="true"] > div:first-child > div a span:last-child {
+    display: none;
+  }
+}
