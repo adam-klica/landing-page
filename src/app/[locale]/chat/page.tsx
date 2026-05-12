@@ -91,6 +91,9 @@ function ChatPageInner() {
   const [newMemberId, setNewMemberId] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [groupSearchQuery, setGroupSearchQuery] = useState<string>("");
+  const [groupSearchResults, setGroupSearchResults] = useState<any[]>([]);
+  const [groupSearchLoading, setGroupSearchLoading] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
   const [chatImages, setChatImages] = useState<string[]>([]);
   const [showSearchInput, setShowSearchInput] = useState(false);
@@ -1007,30 +1010,41 @@ function ChatPageInner() {
                 <Users size={18} />
                 Groups
               </h3>
-              <button
-                onClick={() => {
-                  setShowCreateGroup(true);
-                  loadAvailableUsers();
-                }}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                  padding: "4px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "scale(1.1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                }}
-              >
-                <Plus size={18} color="#0a66c2" />
-              </button>
             </div>
+            <button
+              onClick={() => {
+                setShowCreateGroup(true);
+                setGroupSearchQuery("");
+                setGroupSearchResults([]);
+                loadAvailableUsers();
+              }}
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                padding: "10px 12px",
+                marginBottom: "12px",
+                border: "1px dashed #0a66c2",
+                borderRadius: "8px",
+                background: "#eaf3fb",
+                color: "#0a66c2",
+                cursor: "pointer",
+                fontSize: "14px",
+                fontWeight: 600,
+                transition: "background 0.15s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#d9e8f6";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#eaf3fb";
+              }}
+            >
+              <Plus size={16} />
+              {t.chat.createGroup || "New group chat"}
+            </button>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {groups.map((group) => {
                 const unread = unreadCounts.groups[group._id] || 0;
@@ -3037,43 +3051,182 @@ function ChatPageInner() {
                 <label style={{ display: "block", marginBottom: "4px", fontSize: "14px", fontWeight: "500" }}>
                   {t.chat.selectMembers}
                 </label>
-                <div style={{ maxHeight: "200px", overflowY: "auto", border: "1px solid #e0e0e0", borderRadius: "8px", padding: "8px" }}>
-                  {availableUsers.filter((user) => user && user._id).map((user) => (
-                    <label
-                      key={user._id}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        padding: "8px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedMembers.includes(user._id)}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setSelectedMembers([...selectedMembers, user._id]);
-                          } else {
-                            setSelectedMembers(selectedMembers.filter((id) => id !== user._id));
-                          }
-                        }}
-                      />
-                      <div
+
+                {/* Search ALL users */}
+                <input
+                  type="text"
+                  placeholder="Search users by name, username, or email"
+                  value={groupSearchQuery}
+                  onChange={async (e) => {
+                    const q = e.target.value;
+                    setGroupSearchQuery(q);
+                    if (q.trim().length < 2) {
+                      setGroupSearchResults([]);
+                      return;
+                    }
+                    setGroupSearchLoading(true);
+                    try {
+                      const r = await fetch(`/api/users/search?q=${encodeURIComponent(q.trim())}`);
+                      if (r.ok) {
+                        const d = await r.json();
+                        setGroupSearchResults(d.users || []);
+                      } else {
+                        setGroupSearchResults([]);
+                      }
+                    } catch {
+                      setGroupSearchResults([]);
+                    } finally {
+                      setGroupSearchLoading(false);
+                    }
+                  }}
+                  style={{
+                    width: "100%",
+                    padding: "8px 12px",
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "8px",
+                    fontSize: "14px",
+                    marginBottom: "8px",
+                  }}
+                />
+
+                {/* Selected members chips */}
+                {selectedMembers.length > 0 && (() => {
+                  const idToUser = new Map<string, any>();
+                  [...availableUsers, ...groupSearchResults].forEach((u) => {
+                    if (u && u._id) idToUser.set(String(u._id), u);
+                  });
+                  return (
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "8px" }}>
+                      {selectedMembers.map((id) => {
+                        const u = idToUser.get(String(id));
+                        return (
+                          <span
+                            key={id}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "6px",
+                              padding: "4px 8px",
+                              background: "#eaf3fb",
+                              color: "#0a66c2",
+                              borderRadius: "999px",
+                              fontSize: "12px",
+                              fontWeight: 500,
+                            }}
+                          >
+                            {u?.displayName || u?.username || id.slice(0, 6)}
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setSelectedMembers(selectedMembers.filter((x) => x !== id))
+                              }
+                              style={{
+                                background: "transparent",
+                                border: "none",
+                                cursor: "pointer",
+                                padding: 0,
+                                display: "inline-flex",
+                                color: "#0a66c2",
+                              }}
+                              aria-label="Remove"
+                            >
+                              <X size={12} />
+                            </button>
+                          </span>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
+
+                {/* Combined member list: connections + search results */}
+                <div style={{ maxHeight: "240px", overflowY: "auto", border: "1px solid #e0e0e0", borderRadius: "8px", padding: "8px" }}>
+                  {(() => {
+                    const seen = new Set<string>();
+                    const combined: any[] = [];
+                    if (!groupSearchQuery.trim()) {
+                      availableUsers.filter((u) => u && u._id).forEach((u) => {
+                        const id = String(u._id);
+                        if (!seen.has(id)) { seen.add(id); combined.push(u); }
+                      });
+                    } else {
+                      groupSearchResults.filter((u) => u && u._id).forEach((u) => {
+                        const id = String(u._id);
+                        if (!seen.has(id)) { seen.add(id); combined.push(u); }
+                      });
+                    }
+
+                    if (groupSearchLoading) {
+                      return (
+                        <p style={{ fontSize: "13px", color: "#666", padding: "12px", textAlign: "center" }}>
+                          Searching...
+                        </p>
+                      );
+                    }
+
+                    if (combined.length === 0) {
+                      return (
+                        <p style={{ fontSize: "13px", color: "#666", padding: "12px", textAlign: "center" }}>
+                          {groupSearchQuery.trim()
+                            ? "No users match your search."
+                            : "No accepted connections yet. Use the search above to find any user."}
+                        </p>
+                      );
+                    }
+
+                    return combined.map((user) => (
+                      <label
+                        key={user._id}
                         style={{
-                          width: "32px",
-                          height: "32px",
-                          borderRadius: "50%",
-                          background: user.profilePicture
-                            ? `url(${user.profilePicture}) center/cover`
-                            : "#e4e4e4",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px",
+                          padding: "8px",
+                          cursor: "pointer",
+                          borderRadius: "6px",
                         }}
-                      />
-                      <span style={{ fontSize: "14px" }}>{user.displayName || user.username}</span>
-                    </label>
-                  ))}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedMembers.includes(String(user._id))}
+                          onChange={(e) => {
+                            const id = String(user._id);
+                            if (e.target.checked) {
+                              setSelectedMembers([...selectedMembers, id]);
+                            } else {
+                              setSelectedMembers(selectedMembers.filter((x) => x !== id));
+                            }
+                          }}
+                        />
+                        <div
+                          style={{
+                            width: "32px",
+                            height: "32px",
+                            borderRadius: "50%",
+                            background: user.profilePicture
+                              ? `url(${user.profilePicture}) center/cover`
+                              : "#e4e4e4",
+                            flexShrink: 0,
+                          }}
+                        />
+                        <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
+                          <span style={{ fontSize: "14px", fontWeight: 500 }}>
+                            {user.displayName || user.username}
+                          </span>
+                          {user.headline ? (
+                            <span style={{ fontSize: "11px", color: "#666" }}>
+                              {user.headline}
+                            </span>
+                          ) : null}
+                        </div>
+                      </label>
+                    ));
+                  })()}
                 </div>
+                <p style={{ fontSize: "12px", color: "#666", marginTop: "6px" }}>
+                  {selectedMembers.length} selected. You can also save the group with no
+                  members and add them later.
+                </p>
               </div>
               <button
                 onClick={createGroup}
