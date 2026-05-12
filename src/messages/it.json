@@ -622,9 +622,10 @@
     "errorOccurred": "Si è verificato un errore. Riprova più tardi."
   },
   "search": {
-    "title": "Cerca utenti, notizie e eventi",
-    "placeholder": "Inserisci nome o email...",
-    "searchUsersPlaceholder": "Cerca utenti...",
+    "title": "Cerca utenti",
+    "placeholder": "Cerca utenti",
+    "placeholderUsers": "Cerca utenti",
+    "searchUsersPlaceholder": "Cerca utenti",
     "loading": "Caricamento...",
     "searchResults": "Risultati di Ricerca",
     "noUsersFound": "Nessun utente trovato. Prova con un termine di ricerca diverso.",

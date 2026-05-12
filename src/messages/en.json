@@ -622,9 +622,10 @@
     "errorOccurred": "An error occurred. Please try again later."
   },
   "search": {
-    "title": "Search users, news and events",
-    "placeholder": "Enter name or email...",
-    "searchUsersPlaceholder": "Search users...",
+    "title": "Search users",
+    "placeholder": "Search users",
+    "placeholderUsers": "Search users",
+    "searchUsersPlaceholder": "Search users",
     "loading": "Loading...",
     "searchResults": "Search Results",
     "noUsersFound": "No users found. Try a different search term.",

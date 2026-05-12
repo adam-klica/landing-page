@@ -622,9 +622,10 @@
     "errorOccurred": "Ndodhi një gabim. Ju lutem provoni përsëri më vonë."
   },
   "search": {
-    "title": "Kërko përdorues, lajme dhe ngjarje",
-    "placeholder": "Shkruani emër ose email...",
-    "searchUsersPlaceholder": "Kërko përdorues...",
+    "title": "Kërko përdorues",
+    "placeholder": "Kërko përdorues",
+    "placeholderUsers": "Kërko përdorues",
+    "searchUsersPlaceholder": "Kërko përdorues",
     "loading": "Duke ngarkuar...",
     "searchResults": "Rezultatet e Kërkimit",
     "noUsersFound": "Nuk u gjetën përdorues. Provoni me një term tjetër kërkimi.",

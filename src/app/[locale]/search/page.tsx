@@ -51,12 +51,22 @@ function SearchPageContent({
   const [countryFilter, setCountryFilter] = useState<string>("");
   const [cityFilter, setCityFilter] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [searchType, setSearchType] = useState<"all" | "users" | "posts">("all");
+  // Search scope locked to users — this page is dedicated to finding people
+  // (and building group chats). Posts/news/events live on their own pages.
+  const [searchType, setSearchType] = useState<"all" | "users" | "posts">("users");
   const [connectionStatuses, setConnectionStatuses] = useState<Record<string, string>>({});
   const [sending, setSending] = useState<string | null>(null);
   const [locale, setLocale] = useState<Locale>("me");
   const [authenticated, setAuthenticated] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
+
+  // Group-chat creation from search results
+  const [selectedForGroup, setSelectedForGroup] = useState<string[]>([]);
+  const [showCreateGroupDialog, setShowCreateGroupDialog] = useState(false);
+  const [newGroupName, setNewGroupName] = useState("");
+  const [newGroupDescription, setNewGroupDescription] = useState("");
+  const [creatingGroup, setCreatingGroup] = useState(false);
+  const [groupError, setGroupError] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -643,7 +653,7 @@ function SearchPageContent({
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={t.search.placeholder}
+              placeholder={t.search.placeholderUsers || "Search users"}
               style={{
                 flex: 1,
                 padding: "12px 16px",
@@ -652,70 +662,64 @@ function SearchPageContent({
                 fontSize: "14px",
               }}
             />
-            <select
-              value={searchType}
-              onChange={(e) => setSearchType(e.target.value as "all" | "users" | "posts")}
+          </div>
+
+          {/* Selected-for-group action bar */}
+          {selectedForGroup.length > 0 && (
+            <div
               style={{
-                padding: "12px 16px",
-                border: "1px solid #ddd",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "12px",
+                padding: "10px 14px",
+                marginBottom: "12px",
+                background: "#eaf3fb",
+                border: "1px solid #b6d4f0",
                 borderRadius: "8px",
-                fontSize: "14px",
-                cursor: "pointer",
+                flexWrap: "wrap",
               }}
             >
-              <option value="all">{t.search.all}</option>
-              <option value="users">{t.search.users}</option>
-              <option value="posts">{t.search.blogs}</option>
-            </select>
-          </div>
-          
-          {query.trim().length >= 2 && (
-            <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
-              <button
-                onClick={() => setSearchType("all")}
-                style={{
-                  padding: "8px 16px",
-                  border: "none",
-                  borderRadius: "6px",
-                  background: searchType === "all" ? "#2271b1" : "#f0f0f0",
-                  color: searchType === "all" ? "white" : "#333",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                  fontWeight: searchType === "all" ? "600" : "400",
-                }}
-              >
-                Sve ({users.length + posts.length})
-              </button>
-              <button
-                onClick={() => setSearchType("users")}
-                style={{
-                  padding: "8px 16px",
-                  border: "none",
-                  borderRadius: "6px",
-                  background: searchType === "users" ? "#2271b1" : "#f0f0f0",
-                  color: searchType === "users" ? "white" : "#333",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                  fontWeight: searchType === "users" ? "600" : "400",
-                }}
-              >
-                {t.search.users} ({users.length})
-              </button>
-              <button
-                onClick={() => setSearchType("posts")}
-                style={{
-                  padding: "8px 16px",
-                  border: "none",
-                  borderRadius: "6px",
-                  background: searchType === "posts" ? "#2271b1" : "#f0f0f0",
-                  color: searchType === "posts" ? "white" : "#333",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                  fontWeight: searchType === "posts" ? "600" : "400",
-                }}
-              >
-                {t.search.blogs} ({posts.length})
-              </button>
+              <span style={{ fontSize: "14px", color: "#0a66c2", fontWeight: 600 }}>
+                {selectedForGroup.length} selected for group chat
+              </span>
+              <div style={{ display: "flex", gap: "8px" }}>
+                <button
+                  onClick={() => setSelectedForGroup([])}
+                  style={{
+                    padding: "8px 14px",
+                    border: "1px solid #b6d4f0",
+                    background: "white",
+                    color: "#0a66c2",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    fontSize: "13px",
+                    fontWeight: 500,
+                  }}
+                >
+                  Clear
+                </button>
+                <button
+                  onClick={() => {
+                    setGroupError(null);
+                    setNewGroupName("");
+                    setNewGroupDescription("");
+                    setShowCreateGroupDialog(true);
+                  }}
+                  style={{
+                    padding: "8px 14px",
+                    border: "none",
+                    background: "#0a66c2",
+                    color: "white",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    fontSize: "13px",
+                    fontWeight: 600,
+                  }}
+                >
+                  Create group chat
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -859,7 +863,9 @@ function SearchPageContent({
                       </h3>
                     )}
                     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                      {users.map((user) => (
+                      {users.map((user) => {
+                        const isSelected = selectedForGroup.includes(user._id);
+                        return (
                         <div
                           key={user._id}
                           style={{
@@ -867,11 +873,27 @@ function SearchPageContent({
                             justifyContent: "space-between",
                             alignItems: "center",
                             padding: "16px",
-                            border: "1px solid #e0e0e0",
+                            border: `1px solid ${isSelected ? "#0a66c2" : "#e0e0e0"}`,
+                            background: isSelected ? "#f3f8fd" : "white",
                             borderRadius: "8px",
                           }}
                         >
                           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                            <input
+                              type="checkbox"
+                              checked={isSelected}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setSelectedForGroup((prev) => [...prev, user._id]);
+                                } else {
+                                  setSelectedForGroup((prev) =>
+                                    prev.filter((id) => id !== user._id)
+                                  );
+                                }
+                              }}
+                              title="Select for group chat"
+                              style={{ width: "18px", height: "18px", cursor: "pointer" }}
+                            />
                             <div
                               style={{
                                 position: "relative",
@@ -932,7 +954,8 @@ function SearchPageContent({
                           </div>
                           {getConnectionButton(user._id)}
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -964,6 +987,159 @@ function SearchPageContent({
         )}
 
       </div>
+
+      {/* Create group chat dialog */}
+      {showCreateGroupDialog && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.5)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1000,
+          }}
+          onClick={() => {
+            if (!creatingGroup) setShowCreateGroupDialog(false);
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "white",
+              borderRadius: "10px",
+              padding: "24px",
+              width: "90%",
+              maxWidth: "440px",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+            }}
+          >
+            <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "4px" }}>
+              Create group chat
+            </h2>
+            <p style={{ fontSize: "13px", color: "#666", marginBottom: "16px" }}>
+              {selectedForGroup.length} member
+              {selectedForGroup.length === 1 ? "" : "s"} will be invited.
+            </p>
+            {groupError && (
+              <div
+                style={{
+                  padding: "8px 10px",
+                  background: "#fee",
+                  border: "1px solid #fcc",
+                  borderRadius: "6px",
+                  color: "#c33",
+                  fontSize: "13px",
+                  marginBottom: "12px",
+                }}
+              >
+                {groupError}
+              </div>
+            )}
+            <label style={{ fontSize: "13px", fontWeight: 500, display: "block", marginBottom: "4px" }}>
+              Group name *
+            </label>
+            <input
+              type="text"
+              value={newGroupName}
+              onChange={(e) => setNewGroupName(e.target.value)}
+              placeholder="e.g. Project team"
+              style={{
+                width: "100%",
+                padding: "10px 12px",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                fontSize: "14px",
+                marginBottom: "12px",
+                boxSizing: "border-box",
+              }}
+            />
+            <label style={{ fontSize: "13px", fontWeight: 500, display: "block", marginBottom: "4px" }}>
+              Description (optional)
+            </label>
+            <textarea
+              value={newGroupDescription}
+              onChange={(e) => setNewGroupDescription(e.target.value)}
+              rows={3}
+              style={{
+                width: "100%",
+                padding: "10px 12px",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                fontSize: "14px",
+                marginBottom: "16px",
+                boxSizing: "border-box",
+                resize: "vertical",
+              }}
+            />
+            <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}>
+              <button
+                onClick={() => setShowCreateGroupDialog(false)}
+                disabled={creatingGroup}
+                style={{
+                  padding: "9px 16px",
+                  border: "1px solid #ddd",
+                  background: "white",
+                  borderRadius: "6px",
+                  fontSize: "14px",
+                  cursor: creatingGroup ? "not-allowed" : "pointer",
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                disabled={creatingGroup || !newGroupName.trim()}
+                onClick={async () => {
+                  setGroupError(null);
+                  setCreatingGroup(true);
+                  try {
+                    const res = await fetch("/api/groups", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        name: newGroupName.trim(),
+                        description: newGroupDescription.trim(),
+                        memberIds: selectedForGroup,
+                      }),
+                    });
+                    if (!res.ok) {
+                      const d = await res.json().catch(() => ({}));
+                      setGroupError(d.error || "Failed to create group");
+                      setCreatingGroup(false);
+                      return;
+                    }
+                    const data = await res.json();
+                    setShowCreateGroupDialog(false);
+                    setSelectedForGroup([]);
+                    setNewGroupName("");
+                    setNewGroupDescription("");
+                    setCreatingGroup(false);
+                    router.push(localeLink(`/chat?groupId=${data._id}`, locale));
+                  } catch (err: any) {
+                    setGroupError(err?.message || "Failed to create group");
+                    setCreatingGroup(false);
+                  }
+                }}
+                style={{
+                  padding: "9px 16px",
+                  border: "none",
+                  background:
+                    creatingGroup || !newGroupName.trim() ? "#9ec3e8" : "#0a66c2",
+                  color: "white",
+                  borderRadius: "6px",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  cursor:
+                    creatingGroup || !newGroupName.trim() ? "not-allowed" : "pointer",
+                }}
+              >
+                {creatingGroup ? "Creating..." : "Create group"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

@@ -622,9 +622,10 @@
     "errorOccurred": "Došlo je do greške. Molimo pokušajte ponovo kasnije."
   },
   "search": {
-    "title": "Pretraga korisnika, vijesti i događaja",
-    "placeholder": "Unesite ime ili email...",
-    "searchUsersPlaceholder": "Pretraži korisnike...",
+    "title": "Pretraga korisnika",
+    "placeholder": "Pretraži korisnike",
+    "placeholderUsers": "Pretraži korisnike",
+    "searchUsersPlaceholder": "Pretraži korisnike",
     "loading": "Učitavanje...",
     "searchResults": "Rezultati pretrage",
     "noUsersFound": "Nema pronađenih korisnika. Pokušajte sa drugim pojmom.",
