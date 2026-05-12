@@ -138,7 +138,7 @@ export default function DashboardPage() {
 
   async function checkAuth() {
     try {
-      const res = await fetch("/api/auth/me");
+      const res = await fetch("/api/auth/me", { cache: "no-store" });
       const data = await res.json();
       if (data.user) {
         setAuthenticated(true);

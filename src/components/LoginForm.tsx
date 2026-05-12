@@ -34,7 +34,14 @@ export function LoginForm({ locale }: LoginFormProps) {
       const data = await res.json();
 
       if (res.ok) {
-        router.push(localeLink("/dashboard", locale));
+        // Warm /api/auth/me with the new cookie so any cached anonymous
+        // response is replaced before the dashboard reads it.
+        try {
+          await fetch("/api/auth/me", { cache: "no-store" });
+        } catch {
+          /* ignore */
+        }
+        router.replace(localeLink("/dashboard", locale));
         router.refresh();
       } else {
         setError(data.error || t.login.loginFailed);

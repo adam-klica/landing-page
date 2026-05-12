@@ -2,10 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
 import { getCachedAuthUser } from "@/lib/userCache";
 
-const CACHE_HEADER = "private, max-age=30, stale-while-revalidate=60";
+// NEVER cache "no user" responses — that causes a freshly-logged-in user
+// to keep seeing a stale `{user: null}` and get bounced back to /login.
+// Only cache the positive (authenticated) response, and only briefly.
+const AUTHED_CACHE = "private, max-age=15, stale-while-revalidate=30";
+const ANON_CACHE = "private, no-store";
 
 export async function GET(request: NextRequest) {
-  // Skip DB work for Next.js prefetch requests.
+  // Skip DB work for Next.js prefetch requests, but DO NOT cache them either —
+  // a prefetched null would poison subsequent real requests after login.
   const isPrefetch =
     request.headers.get("next-router-prefetch") === "1" ||
     request.headers.get("purpose") === "prefetch" ||
@@ -14,7 +19,7 @@ export async function GET(request: NextRequest) {
   if (isPrefetch) {
     return NextResponse.json(
       { user: null },
-      { headers: { "Cache-Control": "private, max-age=30" } }
+      { headers: { "Cache-Control": ANON_CACHE } }
     );
   }
 
@@ -23,7 +28,7 @@ export async function GET(request: NextRequest) {
     if (!currentUser) {
       return NextResponse.json(
         { user: null },
-        { headers: { "Cache-Control": CACHE_HEADER } }
+        { headers: { "Cache-Control": ANON_CACHE } }
       );
     }
 
@@ -31,18 +36,18 @@ export async function GET(request: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { user: null },
-        { headers: { "Cache-Control": CACHE_HEADER } }
+        { headers: { "Cache-Control": ANON_CACHE } }
       );
     }
 
     return NextResponse.json(
       { user },
-      { headers: { "Cache-Control": CACHE_HEADER } }
+      { headers: { "Cache-Control": AUTHED_CACHE } }
     );
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message },
-      { status: 500 }
+      { status: 500, headers: { "Cache-Control": ANON_CACHE } }
     );
   }
 }
