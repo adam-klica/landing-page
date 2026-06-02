@@ -513,6 +513,13 @@ export async function translateHTML(
 
   // Robust approach: translate each text chunk between tags, preserving tags exactly.
   // This avoids word-count mismatches that cause partial translations.
+  //
+  // Only chunks that contain an actual letter are sent to the translation API.
+  // Punctuation/emoji/digit-only fragments (e.g. ".", "📍", "2026") are preserved
+  // verbatim — translation engines hallucinate garbage when asked to translate them
+  // in isolation (e.g. "." -> "1111111111111101111"), which corrupted link text.
+  const hasLetters = (s: string) => /\p{L}/u.test(s);
+
   const parts = html.split(/(<[^>]*>)/);
   const textParts = parts
     .filter((p) => !(p.startsWith("<") && p.endsWith(">")))
@@ -520,7 +527,7 @@ export async function translateHTML(
 
   const meaningful = textParts
     .map((p) => p.trim())
-    .filter((p) => p.length > 0);
+    .filter((p) => p.length > 0 && hasLetters(p));
 
   if (meaningful.length === 0) {
     return { me: html, en: html, it: html, sq: html };
@@ -578,6 +585,9 @@ export async function translateHTML(
         if (p.startsWith("<") && p.endsWith(">")) return p;
         const trimmed = p.trim();
         if (!trimmed) return p; // whitespace only
+        // Non-letter fragments were never sent to translation — keep them verbatim
+        // and do not consume a translated chunk (keeps idx aligned with `meaningful`).
+        if (!hasLetters(trimmed)) return p;
         const leading = p.match(/^\s*/)?.[0] || "";
         const trailing = p.match(/\s*$/)?.[0] || "";
         const replacement = translatedChunks[idx++] ?? trimmed;

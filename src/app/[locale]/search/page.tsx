@@ -596,6 +596,39 @@ function SearchPageContent({
           {t.search.title}
         </h1>
 
+        {/* eCommunication welcome message */}
+        <div
+          style={{
+            background: "linear-gradient(135deg, #0a66c2 0%, #004182 100%)",
+            color: "white",
+            borderRadius: "8px",
+            padding: "28px",
+            marginBottom: "24px",
+            boxShadow: "0 2px 8px rgba(10, 102, 194, 0.2)",
+          }}
+        >
+          <h2 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "8px" }}>
+            {t.search.welcomeTitle}
+          </h2>
+          <p style={{ fontSize: "15px", lineHeight: "1.6", marginBottom: "20px", opacity: 0.95 }}>
+            {t.search.welcomeIntro}
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <p style={{ fontSize: "14px", lineHeight: "1.5", margin: 0 }}>
+              🔍 {t.search.welcomeSearch}
+            </p>
+            <p style={{ fontSize: "14px", lineHeight: "1.5", margin: 0 }}>
+              🤝 {t.search.welcomeConnect}
+            </p>
+            <p style={{ fontSize: "14px", lineHeight: "1.5", margin: 0 }}>
+              💬 {t.search.welcomeCommunicate}
+            </p>
+            <p style={{ fontSize: "14px", lineHeight: "1.5", margin: 0 }}>
+              🌐 {t.search.welcomeCollaborate}
+            </p>
+          </div>
+        </div>
+
         <div
           style={{
             background: "white",

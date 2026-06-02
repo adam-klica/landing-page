@@ -5,6 +5,7 @@ import Link from "next/link";
 import { locales, localeFlagEmojis, localeNames, localeHreflang, type Locale } from "@/lib/i18n";
 import { localeLink } from "@/lib/localeLink";
 import { getCollection } from "@/lib/db";
+import { getCurrentUser, hasRole } from "@/lib/auth";
 import { PostViewTracker } from "@/components/PostViewTracker";
 import { processPostContent } from "@/lib/processPostContent";
 import { srCyrToLat } from "@/lib/transliterate";
@@ -25,7 +26,10 @@ export async function generateMetadata({
 
   try {
     const collection = await getCollection("posts");
-    const post = await collection.findOne({ slug, status: "published" });
+    const allowDraft = await canPreviewDrafts();
+    const post = await collection.findOne(
+      allowDraft ? { slug } : { slug, status: "published" }
+    );
     if (!post) return { title: "Post Not Found" };
 
     let title = post.title || "";
@@ -50,6 +54,9 @@ export async function generateMetadata({
     return {
       title,
       description,
+      ...(post.status !== "published" && {
+        robots: { index: false, follow: false },
+      }),
       alternates: {
         canonical: `${BASE_URL}/${locale}/posts/${slug}`,
         languages,
@@ -77,22 +84,35 @@ export async function generateMetadata({
   }
 }
 
-async function getPostBySlug(slug: string, locale: Locale): Promise<Post | null> {
+// Editors and above may preview unpublished (draft) posts.
+async function canPreviewDrafts(): Promise<boolean> {
+  const user = await getCurrentUser();
+  return !!user && hasRole(user.role, "editor");
+}
+
+async function getPostBySlug(
+  slug: string,
+  locale: Locale,
+  allowDraft = false
+): Promise<Post | null> {
   try {
     const collection = await getCollection("posts");
-    
+
+    // Public visitors only see published posts; editors+ may also preview drafts.
+    const statusFilter = allowDraft ? {} : { status: "published" };
+
     // First try to find post with matching locale
     let post = await collection.findOne({
       slug: slug,
-      status: "published",
       locale: locale,
+      ...statusFilter,
     });
 
     // If not found, try to find any post with this slug (might be from different locale)
     if (!post) {
       post = await collection.findOne({
         slug: slug,
-        status: "published",
+        ...statusFilter,
       });
     }
 
@@ -184,9 +204,11 @@ export default async function PostPage({
   const resolvedParams = params instanceof Promise ? await params : params;
   const locale = (resolvedParams.locale as Locale) || "me";
   const t = getTranslations(locale);
-  const post = await getPostBySlug(resolvedParams.slug, locale);
+  const isPreview = await canPreviewDrafts();
+  const post = await getPostBySlug(resolvedParams.slug, locale, isPreview);
 
-  if (!post || post.status !== "published") {
+  // Public visitors get a 404 for missing or unpublished posts; editors+ may preview drafts.
+  if (!post || (post.status !== "published" && !isPreview)) {
     notFound();
   }
 
@@ -261,7 +283,27 @@ export default async function PostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {post._id && <PostViewTracker postId={post._id} />}
+      {post._id && post.status === "published" && (
+        <PostViewTracker postId={post._id} />
+      )}
+      {post.status !== "published" && (
+        <div
+          className="post-shell"
+          style={{
+            background: "#fef3c7",
+            border: "1px solid #dba617",
+            color: "#7a5b00",
+            borderRadius: "8px",
+            padding: "12px 16px",
+            marginBottom: "16px",
+            fontSize: "14px",
+            fontWeight: 600,
+          }}
+        >
+          👁️ DRAFT PREVIEW — {post.status} ({t.cms?.draft ?? "draft"}). This post is
+          not publicly visible.
+        </div>
+      )}
       <div className="post-shell">
         <Link href={backLink.href} className="post-back">
           ← {backLink.label}
