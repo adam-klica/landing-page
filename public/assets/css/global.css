@@ -59,7 +59,7 @@ a {
 
 /* Container */
 .container {
-  width: 85%;
+  width: 90%;
   margin: 0 auto;
   padding-left: var(--abgc-gutter);
   padding-right: var(--abgc-gutter);

@@ -7,6 +7,26 @@ body:has(.mobile-overlay-menu.active) .chat-main-content {
   display: none !important;
 }
 
+/* Create-group button: on tablet/phone stack the landing header and make the
+   button full-width so its label never collapses into a bare icon/circle. */
+@media (max-width: 768px) {
+  .chat-list-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 14px !important;
+  }
+  /* Target by structure (not just class) so it works even if the JS bundle lags */
+  .chat-list-header > button,
+  .chat-create-group-btn {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex-shrink: 1 !important;
+    border-radius: 8px !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+  }
+}
+
 /* Mobile: < 600px */
 @media (max-width: 600px) {
   /* Main container adjustments */
@@ -276,8 +296,9 @@ body:has(.mobile-overlay-menu.active) .chat-main-content {
     min-height: 36px !important;
   }
 
-  /* Send button */
-  main[data-chat-page="true"] > div > div:last-child > div:last-child button:last-child {
+  /* Send button — exclude the create-group button, which is also a deep
+     "last button" and was being shrunk into a 36px circle by accident. */
+  main[data-chat-page="true"] > div > div:last-child > div:last-child button:last-child:not(.chat-create-group-btn) {
     width: 36px !important;
     height: 36px !important;
     min-width: 36px !important;

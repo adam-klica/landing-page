@@ -2877,6 +2877,7 @@ export default function ProfilePage({
                       border: "1px solid #e0e0e0",
                       borderRadius: "8px",
                       transition: "all 0.2s ease",
+                      flexWrap: "wrap",
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = "#f5f5f5";
@@ -2894,7 +2895,8 @@ export default function ProfilePage({
                         display: "flex",
                         alignItems: "center",
                         gap: "12px",
-                        flex: 1,
+                        flex: "1 1 180px",
+                        minWidth: "160px",
                       }}
                     >
                       <div
@@ -2942,6 +2944,14 @@ export default function ProfilePage({
                         )}
                       </div>
                     </Link>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        marginLeft: "auto",
+                      }}
+                    >
                     <Link
                       href={localeLink(`/user-profile?id=${conn.user?._id}`, locale)}
                       style={{
@@ -3094,6 +3104,7 @@ export default function ProfilePage({
                           </button>
                         </div>
                       )}
+                    </div>
                     </div>
                   </div>
                   ))
