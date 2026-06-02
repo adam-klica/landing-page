@@ -2656,34 +2656,75 @@ function ChatPageInner() {
                 zIndex: 1,
               }}
             >
-              <div 
+              <div
                 className="chat-list-header"
-                style={{ 
-                  padding: "32px 40px", 
+                style={{
+                  padding: "32px 40px",
                   background: "#ffffff",
                   borderBottom: "1px solid #e5e7eb",
                   position: "sticky",
                   top: 0,
-                  zIndex: 10
+                  zIndex: 10,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: "16px",
+                  flexWrap: "wrap"
                 }}
               >
-                <h2 style={{ 
-                  fontSize: "28px", 
-                  fontWeight: "700", 
-                  marginBottom: "8px", 
-                  color: "#1a1a1a", 
-                  lineHeight: "1.3"
-                }}>
-                  Moji Chatovi
-                </h2>
-                <p style={{ 
-                  fontSize: "15px", 
-                  color: "#6b7280", 
-                  margin: 0, 
-                  lineHeight: "1.5"
-                }}>
-                  Odaberite kontakt ili grupu da započnete razgovor
-                </p>
+                <div style={{ minWidth: 0 }}>
+                  <h2 style={{
+                    fontSize: "28px",
+                    fontWeight: "700",
+                    marginBottom: "8px",
+                    color: "#1a1a1a",
+                    lineHeight: "1.3"
+                  }}>
+                    Moji Chatovi
+                  </h2>
+                  <p style={{
+                    fontSize: "15px",
+                    color: "#6b7280",
+                    margin: 0,
+                    lineHeight: "1.5"
+                  }}>
+                    Odaberite kontakt ili grupu da započnete razgovor
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowCreateGroup(true);
+                    loadAvailableUsers();
+                  }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "12px 20px",
+                    background: "#0a66c2",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "24px",
+                    fontSize: "15px",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                    boxShadow: "0 2px 8px rgba(10, 102, 194, 0.3)",
+                    transition: "all 0.2s ease",
+                    flexShrink: 0,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#004182";
+                    e.currentTarget.style.transform = "translateY(-1px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#0a66c2";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }}
+                >
+                  <Plus size={18} />
+                  {t.chat.createGroup || "New group chat"}
+                </button>
               </div>
               
               <div 
