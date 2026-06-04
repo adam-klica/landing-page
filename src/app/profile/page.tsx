@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { localeLink, type Locale } from "@/lib/localeLink";
+import { compressImage } from "@/lib/compressImage";
 
 interface User {
   _id?: string;
@@ -181,7 +182,7 @@ export default function ProfilePage() {
     }
 
     const uploadFormData = new FormData();
-    uploadFormData.append("file", file);
+    uploadFormData.append("file", await compressImage(file));
 
     try {
       const res = await fetch("/api/profile/upload", {

@@ -9,7 +9,7 @@ export async function POST() {
   // Also set it to expired to ensure it's removed (must match the same settings as when it was set)
   response.cookies.set("auth-token", "", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: false,
     sameSite: "lax",
     maxAge: 0,
     path: "/",

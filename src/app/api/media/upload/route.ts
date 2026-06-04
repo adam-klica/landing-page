@@ -1,48 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put } from "@vercel/blob";
 import { getCurrentUser } from "@/lib/auth";
 import { getCollection } from "@/lib/db";
 import { Media } from "@/models/Media";
+import { saveUpload } from "@/lib/upload";
 
 export async function POST(request: NextRequest) {
   try {
     const user = await getCurrentUser();
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    if (user.role !== "admin") {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    }
-
-    if (!process.env.BLOB_READ_WRITE_TOKEN) {
-      return NextResponse.json({ error: "Blob storage not configured (BLOB_READ_WRITE_TOKEN)" }, { status: 500 });
-    }
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (user.role !== "admin") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
     const formData = await request.formData();
     const file = formData.get("file") as File;
+    if (!file) return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
 
-    if (!file) {
-      return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
-    }
-
-    const maxSize = 25 * 1024 * 1024;
+    const maxSize = 50 * 1024 * 1024;
     if (file.size > maxSize) {
       return NextResponse.json({
         error: "File too large",
-        details: `File size (${(file.size / 1024 / 1024).toFixed(2)}MB) exceeds maximum allowed size (25MB)`,
+        details: `File size (${(file.size / 1024 / 1024).toFixed(2)}MB) exceeds 50MB`,
       }, { status: 400 });
     }
 
-    const timestamp = Date.now();
-    const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const pathname = `media/${timestamp}-${safeName}`;
-
-    const blob = await put(pathname, file, {
-      access: "public",
-      addRandomSuffix: true,
-      contentType: file.type,
-    });
+    const saved = await saveUpload(file, "media");
 
     const extension = file.name.split(".").pop()?.toLowerCase() || "";
     let fileType = "other";
@@ -55,9 +35,9 @@ export async function POST(request: NextRequest) {
 
     const mediaCollection = await getCollection("media");
     const mediaDoc: Omit<Media, "_id"> = {
-      filename: blob.pathname,
+      filename: saved.pathname,
       originalName: file.name,
-      url: blob.url,
+      url: saved.url,
       size: file.size,
       type: fileType,
       extension,
@@ -68,8 +48,8 @@ export async function POST(request: NextRequest) {
     const result = await mediaCollection.insertOne(mediaDoc);
 
     return NextResponse.json({
-      url: blob.url,
-      filename: blob.pathname,
+      url: saved.url,
+      filename: saved.pathname,
       originalName: file.name,
       size: file.size,
       type: fileType,
@@ -78,9 +58,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error: any) {
     console.error("Upload error:", error);
-    return NextResponse.json(
-      { error: error.message || "Upload failed" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message || "Upload failed" }, { status: 500 });
   }
 }

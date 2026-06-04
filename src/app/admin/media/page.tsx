@@ -6,6 +6,7 @@ import { AdminGuard } from "@/components/AdminGuard";
 import { getTranslations } from "@/lib/getTranslations";
 import { defaultLocale, locales, type Locale } from "@/lib/i18n";
 import { getStoredCmsLocale } from "@/lib/cmsLocale";
+import { compressImage } from "@/lib/compressImage";
 
 interface MediaFile {
   filename: string;
@@ -48,7 +49,7 @@ export default function MediaPage() {
 
     setUploading(true);
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", await compressImage(file));
 
     try {
       const res = await fetch("/api/media/upload", {

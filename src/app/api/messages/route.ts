@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put } from "@vercel/blob";
+import { saveUpload } from "@/lib/upload";
 import { getDb } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { ObjectId } from "mongodb";
@@ -134,27 +134,17 @@ export async function POST(request: NextRequest) {
     let fileType = "";
 
     if (file && file.size > 0) {
-      if (!process.env.BLOB_READ_WRITE_TOKEN) {
-        return NextResponse.json({ error: "Blob storage not configured (BLOB_READ_WRITE_TOKEN)" }, { status: 500 });
-      }
-
-      const maxSize = 25 * 1024 * 1024;
+      const maxSize = 50 * 1024 * 1024;
       if (file.size > maxSize) {
         return NextResponse.json({
           error: "File too large",
-          details: `File size (${(file.size / 1024 / 1024).toFixed(2)}MB) exceeds maximum allowed size (25MB).`,
+          details: `File size (${(file.size / 1024 / 1024).toFixed(2)}MB) exceeds 50MB.`,
         }, { status: 400 });
       }
 
       try {
-        const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-        const pathname = `messages/${user.userId}/${Date.now()}-${safeName}`;
-        const blob = await put(pathname, file, {
-          access: "public",
-          addRandomSuffix: true,
-          contentType: file.type,
-        });
-        fileData = blob.url;
+        const saved = await saveUpload(file, "messages", { userId: user.userId });
+        fileData = saved.url;
         fileName = file.name;
         fileType = file.type;
       } catch (fileError: any) {
