@@ -370,8 +370,8 @@ body:has([data-admin-bar="true"]) .site-header {
   }
 }
 
-/* Responsive – sakrij desktop actions ispod 1000px */
-@media (max-width: 999px) {
+/* Responsive – sakrij desktop actions ispod 1300px (meni se lomi ranije) */
+@media (max-width: 1300px) {
   .header-actions {
     display: none;
   }
@@ -385,7 +385,7 @@ body:has([data-admin-bar="true"]) .site-header {
   gap: 15px;
   align-items: flex-start;
 }
-@media (max-width: 991px) {
+@media (max-width: 1300px) {
   .mobile-actions {
     display: flex;
   }
@@ -425,7 +425,7 @@ body:has([data-admin-bar="true"]) .site-header {
   background: #333;
   transition: 0.3s;
 }
-@media (max-width: 992px) {
+@media (max-width: 1300px) {
   .main-nav {
     display: none;
   }

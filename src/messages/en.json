@@ -623,6 +623,12 @@
   },
   "search": {
     "title": "Search users",
+    "welcomeTitle": "Welcome to the eCommunication Module",
+    "welcomeIntro": "Your digital space for networking, cooperation, and collaboration within the Adriatic Blue Growth community.",
+    "welcomeSearch": "Search users and discover experts, institutions, researchers, SMEs, and blue economy stakeholders across the South Adriatic region.",
+    "welcomeConnect": "Connect with other users, expand your professional network, and build cross-border partnerships.",
+    "welcomeCommunicate": "Communicate directly through messaging and interaction tools designed to support knowledge exchange and project cooperation.",
+    "welcomeCollaborate": "Collaborate across borders by sharing ideas, developing initiatives, and strengthening regional blue economy ecosystems together.",
     "placeholder": "Search users",
     "placeholderUsers": "Search users",
     "searchUsersPlaceholder": "Search users",

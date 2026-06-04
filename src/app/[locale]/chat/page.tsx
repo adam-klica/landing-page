@@ -81,6 +81,7 @@ function ChatPageInner() {
   const [sending, setSending] = useState(false);
   const [unreadCounts, setUnreadCounts] = useState<{ users: Record<string, number>; groups: Record<string, number> }>({ users: {}, groups: {} });
   const [showCreateGroup, setShowCreateGroup] = useState(false);
+  const [landingSearch, setLandingSearch] = useState("");
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
@@ -827,6 +828,23 @@ function ChatPageInner() {
 
   const currentUser = connections.find((c) => c.user && c.user._id === userId)?.user;
   const currentGroup = groups.find((g) => g._id === groupId);
+
+  // Landing-page search across connections and groups (scales to large lists).
+  const landingQuery = landingSearch.trim().toLowerCase();
+  const landingConnections = connections.filter((conn) => {
+    if (!conn.user) return false;
+    if (!landingQuery) return true;
+    return (conn.user.displayName || conn.user.username || "")
+      .toLowerCase()
+      .includes(landingQuery);
+  });
+  const landingGroups = groups.filter((group) => {
+    if (!landingQuery) return true;
+    return (
+      (group.name || "").toLowerCase().includes(landingQuery) ||
+      (group.description || "").toLowerCase().includes(landingQuery)
+    );
+  });
 
   // Show loading state while checking authentication
   if (checkingAuth) {
@@ -2656,34 +2674,75 @@ function ChatPageInner() {
                 zIndex: 1,
               }}
             >
-              <div 
+              <div
                 className="chat-list-header"
-                style={{ 
-                  padding: "32px 40px", 
+                style={{
+                  padding: "32px 40px",
                   background: "#ffffff",
                   borderBottom: "1px solid #e5e7eb",
                   position: "sticky",
                   top: 0,
-                  zIndex: 10
+                  zIndex: 10,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: "16px",
+                  flexWrap: "wrap"
                 }}
               >
-                <h2 style={{ 
-                  fontSize: "28px", 
-                  fontWeight: "700", 
-                  marginBottom: "8px", 
-                  color: "#1a1a1a", 
-                  lineHeight: "1.3"
-                }}>
-                  Moji Chatovi
-                </h2>
-                <p style={{ 
-                  fontSize: "15px", 
-                  color: "#6b7280", 
-                  margin: 0, 
-                  lineHeight: "1.5"
-                }}>
-                  Odaberite kontakt ili grupu da započnete razgovor
-                </p>
+                <div style={{ minWidth: 0 }}>
+                  <h2 style={{
+                    fontSize: "28px",
+                    fontWeight: "700",
+                    marginBottom: "8px",
+                    color: "#1a1a1a",
+                    lineHeight: "1.3"
+                  }}>
+                    Moji Chatovi
+                  </h2>
+                  <p style={{
+                    fontSize: "15px",
+                    color: "#6b7280",
+                    margin: 0,
+                    lineHeight: "1.5"
+                  }}>
+                    Odaberite kontakt ili grupu da započnete razgovor
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowCreateGroup(true);
+                    loadAvailableUsers();
+                  }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "12px 20px",
+                    background: "#0a66c2",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "24px",
+                    fontSize: "15px",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                    boxShadow: "0 2px 8px rgba(10, 102, 194, 0.3)",
+                    transition: "all 0.2s ease",
+                    flexShrink: 0,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#004182";
+                    e.currentTarget.style.transform = "translateY(-1px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#0a66c2";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }}
+                >
+                  <Plus size={18} />
+                  {t.chat.createGroup || "New group chat"}
+                </button>
               </div>
               
               <div 
@@ -2712,19 +2771,43 @@ function ChatPageInner() {
                 </div>
               ) : (
                 <>
-              {connections.length > 0 && (
+              {(connections.length > 0 || groups.length > 0) && (
+                <div style={{ marginBottom: "24px", position: "relative", maxWidth: "440px" }}>
+                  <Search
+                    size={18}
+                    color="#9ca3af"
+                    style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}
+                  />
+                  <input
+                    type="text"
+                    value={landingSearch}
+                    onChange={(e) => setLandingSearch(e.target.value)}
+                    placeholder="Pretraži kontakte i grupe..."
+                    style={{
+                      width: "100%",
+                      padding: "12px 16px 12px 42px",
+                      border: "1px solid #e5e7eb",
+                      borderRadius: "10px",
+                      fontSize: "14px",
+                      outline: "none",
+                      boxSizing: "border-box",
+                    }}
+                  />
+                </div>
+              )}
+              {landingConnections.length > 0 && (
                 <div style={{ marginBottom: "32px" }}>
-                  <h3 className="chat-section-title" style={{ 
-                    fontSize: "18px", 
-                    fontWeight: "600", 
-                    marginBottom: "20px", 
-                    display: "flex", 
-                    alignItems: "center", 
-                    gap: "10px", 
+                  <h3 className="chat-section-title" style={{
+                    fontSize: "18px",
+                    fontWeight: "600",
+                    marginBottom: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
                     color: "#1a1a1a"
                   }}>
                     <MessageSquare size={20} color="#0a66c2" />
-                    <span>{t.chat.connections} ({connections.length})</span>
+                    <span>{t.chat.connections} ({landingConnections.length})</span>
                   </h3>
                   <div className="chat-grid" style={{ 
                     display: "grid", 
@@ -2732,7 +2815,7 @@ function ChatPageInner() {
                     gap: "16px",
                     width: "100%"
                   }}>
-                    {connections.filter((conn) => conn.user).map((conn) => {
+                    {landingConnections.map((conn) => {
                       const unread = unreadCounts.users[conn.user!._id] || 0;
                       return (
                         <Link
@@ -2824,19 +2907,19 @@ function ChatPageInner() {
               )}
 
               {/* Groups List */}
-              {groups.length > 0 && (
+              {landingGroups.length > 0 && (
                 <div>
-                  <h3 className="chat-section-title" style={{ 
-                    fontSize: "18px", 
-                    fontWeight: "600", 
-                    marginBottom: "20px", 
-                    display: "flex", 
-                    alignItems: "center", 
-                    gap: "10px", 
+                  <h3 className="chat-section-title" style={{
+                    fontSize: "18px",
+                    fontWeight: "600",
+                    marginBottom: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
                     color: "#1a1a1a"
                   }}>
                     <Users size={20} color="#0a66c2" />
-                    <span>{t.chat.groups} ({groups.length})</span>
+                    <span>{t.chat.groups} ({landingGroups.length})</span>
                   </h3>
                   <div className="chat-grid" style={{ 
                     display: "grid", 
@@ -2844,7 +2927,7 @@ function ChatPageInner() {
                     gap: "16px",
                     width: "100%"
                   }}>
-                    {groups.map((group) => {
+                    {landingGroups.map((group) => {
                       const unread = unreadCounts.groups[group._id] || 0;
                       return (
                         <Link
@@ -2936,6 +3019,16 @@ function ChatPageInner() {
                       );
                     })}
                   </div>
+                </div>
+              )}
+
+              {/* No search results */}
+              {(connections.length > 0 || groups.length > 0) &&
+                landingConnections.length === 0 &&
+                landingGroups.length === 0 && (
+                <div style={{ padding: "40px 20px", textAlign: "center", color: "#999", fontSize: "14px" }}>
+                  <Search size={40} style={{ marginBottom: "12px", opacity: 0.4 }} />
+                  <p style={{ margin: 0 }}>Nema rezultata za „{landingSearch}".</p>
                 </div>
               )}
 

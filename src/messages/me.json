@@ -623,6 +623,12 @@
   },
   "search": {
     "title": "Pretraga korisnika",
+    "welcomeTitle": "Dobrodošli u eCommunication modul",
+    "welcomeIntro": "Vaš digitalni prostor za umrežavanje, saradnju i kolaboraciju unutar Adriatic Blue Growth zajednice.",
+    "welcomeSearch": "Pretražujte korisnike i otkrijte stručnjake, institucije, istraživače, MSP-ove i aktere plave ekonomije širom regiona Južnog Jadrana.",
+    "welcomeConnect": "Povežite se sa drugim korisnicima, proširite svoju profesionalnu mrežu i gradite prekogranična partnerstva.",
+    "welcomeCommunicate": "Komunicirajte direktno putem poruka i alata za interakciju osmišljenih da podrže razmjenu znanja i saradnju na projektima.",
+    "welcomeCollaborate": "Sarađujte preko granica dijeleći ideje, razvijajući inicijative i jačajući regionalne ekosisteme plave ekonomije.",
     "placeholder": "Pretraži korisnike",
     "placeholderUsers": "Pretraži korisnike",
     "searchUsersPlaceholder": "Pretraži korisnike",
