@@ -34,10 +34,10 @@ export function AdminBar() {
     try {
       const res = await fetch("/api/auth/me");
       const data = await res.json();
-      if (data.user && data.user.role === "admin") {
+      if (data.user) {
         setUser(data.user);
       } else {
-        setUser(null); // Clear user if not admin
+        setUser(null);
       }
     } catch (error) {
       console.error("Error checking auth:", error);
@@ -87,6 +87,8 @@ export function AdminBar() {
     return null;
   }
 
+  const allowedRoles = ["admin", "moderator", "editor"];
+  const canAccessCms = allowedRoles.includes(user.role);
   const isOnSite = !pathname?.startsWith("/admin") && pathname !== "/dashboard";
 
   return (
@@ -114,6 +116,7 @@ export function AdminBar() {
         {/* Main Navigation */}
         <div className="admin-bar-nav" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           {isOnSite ? (
+            canAccessCms ? (
             <Link
               href="/admin"
               style={{
@@ -136,6 +139,7 @@ export function AdminBar() {
               <span className="admin-bar-icon" style={{ fontSize: "14px" }}>⚙️</span>
               <span>CMS</span>
             </Link>
+            ) : null
           ) : (
             <Link
               href="/"

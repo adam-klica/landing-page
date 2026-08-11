@@ -45,12 +45,17 @@ function SearchPageContent({
   const [query, setQuery] = useState("");
   const [users, setUsers] = useState<User[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
-  const [allUsers, setAllUsers] = useState<User[]>([]); // Store all users
+  const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
   const [countries, setCountries] = useState<{ code: string; name: string }[]>([]);
   const [cities, setCities] = useState<string[]>([]);
   const [countryFilter, setCountryFilter] = useState<string>("");
   const [cityFilter, setCityFilter] = useState<string>("");
+  const [sortBy, setSortBy] = useState<string>("createdAt");
+  const [sortDir, setSortDir] = useState<string>("desc");
   const [loading, setLoading] = useState(false);
+  const limit = 12;
   // Search scope locked to users — this page is dedicated to finding people
   // (and building group chats). Posts/news/events live on their own pages.
   const [searchType, setSearchType] = useState<"all" | "users" | "posts">("users");
@@ -132,48 +137,36 @@ function SearchPageContent({
   useEffect(() => {
     // Load all users on mount only if authenticated
     if (authenticated && !checkingAuth) {
-      setLoading(true);
-      loadAllUsers();
+      loadUsers(1, query, countryFilter, cityFilter, sortBy, sortDir);
     }
   }, [authenticated, checkingAuth]);
 
+  // Reload when page changes
   useEffect(() => {
-    // If there's a search query, use global search API
-    if (query.trim().length >= 2) {
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
-      }
-
-      searchTimeoutRef.current = setTimeout(() => {
-        performGlobalSearch();
-      }, 300);
-
-      return () => {
-        if (searchTimeoutRef.current) {
-          clearTimeout(searchTimeoutRef.current);
-        }
-      };
-    } else {
-      // If no query, filter all users by country/city filters
-      if (allUsers.length === 0) {
-        return;
-      }
-
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
-      }
-
-      searchTimeoutRef.current = setTimeout(() => {
-        filterUsers();
-      }, 300);
-
-      return () => {
-        if (searchTimeoutRef.current) {
-          clearTimeout(searchTimeoutRef.current);
-        }
-      };
+    if (authenticated && !checkingAuth) {
+      loadUsers(page, query, countryFilter, cityFilter, sortBy, sortDir);
     }
-  }, [query, countryFilter, cityFilter, allUsers, searchType]);
+  }, [page]);
+
+  useEffect(() => {
+    // If there's a search query or filter change, reload with debounce
+    if (!authenticated || checkingAuth) return;
+
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    searchTimeoutRef.current = setTimeout(() => {
+      setPage(1);
+      loadUsers(1, query, countryFilter, cityFilter, sortBy, sortDir);
+    }, 300);
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [query, countryFilter, cityFilter, sortBy, sortDir]);
 
   useEffect(() => {
     // Load countries once
@@ -216,237 +209,37 @@ function SearchPageContent({
     loadConnectionStatuses();
   }, [users]);
 
-  async function loadAllUsers() {
-    try {
-      // Load all users with a high limit
-      let allUsersList: User[] = [];
-      let page = 1;
-      const limit = 100;
-      let hasMore = true;
-
-      while (hasMore) {
-        const params = new URLSearchParams();
-        params.append("page", String(page));
-        params.append("limit", String(limit));
-        const res = await fetch(`/api/users/list?${params.toString()}`);
-        if (res.status === 401) {
-          router.push(localeLink("/login", locale));
-          return;
-        }
-        const data = await res.json();
-        if (data.error) {
-          console.error("API error:", data.error);
-          hasMore = false;
-          break;
-        }
-        if (data.users && data.users.length > 0) {
-          allUsersList = [...allUsersList, ...data.users];
-          if (data.users.length < limit) {
-            hasMore = false;
-          } else {
-            page++;
-          }
-        } else {
-          hasMore = false;
-        }
-      }
-
-      setAllUsers(allUsersList);
-      // Apply filters immediately after loading
-      if (allUsersList.length > 0) {
-        // Use the filterUsers logic directly here
-        let filtered = [...allUsersList];
-        
-        // Filter by query
-        if (query.trim().length > 0) {
-          const queryLower = query.toLowerCase().trim();
-          filtered = filtered.filter((user) => {
-            const name = (user.displayName || user.username || "").toLowerCase();
-            const email = (user.email || "").toLowerCase();
-            const headline = (user.headline || "").toLowerCase();
-            const organization = (user.organization || "").toLowerCase();
-            return (
-              name.includes(queryLower) ||
-              email.includes(queryLower) ||
-              headline.includes(queryLower) ||
-              organization.includes(queryLower)
-            );
-          });
-        }
-        
-        // Filter by country
-        if (countryFilter) {
-          filtered = filtered.filter((user) => {
-            if (user.country) {
-              return user.country === countryFilter;
-            }
-            if (user.location) {
-              const parts = user.location.split(",").map((p: string) => p.trim());
-              const locationCountry = parts[parts.length - 1];
-              return locationCountry === countryFilter || user.location.toLowerCase().includes(countryFilter.toLowerCase());
-            }
-            return false;
-          });
-        }
-        
-        // Filter by city
-        if (cityFilter) {
-          filtered = filtered.filter((user) => {
-            if (user.city) {
-              return user.city === cityFilter;
-            }
-            if (user.location) {
-              const parts = user.location.split(",").map((p: string) => p.trim());
-              const locationCity = parts[0];
-              return locationCity === cityFilter || user.location.toLowerCase().includes(cityFilter.toLowerCase());
-            }
-            return false;
-          });
-        }
-        
-        setUsers(filtered);
-      } else {
-        setUsers([]);
-      }
-    } catch (error) {
-      console.error("Error loading all users:", error);
-      setUsers([]);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  function filterUsers() {
-    if (allUsers.length === 0) {
-      // If no users loaded yet, show empty array
-      setUsers([]);
-      return;
-    }
-
-    let filtered = [...allUsers];
-
-    // Filter by query (search in name, email, headline, organization) - works with any length
-    if (query.trim().length > 0) {
-      const queryLower = query.toLowerCase().trim();
-      filtered = filtered.filter((user) => {
-        const name = (user.displayName || user.username || "").toLowerCase();
-        const email = (user.email || "").toLowerCase();
-        const headline = (user.headline || "").toLowerCase();
-        const organization = (user.organization || "").toLowerCase();
-        return (
-          name.includes(queryLower) ||
-          email.includes(queryLower) ||
-          headline.includes(queryLower) ||
-          organization.includes(queryLower)
-        );
-      });
-    }
-
-    // Filter by country - but don't exclude users without country if no filter is set
-    if (countryFilter) {
-      filtered = filtered.filter((user) => {
-        // Check country field directly
-        if (user.country) {
-          return user.country === countryFilter;
-        }
-        // Parse from location string (format: "city, region, country" or "city, country")
-        if (user.location) {
-          const parts = user.location.split(",").map((p: string) => p.trim());
-          const locationCountry = parts[parts.length - 1]; // Last part is usually country
-          return locationCountry === countryFilter || user.location.toLowerCase().includes(countryFilter.toLowerCase());
-        }
-        // If user has no country info and filter is set, exclude them
-        return false;
-      });
-    }
-
-    // Filter by city - but don't exclude users without city if no filter is set
-    if (cityFilter) {
-      filtered = filtered.filter((user) => {
-        // Check city field directly
-        if (user.city) {
-          return user.city === cityFilter;
-        }
-        // Parse from location string (format: "city, region, country" or "city, country")
-        if (user.location) {
-          const parts = user.location.split(",").map((p: string) => p.trim());
-          const locationCity = parts[0]; // First part is usually city
-          return locationCity === cityFilter || user.location.toLowerCase().includes(cityFilter.toLowerCase());
-        }
-        // If user has no city info and filter is set, exclude them
-        return false;
-      });
-    }
-
-    setUsers(filtered);
-    // Clear posts when filtering users only
-    setPosts([]);
-  }
-
-  async function performGlobalSearch() {
-    if (query.trim().length < 2) {
-      setUsers([]);
-      setPosts([]);
-      return;
-    }
-
+  async function loadUsers(p: number, searchQuery: string, country: string, city: string, sb: string, sd: string) {
     setLoading(true);
     try {
       const params = new URLSearchParams();
-      params.append("q", query.trim());
-      params.append("type", searchType);
-      
-      const res = await fetch(`/api/search?${params.toString()}`);
+      params.append("page", String(p));
+      params.append("limit", String(limit));
+      if (searchQuery.trim().length >= 2) params.append("q", searchQuery.trim());
+      if (country) params.append("country", country);
+      if (city) params.append("city", city);
+      params.append("sortBy", sb);
+      params.append("sortDir", sd);
+
+      const res = await fetch(`/api/users/list?${params.toString()}`);
       if (res.status === 401) {
         router.push(localeLink("/login", locale));
         return;
       }
-      
       const data = await res.json();
-      
-      // Apply country/city filters to users if needed
-      let filteredUsers = data.users || [];
-      if (countryFilter || cityFilter) {
-        filteredUsers = filteredUsers.filter((user: User) => {
-          if (countryFilter) {
-            if (user.country) {
-              if (user.country !== countryFilter) return false;
-            } else if (user.location) {
-              const parts = user.location.split(",").map((p: string) => p.trim());
-              const locationCountry = parts[parts.length - 1];
-              if (locationCountry !== countryFilter && !user.location.toLowerCase().includes(countryFilter.toLowerCase())) {
-                return false;
-              }
-            } else {
-              return false;
-            }
-          }
-          
-          if (cityFilter) {
-            if (user.city) {
-              if (user.city !== cityFilter) return false;
-            } else if (user.location) {
-              const parts = user.location.split(",").map((p: string) => p.trim());
-              const locationCity = parts[0];
-              if (locationCity !== cityFilter && !user.location.toLowerCase().includes(cityFilter.toLowerCase())) {
-                return false;
-              }
-            } else {
-              return false;
-            }
-          }
-          
-          return true;
-        });
+      if (data.error) {
+        console.error("API error:", data.error);
+        setUsers([]);
+        setTotal(0);
+        setTotalPages(0);
+        return;
       }
-      
-      setUsers(filteredUsers);
-      setPosts(data.posts || []);
-      loadConnectionStatuses();
+      setUsers(data.users || []);
+      setTotal(data.total || 0);
+      setTotalPages(data.totalPages || 0);
     } catch (error) {
-      console.error("Error performing global search:", error);
+      console.error("Error loading users:", error);
       setUsers([]);
-      setPosts([]);
     } finally {
       setLoading(false);
     }
@@ -629,16 +422,43 @@ function SearchPageContent({
           </div>
         </div>
 
+        {/* Results Section */}
         <div
           style={{
             background: "white",
             borderRadius: "8px",
             padding: "24px",
-            marginBottom: "24px",
             boxShadow: "0 0 0 1px rgba(0,0,0,0.08)",
           }}
         >
-          <div style={{ display: "flex", gap: "12px", marginBottom: "12px" }}>
+          {/* Header row with title, showing info, and filters */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
+            <h2 style={{ fontSize: "20px", fontWeight: "600", margin: 0 }}>
+              {query.trim().length >= 2
+                ? `${t.search.usersWithCount} (${total})`
+                : t.search.allUsers}{" "}
+              <span style={{ fontSize: "14px", fontWeight: "400", color: "#666" }}>
+                (Showing {users.length > 0 ? (page - 1) * limit + 1 : 0}–{Math.min(page * limit, total)} of {total})
+              </span>
+            </h2>
+          </div>
+
+          {/* Search and Filters row */}
+          <div style={{ display: "flex", gap: "10px", marginBottom: "16px", flexWrap: "wrap" }}>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={t.search.placeholderUsers || "Search users"}
+              style={{
+                flex: "1 1 250px",
+                padding: "10px 14px",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                fontSize: "14px",
+                minWidth: "200px",
+              }}
+            />
             <select
               value={countryFilter}
               onChange={(e) => {
@@ -650,17 +470,14 @@ function SearchPageContent({
                 borderRadius: "8px",
                 border: "1px solid #ddd",
                 fontSize: "14px",
-                flex: "0 0 220px"
+                flex: "0 0 180px",
               }}
             >
               <option value="">{t.search.allCountries || "-- Country --"}</option>
               {countries.map((c) => (
-                <option key={c.code} value={c.code}>
-                  {c.name}
-                </option>
+                <option key={c.code} value={c.code}>{c.name}</option>
               ))}
             </select>
-
             <select
               value={cityFilter}
               onChange={(e) => setCityFilter(e.target.value)}
@@ -669,32 +486,37 @@ function SearchPageContent({
                 borderRadius: "8px",
                 border: "1px solid #ddd",
                 fontSize: "14px",
-                flex: "0 0 220px"
+                flex: "0 0 180px",
               }}
             >
               <option value="">{t.search.allCities || "-- City --"}</option>
               {cities.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
+                <option key={c} value={c}>{c}</option>
               ))}
             </select>
-          </div>
-
-          <div style={{ display: "flex", gap: "12px", marginBottom: "12px" }}>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={t.search.placeholderUsers || "Search users"}
-              style={{
-                flex: 1,
-                padding: "12px 16px",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                fontSize: "14px",
+            <select
+              value={`${sortBy}-${sortDir}`}
+              onChange={(e) => {
+                const [sb, sd] = e.target.value.split("-");
+                setSortBy(sb);
+                setSortDir(sd);
+                setPage(1);
               }}
-            />
+              style={{
+                padding: "10px",
+                borderRadius: "8px",
+                border: "1px solid #ddd",
+                fontSize: "14px",
+                flex: "0 0 160px",
+              }}
+            >
+              <option value="createdAt-desc">Newest first</option>
+              <option value="createdAt-asc">Oldest first</option>
+              <option value="name-asc">Name A–Z</option>
+              <option value="name-desc">Name Z–A</option>
+              <option value="email-asc">Email A–Z</option>
+              <option value="email-desc">Email Z–A</option>
+            </select>
           </div>
 
           {/* Selected-for-group action bar */}
@@ -706,7 +528,7 @@ function SearchPageContent({
                 justifyContent: "space-between",
                 gap: "12px",
                 padding: "10px 14px",
-                marginBottom: "12px",
+                marginBottom: "16px",
                 background: "#eaf3fb",
                 border: "1px solid #b6d4f0",
                 borderRadius: "8px",
@@ -755,28 +577,7 @@ function SearchPageContent({
               </div>
             </div>
           )}
-        </div>
-
-        {/* Results Section */}
-        {(query.trim().length >= 2 || users.length > 0 || posts.length > 0) && (
-          <div
-            style={{
-              background: "white",
-              borderRadius: "8px",
-              padding: "24px",
-              boxShadow: "0 0 0 1px rgba(0,0,0,0.08)",
-            }}
-          >
-            <h2 style={{ fontSize: "20px", fontWeight: "600", marginBottom: "16px" }}>
-              {query.trim().length > 0 
-                ? (searchType === "all" 
-                    ? `${t.search.searchResultsWithCount} (${users.length + posts.length})`
-                    : searchType === "users"
-                    ? `${t.search.usersWithCount} (${users.length})`
-                    : `${t.search.blogsWithCount} (${posts.length})`)
-                : t.search.allUsers} {users.length > 0 && query.trim().length === 0 && `(${users.length})`}
-            </h2>
-            
+           
             {loading ? (
               <div style={{ padding: "40px", textAlign: "center" }}>
                 <div
@@ -993,29 +794,87 @@ function SearchPageContent({
                   </div>
                 )}
 
-                {/* No Results Message */}
-                {query.trim().length >= 2 && users.length === 0 && posts.length === 0 && (
-                  <div style={{ padding: "40px", textAlign: "center" }}>
-                    <p style={{ fontSize: "14px", color: "#666" }}>
-                      {searchType === "posts" 
-                        ? t.search.noBlogsFound
-                        : searchType === "users"
-                        ? t.search.noUsersFound
-                        : t.search.noResultsFoundMessage}
-                    </p>
-                  </div>
-                )}
-
-                {/* Show all users when no query */}
-                {query.trim().length === 0 && users.length === 0 && (
-                  <div style={{ padding: "40px", textAlign: "center" }}>
-                    <p style={{ fontSize: "14px", color: "#666" }}>
-                      {t.search.enterAtLeast2}
-                    </p>
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "8px", marginTop: "24px", paddingTop: "16px", borderTop: "1px solid #eee" }}>
+                    <button
+                      onClick={() => setPage(p => Math.max(1, p - 1))}
+                      disabled={page <= 1}
+                      style={{
+                        padding: "8px 14px",
+                        border: "1px solid #ccc",
+                        borderRadius: "6px",
+                        background: page <= 1 ? "#f3f3f3" : "white",
+                        color: page <= 1 ? "#999" : "#333",
+                        cursor: page <= 1 ? "default" : "pointer",
+                        fontSize: "13px",
+                      }}
+                    >
+                      ← Prev
+                    </button>
+                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                      const start = Math.max(1, Math.min(page - 2, totalPages - 4));
+                      const pn = start + i;
+                      if (pn > totalPages) return null;
+                      return (
+                        <button
+                          key={pn}
+                          onClick={() => setPage(pn)}
+                          style={{
+                            padding: "8px 14px",
+                            border: pn === page ? "1px solid #2271b1" : "1px solid #ccc",
+                            borderRadius: "6px",
+                            background: pn === page ? "#2271b1" : "white",
+                            color: pn === page ? "white" : "#333",
+                            fontWeight: pn === page ? "600" : "400",
+                            cursor: "pointer",
+                            fontSize: "13px",
+                            minWidth: "40px",
+                          }}
+                        >
+                          {pn}
+                        </button>
+                      );
+                    })}
+                    <button
+                      onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                      disabled={page >= totalPages}
+                      style={{
+                        padding: "8px 14px",
+                        border: "1px solid #ccc",
+                        borderRadius: "6px",
+                        background: page >= totalPages ? "#f3f3f3" : "white",
+                        color: page >= totalPages ? "#999" : "#333",
+                        cursor: page >= totalPages ? "default" : "pointer",
+                        fontSize: "13px",
+                      }}
+                    >
+                      Next →
+                    </button>
                   </div>
                 )}
               </>
             )}
+          </div>
+
+        {/* No results / empty state */}
+        {!loading && users.length === 0 && (
+          <div
+            style={{
+              background: "white",
+              borderRadius: "8px",
+              padding: "40px",
+              textAlign: "center",
+              boxShadow: "0 0 0 1px rgba(0,0,0,0.08)",
+            }}
+          >
+            <p style={{ fontSize: "14px", color: "#666" }}>
+              {query.trim().length >= 2
+                ? t.search.noUsersFound || "No users found"
+                : !countryFilter && !cityFilter
+                ? t.search.enterAtLeast2 || "Enter at least 2 characters to search"
+                : t.search.noUsersFound || "No users found"}
+            </p>
           </div>
         )}
 

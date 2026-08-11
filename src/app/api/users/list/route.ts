@@ -12,8 +12,11 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get("page") || "1", 10);
     const limit = Math.min(parseInt(searchParams.get("limit") || "20", 10), 100);
+    const q = searchParams.get("q") || "";
     const country = searchParams.get("country") || "";
     const city = searchParams.get("city") || "";
+    const sortBy = searchParams.get("sortBy") || "createdAt";
+    const sortDir = searchParams.get("sortDir") || "desc";
 
     const db = await getDb();
 
@@ -21,18 +24,38 @@ export async function GET(request: NextRequest) {
     if (country) filter.country = country;
     if (city) filter.city = city;
 
+    // Search across multiple fields
+    if (q && q.trim().length >= 2) {
+      const regex = { $regex: q.trim(), $options: "i" };
+      filter.$or = [
+        { username: regex },
+        { email: regex },
+        { displayName: regex },
+        { headline: regex },
+        { organization: regex },
+      ];
+    }
+
     const skip = (Math.max(page, 1) - 1) * limit;
+
+    const sortMap: Record<string, any> = {
+      createdAt: { createdAt: sortDir === "asc" ? 1 : -1 },
+      name: { displayName: sortDir === "asc" ? 1 : -1, username: sortDir === "asc" ? 1 : -1 },
+      email: { email: sortDir === "asc" ? 1 : -1 },
+      organization: { organization: sortDir === "asc" ? 1 : -1 },
+    };
+    const sortObj = sortMap[sortBy] || sortMap.createdAt;
 
     const users = await db
       .collection("users")
       .find(filter)
       .project({
-        password: 0, // Exclude password
-        about: 0, // Exclude large text field
-        experience: 0, // Exclude array
-        education: 0, // Exclude array
+        password: 0,
+        about: 0,
+        experience: 0,
+        education: 0,
       })
-      .sort({ createdAt: -1 })
+      .sort(sortObj)
       .skip(skip)
       .limit(limit)
       .toArray();
@@ -51,6 +74,7 @@ export async function GET(request: NextRequest) {
       page,
       limit,
       total,
+      totalPages: Math.ceil(total / limit),
     });
   } catch (err: any) {
     console.error("Error fetching users list:", err);
@@ -61,6 +85,7 @@ export async function GET(request: NextRequest) {
       page: 1, 
       limit: 0, 
       total: 0,
+      totalPages: 0,
       error: err.message || "Failed to fetch users"
     }, { status: 200 });
   }

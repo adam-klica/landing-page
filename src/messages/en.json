@@ -645,6 +645,8 @@
     "allCountries": "-- Country --",
     "allCities": "-- City --",
     "allUsers": "All Users",
+    "showing": "Showing",
+    "of": "of",
     "noPostsFound": "No posts found",
     "noResultsFound": "No results found",
     "all": "All",
